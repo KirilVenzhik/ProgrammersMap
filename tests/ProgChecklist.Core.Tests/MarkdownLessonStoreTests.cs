@@ -346,6 +346,39 @@ public class MarkdownLessonStoreTests
         Assert.Equal("Hello.", store.FindLesson("tools", "git")!.Summary);
     }
 
+    [Theory]
+    [InlineData("x.MD")]
+    [InlineData("x.Md")]
+    public void LoadFromDirectory_UpperCaseExtension_ThrowsNamingPath(string fileName)
+    {
+        // Arrange
+        using var dir = new TempDirectory();
+        dir.Write(Path.Combine("tools", fileName), "## T\n\ntext");
+
+        // Act
+        var ex = Assert.Throws<LessonStoreException>(() => MarkdownLessonStore.LoadFromDirectory(dir.Path, Topics));
+
+        // Assert
+        Assert.Contains(Path.Combine("tools", fileName), ex.Message);
+        Assert.Contains("lower-case '.md'", ex.Message);
+    }
+
+    [Fact]
+    public void LoadFromDirectory_TxtNextToLesson_IgnoresTxtAndLoadsLesson()
+    {
+        // Arrange
+        using var dir = new TempDirectory();
+        dir.Write(Path.Combine("tools", "git.md"), "## T\n\nHello.");
+        dir.Write(Path.Combine("tools", "git.txt"), "ignored");
+
+        // Act
+        var store = MarkdownLessonStore.LoadFromDirectory(dir.Path, Topics);
+
+        // Assert
+        Assert.Equal(1, store.Count);
+        Assert.NotNull(store.FindLesson("tools", "git"));
+    }
+
     [Fact]
     public void LoadFromDirectory_NonCanonicalFileName_ThrowsLessonStoreException()
     {

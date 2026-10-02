@@ -38,9 +38,23 @@ public sealed class MarkdownLessonStore : ILessonStore
         var sources = new List<(string SectionSlug, string TopicSlug, string Markdown)>();
         if (Directory.Exists(root))
         {
-            foreach (var file in Directory.EnumerateFiles(root, "*.md", SearchOption.AllDirectories))
+            foreach (var file in Directory.EnumerateFiles(root, "*", SearchOption.AllDirectories))
             {
                 var relative = Path.GetRelativePath(root, file);
+
+                // Same behavior on every OS: only an exact lower-case ".md" is a lesson, other casings are rejected.
+                var extension = Path.GetExtension(file);
+                if (!string.Equals(extension, ".md", StringComparison.Ordinal))
+                {
+                    if (string.Equals(extension, ".md", StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new LessonStoreException(
+                            $"Lesson file '{relative}' has a wrong extension case. Use a lower-case '.md'.");
+                    }
+
+                    continue;
+                }
+
                 var parts = relative.Split(
                     [Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar],
                     StringSplitOptions.None);

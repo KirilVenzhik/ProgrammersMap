@@ -62,8 +62,11 @@ public class JsonResourceCatalogTests
     [Fact]
     public void Parse_OptionalFlagsOmitted_DefaultsToFreeAndNotAffiliate()
     {
-        // Arrange & Act
-        var resource = Assert.Single(JsonResourceCatalog.Parse(One(ValidFields), Topics).GetResources("tools", "git"));
+        // Arrange
+        var json = One(ValidFields);
+
+        // Act
+        var resource = Assert.Single(JsonResourceCatalog.Parse(json, Topics).GetResources("tools", "git"));
 
         // Assert
         Assert.True(resource.IsFree);
@@ -71,13 +74,29 @@ public class JsonResourceCatalogTests
     }
 
     [Fact]
-    public void GetResources_IsCaseInsensitive()
+    public void Parse_FieldNamesInDifferentCase_StillAccepted()
+    {
+        // Arrange
+        var json = One("\"Title\": \"T\", \"URL\": \"https://a.example\", \"Kind\": \"docs\", \"Lang\": \"en\"");
+
+        // Act
+        var catalog = JsonResourceCatalog.Parse(json, Topics);
+
+        // Assert
+        Assert.Single(catalog.GetResources("tools", "git"));
+    }
+
+    [Fact]
+    public void GetResources_MixedCaseSlugs_FindsResources()
     {
         // Arrange
         var catalog = JsonResourceCatalog.Parse(One(ValidFields), Topics);
 
-        // Act & Assert
-        Assert.Single(catalog.GetResources("TOOLS", "Git"));
+        // Act
+        var list = catalog.GetResources("TOOLS", "Git");
+
+        // Assert
+        Assert.Single(list);
     }
 
     [Theory]
@@ -87,7 +106,7 @@ public class JsonResourceCatalogTests
     [InlineData("", "git")]
     [InlineData("tools", " ")]
     [InlineData(null, null)]
-    public void GetResources_NoResources_ReturnsEmpty(string? section, string? topic)
+    public void GetResources_NoMatchingResources_ReturnsEmpty(string? section, string? topic)
     {
         // Arrange
         var catalog = JsonResourceCatalog.Parse(One(ValidFields), Topics);
@@ -100,7 +119,7 @@ public class JsonResourceCatalogTests
     }
 
     [Fact]
-    public void GetResources_ReturnsReadOnlyList()
+    public void GetResources_ValidTopic_ReturnsReadOnlyList()
     {
         // Arrange
         var catalog = JsonResourceCatalog.Parse(One(ValidFields), Topics);
@@ -115,77 +134,139 @@ public class JsonResourceCatalogTests
     [Fact]
     public void Parse_EmptyResourcesObject_HasZeroTopics()
     {
-        // Arrange & Act
-        var catalog = JsonResourceCatalog.Parse(Wrap("{}"), Topics);
+        // Arrange
+        var json = Wrap("{}");
+
+        // Act
+        var catalog = JsonResourceCatalog.Parse(json, Topics);
 
         // Assert
         Assert.Equal(0, catalog.TopicsWithResourcesCount);
     }
 
     [Fact]
-    public void Parse_InvalidJson_Throws()
+    public void Parse_InvalidJson_ThrowsInvalid()
     {
-        Assert.Contains("invalid", Fail("{ not json").Message);
+        // Arrange
+        var json = "{ not json";
+
+        // Act
+        var ex = Fail(json);
+
+        // Assert
+        Assert.Contains("invalid", ex.Message);
     }
 
     [Fact]
-    public void Parse_MissingResourcesObject_Throws()
+    public void Parse_MissingResourcesObject_ThrowsNamingResources()
     {
-        Assert.Contains("resources", Fail("{ \"version\": 1 }").Message);
+        // Arrange
+        var json = "{ \"version\": 1 }";
+
+        // Act
+        var ex = Fail(json);
+
+        // Assert
+        Assert.Contains("resources", ex.Message);
     }
 
     [Theory]
     [InlineData("2")]
     [InlineData("0")]
-    public void Parse_UnsupportedVersion_Throws(string version)
+    public void Parse_UnsupportedVersion_ThrowsNamingVersion(string version)
     {
-        Assert.Contains($"'{version}'", Fail(Wrap("{}", version)).Message);
+        // Arrange
+        var json = Wrap("{}", version);
+
+        // Act
+        var ex = Fail(json);
+
+        // Assert
+        Assert.Contains($"'{version}'", ex.Message);
     }
 
     [Fact]
-    public void Parse_MissingVersion_Throws()
+    public void Parse_MissingVersion_ThrowsNamingVersion()
     {
-        Assert.Contains("version", Fail("{ \"resources\": {} }").Message);
+        // Arrange
+        var json = "{ \"resources\": {} }";
+
+        // Act
+        var ex = Fail(json);
+
+        // Assert
+        Assert.Contains("version", ex.Message);
     }
 
     [Theory]
     [InlineData("git")]
     [InlineData("tools/vcs/git")]
     [InlineData("tools/")]
-    public void Parse_BadKeyForm_Throws(string key)
+    public void Parse_BadKeyForm_ThrowsNamingKey(string key)
     {
+        // Arrange
         var json = Wrap("{ \"" + key + "\": [ { " + ValidFields + " } ] }");
-        Assert.Contains($"'{key}'", Fail(json).Message);
+
+        // Act
+        var ex = Fail(json);
+
+        // Assert
+        Assert.Contains($"'{key}'", ex.Message);
     }
 
     [Fact]
-    public void Parse_UnknownTopic_Throws()
+    public void Parse_UnknownTopic_ThrowsNamingKey()
     {
+        // Arrange
         var json = Wrap("{ \"tools/nope\": [ { " + ValidFields + " } ] }");
-        Assert.Contains("'tools/nope'", Fail(json).Message);
+
+        // Act
+        var ex = Fail(json);
+
+        // Assert
+        Assert.Contains("'tools/nope'", ex.Message);
     }
 
     [Fact]
-    public void Parse_NonCanonicalKeyCase_Throws()
+    public void Parse_NonCanonicalKeyCase_ThrowsSuggestingCanonical()
     {
+        // Arrange
         var json = Wrap("{ \"Tools/git\": [ { " + ValidFields + " } ] }");
+
+        // Act
         var message = Fail(json).Message;
+
+        // Assert
         Assert.Contains("'Tools/git'", message);
         Assert.Contains("tools/git", message);
     }
 
     [Fact]
-    public void Parse_EmptyArray_Throws()
+    public void Parse_EmptyArray_ThrowsNamingKey()
     {
-        Assert.Contains("'tools/git'", Fail(Wrap("{ \"tools/git\": [] }")).Message);
+        // Arrange
+        var json = Wrap("{ \"tools/git\": [] }");
+
+        // Act
+        var ex = Fail(json);
+
+        // Assert
+        Assert.Contains("'tools/git'", ex.Message);
     }
 
     [Theory]
     [InlineData("\"url\": \"https://a.example\", \"kind\": \"docs\", \"lang\": \"en\"")]
     [InlineData("\"title\": \"  \", \"url\": \"https://a.example\", \"kind\": \"docs\", \"lang\": \"en\"")]
-    public void Parse_MissingTitle_Throws(string fields)
+    public void Parse_MissingTitle_ThrowsNamingTitle(string fields)
     {
-        Assert.Contains("title", Fail(One(fields)).Message);
+        // Arrange
+        var json = One(fields);
+
+        // Act
+        var ex = Fail(json);
+
+        // Assert
+        Assert.Contains("title", ex.Message);
     }
 
     [Theory]
@@ -194,64 +275,149 @@ public class JsonResourceCatalogTests
     [InlineData("example.com/page")]
     [InlineData("http://a.example/")]
     [InlineData("ftp://a.example/")]
-    public void Parse_BadUrl_Throws(string url)
+    public void Parse_BadUrl_ThrowsNamingUrlAndKey(string url)
     {
+        // Arrange
         var json = One("\"title\": \"T\", \"url\": \"" + url + "\", \"kind\": \"docs\", \"lang\": \"en\"");
+
+        // Act
         var message = Fail(json).Message;
+
+        // Assert
         Assert.Contains("url", message);
         Assert.Contains("'tools/git'", message);
     }
 
     [Fact]
-    public void Parse_MissingUrl_Throws()
+    public void Parse_MissingUrl_ThrowsNamingUrl()
     {
-        Assert.Contains("url", Fail(One("\"title\": \"T\", \"kind\": \"docs\", \"lang\": \"en\"")).Message);
+        // Arrange
+        var json = One("\"title\": \"T\", \"kind\": \"docs\", \"lang\": \"en\"");
+
+        // Act
+        var ex = Fail(json);
+
+        // Assert
+        Assert.Contains("url", ex.Message);
     }
 
     [Theory]
     [InlineData("\"kind\": \"movie\", ")]
     [InlineData("")]
-    public void Parse_BadKind_Throws(string kindField)
+    public void Parse_BadKind_ThrowsNamingKind(string kindField)
     {
+        // Arrange
         var json = One("\"title\": \"T\", \"url\": \"https://a.example\", " + kindField + "\"lang\": \"en\"");
-        Assert.Contains("kind", Fail(json).Message);
+
+        // Act
+        var ex = Fail(json);
+
+        // Assert
+        Assert.Contains("kind", ex.Message);
     }
 
     [Theory]
     [InlineData("\"lang\": \"de\"")]
     [InlineData("\"lang\": \"\"")]
-    public void Parse_BadLang_Throws(string langField)
+    public void Parse_BadLang_ThrowsNamingLanguage(string langField)
     {
+        // Arrange
         var json = One("\"title\": \"T\", \"url\": \"https://a.example\", \"kind\": \"docs\", " + langField);
-        Assert.Contains("language", Fail(json).Message);
+
+        // Act
+        var ex = Fail(json);
+
+        // Assert
+        Assert.Contains("language", ex.Message);
     }
 
     [Fact]
-    public void Parse_MissingLang_Throws()
+    public void Parse_MissingLang_ThrowsNamingLanguage()
     {
+        // Arrange
         var json = One("\"title\": \"T\", \"url\": \"https://a.example\", \"kind\": \"docs\"");
-        Assert.Contains("language", Fail(json).Message);
+
+        // Act
+        var ex = Fail(json);
+
+        // Assert
+        Assert.Contains("language", ex.Message);
     }
 
     [Fact]
-    public void Parse_DuplicateUrlInSameTopic_Throws()
+    public void Parse_DuplicateUrlInSameTopic_ThrowsDuplicate()
     {
+        // Arrange
         var json = Wrap("""
             { "tools/git": [
               { "title": "A", "url": "https://Example.com/x", "kind": "docs", "lang": "en" },
               { "title": "B", "url": "https://example.com/x", "kind": "docs", "lang": "en" }
             ] }
             """);
+
+        // Act
         var message = Fail(json).Message;
+
+        // Assert
         Assert.Contains("Duplicate", message);
         Assert.Contains("'tools/git'", message);
     }
 
     [Fact]
+    public void Parse_UrlsDifferingOnlyByFragment_ThrowsDuplicate()
+    {
+        // Arrange
+        var json = Wrap("""
+            { "tools/git": [
+              { "title": "A", "url": "https://example.com/x#x", "kind": "docs", "lang": "en" },
+              { "title": "B", "url": "https://example.com/x#y", "kind": "docs", "lang": "en" }
+            ] }
+            """);
+
+        // Act
+        var message = Fail(json).Message;
+
+        // Assert
+        Assert.Contains("Duplicate", message);
+    }
+
+    [Fact]
     public void Parse_SameUrlInDifferentTopics_IsAllowed()
     {
+        // Arrange
         var json = Wrap("{ \"tools/git\": [ { " + ValidFields + " } ], \"tools/branches\": [ { " + ValidFields + " } ] }");
-        Assert.Equal(2, JsonResourceCatalog.Parse(json, Topics).TopicsWithResourcesCount);
+
+        // Act
+        var catalog = JsonResourceCatalog.Parse(json, Topics);
+
+        // Assert
+        Assert.Equal(2, catalog.TopicsWithResourcesCount);
+    }
+
+    [Fact]
+    public void Parse_UnknownFieldInResource_ThrowsNamingField()
+    {
+        // Arrange
+        var json = One(ValidFields + ", \"afiliate\": true");
+
+        // Act
+        var ex = Fail(json);
+
+        // Assert
+        Assert.Contains("afiliate", ex.Message);
+    }
+
+    [Fact]
+    public void Parse_UnknownRootField_ThrowsNamingField()
+    {
+        // Arrange
+        var json = "{ \"version\": 1, \"resources\": {}, \"extra\": 1 }";
+
+        // Act
+        var ex = Fail(json);
+
+        // Assert
+        Assert.Contains("extra", ex.Message);
     }
 
     [Fact]
@@ -268,7 +434,7 @@ public class JsonResourceCatalogTests
     }
 
     [Fact]
-    public void LoadFromFile_RealFile_LoadsAgainstRealTopics()
+    public void LoadFromFile_RealFile_AllResourcesHaveHttpsUrlAndTitle()
     {
         // Arrange
         var topics = JsonTopicCatalog.LoadFromFile(Path.Combine(AppContext.BaseDirectory, "content", "topics.json"));
@@ -276,8 +442,15 @@ public class JsonResourceCatalogTests
 
         // Act
         var catalog = JsonResourceCatalog.LoadFromFile(path, topics);
+        var all = topics.GetSections()
+            .SelectMany(s => s.Groups.SelectMany(g => g.Topics.SelectMany(t => catalog.GetResources(s.Slug, t.Slug))))
+            .ToList();
 
         // Assert
-        Assert.True(catalog.TopicsWithResourcesCount >= 0);
+        Assert.All(all, r =>
+        {
+            Assert.Equal(Uri.UriSchemeHttps, r.Url.Scheme);
+            Assert.False(string.IsNullOrWhiteSpace(r.Title));
+        });
     }
 }

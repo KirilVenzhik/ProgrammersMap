@@ -13,6 +13,7 @@
 | Почему сделано так, а не иначе | `docs/DECISIONS.md` | Opus, до реализации решения |
 | Стиль кода, тесты, коммиты | `docs/CONVENTIONS.md` | Opus |
 | Список тем курса (источник правды) | `content/topics.json` | Opus / implementer по задаче |
+| Как писать уроки и ссылки «Где изучить» | `docs/CONTENT.md` | Opus |
 | Как выглядит UI (визуальный эталон) | `prototype/index.html` | не трогать, только читать |
 | Правила для агентов | `CLAUDE.md`, `.claude/agents/*.md` | человек |
 | Рабочий цикл | `.claude/commands/next.md` | человек |

@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ProgChecklist.Core;
 
@@ -11,6 +12,7 @@ public sealed class JsonResourceCatalog : IResourceCatalog
     private static readonly JsonSerializerOptions SerializerOptions = new()
     {
         PropertyNameCaseInsensitive = true,
+        UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
     };
 
     private static readonly IReadOnlyList<Resource> NoResources = Array.AsReadOnly(Array.Empty<Resource>());
