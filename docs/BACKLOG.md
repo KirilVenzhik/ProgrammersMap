@@ -17,7 +17,7 @@
 Razor Page `/` выводит список разделов с количеством тем. Каталог зарегистрирован как singleton.
 Приёмка: интеграционный тест: `/` → 200, содержит «Основы программирования».
 
-### P0-04 CI — `todo`
+### P0-04 CI — `done`
 `.github/workflows/ci.yml`: windows-latest и ubuntu-latest, setup-dotnet 10, restore/build/test.
 `.gitattributes` с `* text=auto eol=lf` (+ `*.sln`/`*.ps1`/`*.cmd` — `eol=crlf`, бинарники — `binary`), `end_of_line` в `.editorconfig`; ренормализовать репо (`git add --renormalize .`).
 Приёмка: workflow валиден (проверить синтаксис); `git ls-files --eol` без смешанных концов строк в текстовых файлах. Пуш делает человек.
