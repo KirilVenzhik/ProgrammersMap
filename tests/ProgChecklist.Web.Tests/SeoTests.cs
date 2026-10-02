@@ -137,8 +137,26 @@ public class SeoTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public async Task Get_AllPages_TitlesAndDescriptionsAreUnique()
     {
+        await AssertTitlesAndDescriptionsAreUniqueAsync(_configuredFactory);
+    }
+
+    [Fact]
+    public async Task Get_AllPagesWithLessons_TitlesAndDescriptionsAreUnique()
+    {
         // Arrange
-        using var client = _configuredFactory.CreateClient();
+        using var dir = new TempLessons(
+            ("fundamentals/binary-bits-bytes.md", "Первый абзац урока про биты.\n"),
+            ("git/init-add-commit.md", "Первый абзац урока про коммиты.\n"));
+        var factory = _configuredFactory.WithWebHostBuilder(builder => builder.UseSetting("Content:LessonsPath", dir.Path));
+
+        // Act & Assert
+        await AssertTitlesAndDescriptionsAreUniqueAsync(factory);
+    }
+
+    private static async Task AssertTitlesAndDescriptionsAreUniqueAsync(WebApplicationFactory<Program> factory)
+    {
+        // Arrange
+        using var client = factory.CreateClient();
         var paths = SitemapPaths.All(LoadCatalog());
         var titles = new HashSet<string>();
         var descriptions = new HashSet<string>();

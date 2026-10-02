@@ -7,7 +7,7 @@
     var topic = context.Topic;
     var key = TopicKey.Create(sec.Slug, topic.Slug);
     ViewData["Title"] = $"{topic.Title} — {sec.Title} — Карта программиста";
-    ViewData["Description"] = SeoText.TopicDescription(context);
+    ViewData["Description"] = SeoText.TopicDescription(context, Model.Lesson);
     ViewData["CanonicalPath"] = $"/{sec.Slug}/{topic.Slug}";
     ViewData["OgType"] = "article";
 }

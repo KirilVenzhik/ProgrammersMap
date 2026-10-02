@@ -1,5 +1,6 @@
 @using ProgChecklist.Core
 @model Section
+@inject ILessonStore Lessons
 @{
     var hideHeading = ViewData["HideSectionHeading"] is true;
 }
@@ -28,6 +29,10 @@
                         <label class="chk" for="cb-@Model.Slug-@topic.Slug"><input type="checkbox" id="cb-@Model.Slug-@topic.Slug" data-key="@key"><span class="visually-hidden">Изучено: @topic.Title</span></label>
                         <a class="txt" href="/@Model.Slug/@topic.Slug">@topic.Title</a>
                         <span class="lvl">@topic.Level.ToDisplayName()</span>
+                        @if (Lessons.HasLesson(Model.Slug, topic.Slug))
+                        {
+                            <span class="lesson-badge"><span class="visually-hidden">есть </span>урок</span>
+                        }
                     </li>
                 }
             </ul>

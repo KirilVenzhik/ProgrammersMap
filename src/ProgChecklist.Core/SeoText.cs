@@ -42,6 +42,18 @@ public static class SeoText
     }
 
     /// <summary>
+    /// Description of a topic page: the lesson summary (truncated to the limit) if the topic has a lesson
+    /// with a non-empty summary; otherwise the catalog-based description.
+    /// </summary>
+    public static string TopicDescription(TopicContext context, Lesson? lesson)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+        return lesson is not null && !string.IsNullOrWhiteSpace(lesson.Summary)
+            ? Truncate(lesson.Summary, MaxDescriptionLength)
+            : TopicDescription(context);
+    }
+
+    /// <summary>
     /// Returns the text unchanged if it fits; otherwise cuts it at the last space before
     /// <paramref name="maxLength"/> - 3 (hard cut if there is none) and appends an ellipsis.
     /// </summary>

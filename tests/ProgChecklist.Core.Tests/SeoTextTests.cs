@@ -142,6 +142,101 @@ public class SeoTextTests
         }
     }
 
+    private static TopicContext BuildContext(string topicTitle)
+    {
+        var json = $$"""
+            { "sections": [ { "slug": "a", "title": "A", "order": 1, "groups": [
+              { "slug": "g", "title": "G", "topics": [ { "slug": "t", "title": "{{topicTitle}}", "level": "junior" } ] } ] } ] }
+            """;
+        return JsonTopicCatalog.Parse(json).FindTopicContext("a", "t")!;
+    }
+
+    private static Lesson LessonWith(string summary) => new("a", "t", "<p>x</p>", summary);
+
+    [Fact]
+    public void TopicDescription_ShortFirstSentence_AppendsClosingSentence()
+    {
+        // Arrange
+        var context = BuildContext("Короткая тема");
+
+        // Act
+        var text = SeoText.TopicDescription(context);
+
+        // Assert
+        Assert.EndsWith(" Отмечайте изученное на Карте программиста.", text);
+    }
+
+    [Fact]
+    public void TopicDescription_FirstSentenceAlone_DropsClosingSentenceWhenOverflowing()
+    {
+        // Arrange
+        var context = BuildContext(string.Join(' ', Enumerable.Repeat("длинное", 12)));
+
+        // Act
+        var text = SeoText.TopicDescription(context);
+
+        // Assert
+        Assert.DoesNotContain("Отмечайте изученное", text);
+        Assert.InRange(text.Length, 1, 160);
+    }
+
+    [Fact]
+    public void TopicDescriptionWithLesson_ShortSummary_ReturnsSummaryAsIs()
+    {
+        // Arrange
+        var context = BuildContext("T");
+
+        // Act
+        var text = SeoText.TopicDescription(context, LessonWith("Короткое резюме урока."));
+
+        // Assert
+        Assert.Equal("Короткое резюме урока.", text);
+    }
+
+    [Fact]
+    public void TopicDescriptionWithLesson_LongSummary_TruncatesAtWordBoundary()
+    {
+        // Arrange
+        var context = BuildContext("T");
+        var summary = string.Join(' ', Enumerable.Repeat("слово", 60));
+
+        // Act
+        var text = SeoText.TopicDescription(context, LessonWith(summary));
+
+        // Assert
+        Assert.True(text.Length <= 160);
+        Assert.EndsWith("…", text);
+        Assert.All(text[..^1].Split(' '), word => Assert.Equal("слово", word));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void TopicDescriptionWithLesson_BlankSummary_FallsBackToCatalogDescription(string summary)
+    {
+        // Arrange
+        var context = BuildContext("T");
+
+        // Act
+        var text = SeoText.TopicDescription(context, LessonWith(summary));
+
+        // Assert
+        Assert.Equal(SeoText.TopicDescription(context), text);
+    }
+
+    [Fact]
+    public void TopicDescriptionWithLesson_NullLesson_FallsBackToCatalogDescription()
+    {
+        // Arrange
+        var context = BuildContext("T");
+
+        // Act
+        var text = SeoText.TopicDescription(context, null);
+
+        // Assert
+        Assert.Equal(SeoText.TopicDescription(context), text);
+    }
+
     [Fact]
     public void Truncate_ShortText_ReturnsUnchanged()
     {

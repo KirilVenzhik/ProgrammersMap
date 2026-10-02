@@ -4,11 +4,19 @@ namespace ProgChecklist.Web.Tests;
 internal sealed class TempLessons : IDisposable
 {
     public TempLessons(string relativePath, string content)
+        : this((relativePath, content))
+    {
+    }
+
+    public TempLessons(params (string RelativePath, string Content)[] files)
     {
         Path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), $"web-lessons-{Guid.NewGuid():N}");
-        var full = System.IO.Path.Combine(Path, relativePath.Replace('/', System.IO.Path.DirectorySeparatorChar));
-        Directory.CreateDirectory(System.IO.Path.GetDirectoryName(full)!);
-        File.WriteAllText(full, content);
+        foreach (var (relativePath, content) in files)
+        {
+            var full = System.IO.Path.Combine(Path, relativePath.Replace('/', System.IO.Path.DirectorySeparatorChar));
+            Directory.CreateDirectory(System.IO.Path.GetDirectoryName(full)!);
+            File.WriteAllText(full, content);
+        }
     }
 
     public string Path { get; }
