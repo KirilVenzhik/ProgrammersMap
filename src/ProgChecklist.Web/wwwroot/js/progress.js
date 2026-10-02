@@ -92,7 +92,7 @@ function matchesFilters(row) {
   if (filters.hideDone && done.has(row.dataset.key)) return false;
   if (!filters.query) return true;
   const title = row.querySelector("a.txt")?.textContent ?? "";
-  const groupTitle = row.closest(".group")?.querySelector("h3")?.textContent ?? "";
+  const groupTitle = row.closest(".group")?.querySelector("h2, h3")?.textContent ?? "";
   return (
     title.toLowerCase().includes(filters.query) || groupTitle.toLowerCase().includes(filters.query)
   );

@@ -56,7 +56,7 @@ section.sec{margin-bottom:44px}
 section.sec h2{font:700 1.45rem/1.2 "Unbounded",sans-serif;margin:0 0 4px;display:flex;justify-content:space-between;gap:12px;align-items:baseline}
 section.sec h2 span{font:500 .9rem "Golos Text",sans-serif;color:var(--muted);white-space:nowrap}
 .group{margin-top:18px}
-.group h3{font-weight:600;font-size:1rem;margin:0 0 6px;color:var(--muted)}
+.group h2,.group h3{font-weight:600;font-size:1rem;margin:0 0 6px;color:var(--muted)}
 ul.items{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 ul.items li{border-bottom:1px solid var(--line)}
 /* Row: checkbox + link + level */
@@ -90,3 +90,11 @@ a:hover{color:var(--focus)}
 /* Addition: skip link, visually hidden until focused */
 .skip-link{position:absolute;left:8px;top:-100px;z-index:10;background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:6px;text-decoration:none}
 .skip-link:focus{top:8px;color:var(--paper)}
+
+/* Addition: section page */
+.crumbs{font-size:.9rem;margin:0 0 12px;color:var(--muted)}
+.crumbs a{color:var(--muted)}
+.crumbs a:hover{color:var(--ink)}
+section.sec h2 a{color:inherit;text-decoration:none}
+section.sec h2 a:hover{text-decoration:underline}
+main.wrap{padding:32px 20px 80px}

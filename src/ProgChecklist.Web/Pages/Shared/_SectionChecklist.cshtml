@@ -1,12 +1,25 @@
 @using ProgChecklist.Core
 @model Section
+@{
+    var hideHeading = ViewData["HideSectionHeading"] is true;
+}
 
 <section class="sec" id="@Model.Slug" data-section="@Model.Slug">
-    <h2>@Model.Title <span data-sc="@Model.Slug">0 / @Model.TopicCount</span></h2>
+    @if (!hideHeading)
+    {
+        <h2><a href="/@Model.Slug">@Model.Title</a> <span data-sc="@Model.Slug">0 / @Model.TopicCount</span></h2>
+    }
     @foreach (var group in Model.Groups)
     {
         <div class="group" data-group="@group.Slug">
-            <h3>@group.Title</h3>
+            @if (hideHeading)
+            {
+                <h2>@group.Title</h2>
+            }
+            else
+            {
+                <h3>@group.Title</h3>
+            }
             <ul class="items">
                 @foreach (var topic in group.Topics)
                 {

@@ -1,0 +1,18 @@
+@page "/{sectionSlug}"
+@model SectionModel
+@{
+    ViewData["Title"] = $"{Model.Section.Title} — Карта программиста";
+}
+
+<header class="hero wrap">
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="/">Карта программиста</a></nav>
+    <h1>@Model.Section.Title</h1>
+    <div class="stat"><span><b id="pct">0%</b> пройдено</span><span id="count">0 из @Model.Section.TopicCount тем</span></div>
+</header>
+
+<partial name="_Toolbar" />
+
+<main class="wrap" id="main" tabindex="-1">
+    <partial name="_SectionChecklist" model="Model.Section" view-data='new ViewDataDictionary(ViewData) { ["HideSectionHeading"] = true }' />
+    <p class="empty" id="empty" hidden>Ничего не найдено. Попробуйте другой запрос или уровень «Все».</p>
+</main>

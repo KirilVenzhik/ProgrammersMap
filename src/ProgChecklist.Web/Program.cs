@@ -11,6 +11,7 @@ builder.Services.AddTopicCatalog(builder.Configuration);
 
 var app = builder.Build();
 
+app.UseStatusCodePagesWithReExecute("/Error/{0}");
 app.UseStaticFiles();
 app.UseRouting();
 app.MapRazorPages();
