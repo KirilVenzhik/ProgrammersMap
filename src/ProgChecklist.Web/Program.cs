@@ -9,6 +9,7 @@ builder.Services.AddRazorPages();
 builder.Services.Configure<WebEncoderOptions>(options => options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All));
 builder.Services.AddTopicCatalog(builder.Configuration);
 builder.Services.AddResourceCatalog(builder.Configuration);
+builder.Services.AddLessonStore(builder.Configuration);
 builder.Services.AddSiteUrls(builder.Configuration);
 
 var app = builder.Build();

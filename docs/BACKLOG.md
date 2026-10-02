@@ -65,7 +65,7 @@ Opus проверяет всю фазу против ROADMAP, пишет ито�
 В Core: `Resource` (Title, Url, Kind, Lang, IsFree, IsAffiliate), enum'ы `ResourceKind` и `ResourceLanguage`, `IResourceCatalog.GetResources(sectionSlug, topicSlug)` → список (пустой, если нет). Реализация читает `content/resources.json` по ADR-11 и валидирует его против `ITopicCatalog`. Web: путь `Content:ResourcesPath`, файл копируется в output, singleton с загрузкой при старте. В репо — пустой `resources.json` (`"resources": {}`).
 Приёмка: тесты на загрузку и на каждую ошибку валидации из ADR-11 (неизвестный ключ темы, пустой title, не-https URL, неизвестный kind/lang, дубликат URL в теме); порядок ресурсов сохраняется; приложение стартует с пустым файлом.
 
-### P2-02 Уроки в Markdown — `todo`
+### P2-02 Уроки в Markdown — `done`
 ADR-10: пакет `Markdig` в Core. `ILessonStore.FindLesson(sectionSlug, topicSlug)` → `Lesson?` (готовый HTML + первый абзац plain text для SEO). Загрузка всех `content/lessons/{s}/{t}.md` при старте, рендер один раз, `DisableHtml`. Ошибки старта: файл без темы в каталоге, `#`-заголовок первого уровня в уроке, пустой файл. Web: путь `Content:LessonsPath`, файлы копируются в output.
 Приёмка: тесты рендера (заголовки, списки, код, таблица), сырой HTML в markdown выводится экранированным (`<script>` не проходит), все три ошибки валидации, отсутствие папки уроков = 0 уроков без ошибки.
 

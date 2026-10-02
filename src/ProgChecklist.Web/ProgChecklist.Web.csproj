@@ -7,6 +7,7 @@
   <ItemGroup>
     <None Include="..\..\content\topics.json" Link="content\topics.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <None Include="..\..\content\resources.json" Link="content\resources.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="..\..\content\lessons\**\*.md" LinkBase="content\lessons" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

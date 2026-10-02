@@ -1,6 +1,6 @@
 # Статус
 
-**Фаза:** P2 · **Состояние:** в работе · **Следующая задача:** P2-02
+**Фаза:** P2 · **Состояние:** в работе · **Следующая задача:** P2-03
 
 ## Нужно от человека
 - (не блокирует) Smart App Control на Windows блокирует свежесобранные DLL (0x800711C7) — тесты: `.\scripts\test-wsl.ps1` (ADR-9). Для полной глобализации в WSL: `sudo apt-get install -y libicu-dev`. Стоит добавить в CLAUDE.md (раздел «Команды») — это файл человека.
@@ -27,11 +27,13 @@
 - Гигиена тестов (попутно): в тестах P1-06 нет комментариев `// Arrange / Act / Assert`; `TopicPageTests.LoadCatalog()` парсит JSON в каждом из 254 кейсов.
 - SEO-хвосты (попутно): нет теста, что завершающее предложение TopicDescription добавляется, когда влезает; сообщение об ошибке BaseUrl не упоминает userinfo.
 - P2-06 (CONTENT.md): ссылки, отличающиеся только `#fragment`, валидатор ресурсов считает дубликатами (Uri.Equals); kind/lang принимаются без учёта регистра; неизвестные поля JSON игнорируются (опечатка `afiliate` пройдёт молча). Гигиена тестов: `JsonResourceCatalogTests` без AAA-комментариев, тест реального файла проверяет `>= 0`.
+- P2-03 (взять в работу): Summary урока брать из первого абзаца верхнего уровня (fallback — любой), `AppendPlainText` теряет `HtmlEntityInline` и `AutolinkInline`; добавить регресс-тесты безопасности (`[r]: javascript:`, `java&#115;cript:`, `{onclick=...}` остаётся текстом); тесты `MarkdownLessonStoreTests` — имена по `Method_Condition_Expected` и AAA.
+- P2-06 (CONTENT.md): уроки — только `.md` в нижнем регистре (`.MD` на Linux не найдётся), другие расширения игнорируются.
 
 ## Лог (последние 5 записей, новые сверху)
+- 2026-10-02 — P2-02 done: Markdig 1.4.0 в Core (ADR-10), MarkdownLessonStore (рендер при старте, DisableHtml, запрет `javascript:`/`data:` в ссылках, канонические пути), пустая content/lessons; тесты 472/472 (WSL); ревью APPROVE с 1-го круга, обходов XSS не найдено.
 - 2026-10-02 — P2-01 done: Core Resource/ResourceKind/ResourceLanguage, IResourceCatalog, JsonResourceCatalog с валидацией по ADR-11; пустой content/resources.json; загрузка при старте; тесты 436/436 (WSL); ревью APPROVE с 1-го круга.
 - 2026-10-02 — человек одобрил план P2.
 - 2026-10-02 — фаза P2 расписана: 9 задач (P2-08 needs-human), ADR-10 (Markdig), ADR-11 (уроки + resources.json); ждёт одобрения.
 - 2026-10-02 — человек одобрил итог P1 и переход на P2; ROADMAP: текущая фаза P2.
-- 2026-10-02 — фаза P1 завершена: итог записан, фаза остановлена до проверки человеком.
 - Ранее: P0 (каркас, CI) и P1-01…P1-03 done.
