@@ -38,6 +38,29 @@
             <p>Материал по этой теме готовится. Пока отметьте тему как изученную, когда разберётесь в ней самостоятельно.</p>
         </section>
     }
+    @if (Model.Resources.Count > 0)
+    {
+        <section class="resources" aria-labelledby="resources-title">
+            <h2 id="resources-title">Где изучить</h2>
+            <ul class="resource-list">
+                @foreach (var resource in Model.Resources)
+                {
+                    <li>
+                        <a href="@resource.Url.AbsoluteUri" rel="@(resource.IsAffiliate ? "sponsored noopener" : "noopener")" hreflang="@(resource.Language == ResourceLanguage.Russian ? "ru" : "en")">@resource.Title</a>
+                        <span class="resource-meta">@resource.Kind.ToDisplayName() · @resource.Language.ToDisplayName() · @(resource.IsFree ? "бесплатно" : "платно")</span>
+                        @if (resource.IsAffiliate)
+                        {
+                            <span class="resource-ad">партнёрская ссылка</span>
+                        }
+                    </li>
+                }
+            </ul>
+            @if (Model.Resources.Any(r => r.IsAffiliate))
+            {
+                <p class="resources-note">Отмеченные ссылки — партнёрские: если вы купите что-то по ним, сайт может получить комиссию. На выбор материалов это не влияет.</p>
+            }
+        </section>
+    }
     <nav class="pager" aria-label="Соседние темы">
         @if (context.Previous is { } previous)
         {

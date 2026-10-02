@@ -105,6 +105,15 @@ main.wrap{padding:32px 20px 80px}
 .topic-done input{width:18px;height:18px;accent-color:var(--ink)}
 .lesson{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;margin:32px 0}
 .lesson h2{font:700 1.2rem "Unbounded",sans-serif;margin:0 0 8px}
+/* Resources ("where to learn") */
+.resources{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;margin:32px 0}
+.resources h2{font:700 1.2rem "Unbounded",sans-serif;margin:0 0 8px}
+.resource-list{list-style:none;margin:0;padding:0}
+.resource-list li{padding:10px 0;border-top:1px solid var(--line)}
+.resource-list li:first-child{border-top:0}
+.resource-meta{color:var(--muted);font-size:.85rem;margin-left:8px}
+.resource-ad{border:1px solid var(--hl);border-radius:6px;padding:0 6px;margin-left:8px;font-size:.75rem}
+.resources-note{color:var(--muted);font-size:.85rem;margin:12px 0 0}
 /* Lesson body (rendered Markdown) */
 .lesson-body{overflow-wrap:anywhere}
 .lesson-body h2,.lesson-body h3,.lesson-body h4{line-height:1.25;margin:1.8em 0 .5em}
