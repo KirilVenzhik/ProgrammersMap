@@ -7,13 +7,17 @@ namespace ProgChecklist.Web.Pages;
 public class TopicModel : PageModel
 {
     private readonly ITopicCatalog _catalog;
+    private readonly ISiteUrls _siteUrls;
 
-    public TopicModel(ITopicCatalog catalog)
+    public TopicModel(ITopicCatalog catalog, ISiteUrls siteUrls)
     {
         _catalog = catalog;
+        _siteUrls = siteUrls;
     }
 
     public TopicContext Context { get; private set; } = null!;
+
+    public string BreadcrumbJsonLd { get; private set; } = "";
 
     public IActionResult OnGet(string sectionSlug, string topicSlug)
     {
@@ -30,6 +34,7 @@ public class TopicModel : PageModel
         }
 
         Context = context;
+        BreadcrumbJsonLd = Core.BreadcrumbJsonLd.Build(context, _siteUrls.Absolute);
         return Page();
     }
 }

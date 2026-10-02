@@ -2,7 +2,9 @@
 @using ProgChecklist.Core
 @model IndexModel
 @{
-    ViewData["Title"] = "Карта программиста";
+    ViewData["Title"] = "Карта программиста — чеклист тем программирования";
+    ViewData["Description"] = Model.Description;
+    ViewData["CanonicalPath"] = "/";
 }
 
 <header class="hero wrap">

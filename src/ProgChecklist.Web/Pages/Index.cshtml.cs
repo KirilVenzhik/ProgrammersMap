@@ -16,9 +16,12 @@ public class IndexModel : PageModel
 
     public int TopicCount { get; private set; }
 
+    public string Description { get; private set; } = "";
+
     public void OnGet()
     {
         Sections = _catalog.GetSections();
         TopicCount = _catalog.TopicCount;
+        Description = SeoText.HomeDescription(_catalog);
     }
 }

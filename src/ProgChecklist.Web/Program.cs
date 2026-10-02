@@ -8,12 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.Configure<WebEncoderOptions>(options => options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All));
 builder.Services.AddTopicCatalog(builder.Configuration);
+builder.Services.AddSiteUrls(builder.Configuration);
 
 var app = builder.Build();
 
 app.UseStatusCodePagesWithReExecute("/Error/{0}");
 app.UseStaticFiles();
 app.UseRouting();
+app.MapSeoEndpoints();
 app.MapRazorPages();
 
 app.Run();

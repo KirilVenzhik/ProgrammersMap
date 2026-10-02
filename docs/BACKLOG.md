@@ -52,7 +52,7 @@ Opus проверяет slug'и в topics.json: короткие, читаемы
 `/{sectionSlug}/{topicSlug}`: название, уровень, хлебные крошки, чекбокс «Изучено», блок «Урок в разработке», ссылки на соседние темы.
 Приёмка: тесты 200/404; для каждой из 254 тем URL отдаёт 200 (параметризованный тест).
 
-### P1-07 SEO — `todo`
+### P1-07 SEO — `done`
 Уникальные `<title>` и `meta description`, canonical, Open Graph, `sitemap.xml` (все страницы), `robots.txt`, JSON-LD `BreadcrumbList` на странице темы.
 Приёмка: sitemap содержит 1 + 14 + 254 URL; тест на это.
 

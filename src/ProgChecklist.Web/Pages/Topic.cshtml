@@ -7,6 +7,15 @@
     var topic = context.Topic;
     var key = TopicKey.Create(sec.Slug, topic.Slug);
     ViewData["Title"] = $"{topic.Title} — {sec.Title} — Карта программиста";
+    ViewData["Description"] = SeoText.TopicDescription(context);
+    ViewData["CanonicalPath"] = $"/{sec.Slug}/{topic.Slug}";
+    ViewData["OgType"] = "article";
+}
+
+@section Head {
+    @* Html.Raw is safe here: the default JsonSerializer encoder escapes <, > and &, so "</script>" cannot appear in the JSON. *@
+    @* "!" opts the element out of tag helpers, so the "+" in the type attribute is not entity-encoded. *@
+    <!script type="application/ld+json">@Html.Raw(Model.BreadcrumbJsonLd)</!script>
 }
 
 <header class="hero wrap">

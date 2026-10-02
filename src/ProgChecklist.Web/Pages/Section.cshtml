@@ -1,7 +1,10 @@
 @page "/{sectionSlug}"
+@using ProgChecklist.Core
 @model SectionModel
 @{
     ViewData["Title"] = $"{Model.Section.Title} — Карта программиста";
+    ViewData["Description"] = SeoText.SectionDescription(Model.Section);
+    ViewData["CanonicalPath"] = $"/{Model.Section.Slug}";
 }
 
 <header class="hero wrap">

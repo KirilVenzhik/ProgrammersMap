@@ -1,10 +1,48 @@
+@inject ProgChecklist.Web.ISiteUrls SiteUrls
+@{
+    var description = ViewData["Description"] as string;
+    var canonicalPath = ViewData["CanonicalPath"] as string;
+    var pageTitle = ViewData["Title"] as string;
+    if (string.IsNullOrWhiteSpace(pageTitle))
+    {
+        pageTitle = "Карта программиста";
+    }
+
+    var ogType = ViewData["OgType"] as string ?? "website";
+    var noIndex = ViewData["NoIndex"] is true;
+    var canonicalUrl = !noIndex && !string.IsNullOrEmpty(canonicalPath) ? SiteUrls.Absolute(canonicalPath) : null;
+}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="color-scheme" content="light dark">
-    <title>@(string.IsNullOrWhiteSpace(ViewData["Title"] as string) ? "Карта программиста" : ViewData["Title"])</title>
+    <title>@pageTitle</title>
+    @if (!string.IsNullOrWhiteSpace(description))
+    {
+        <meta name="description" content="@description">
+    }
+    @if (canonicalUrl is not null)
+    {
+        <link rel="canonical" href="@canonicalUrl">
+    }
+    @if (noIndex)
+    {
+        <meta name="robots" content="noindex">
+    }
+    <meta property="og:type" content="@ogType">
+    <meta property="og:site_name" content="Карта программиста">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:title" content="@pageTitle">
+    @if (!string.IsNullOrWhiteSpace(description))
+    {
+        <meta property="og:description" content="@description">
+    }
+    @if (canonicalUrl is not null)
+    {
+        <meta property="og:url" content="@canonicalUrl">
+    }
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
