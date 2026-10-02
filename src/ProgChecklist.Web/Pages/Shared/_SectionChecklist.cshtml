@@ -12,7 +12,7 @@
                 {
                     var key = TopicKey.Create(Model.Slug, topic.Slug);
                     <li data-key="@key" data-level="@topic.Level.ToCode()">
-                        <input type="checkbox" id="cb-@Model.Slug-@topic.Slug" data-key="@key" aria-label="Изучено: @topic.Title">
+                        <label class="chk" for="cb-@Model.Slug-@topic.Slug"><input type="checkbox" id="cb-@Model.Slug-@topic.Slug" data-key="@key"><span class="visually-hidden">Изучено: @topic.Title</span></label>
                         <a class="txt" href="/@Model.Slug/@topic.Slug">@topic.Title</a>
                         <span class="lvl">@topic.Level.ToDisplayName()</span>
                     </li>

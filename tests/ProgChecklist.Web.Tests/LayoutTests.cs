@@ -57,7 +57,7 @@ public class LayoutTests : IClassFixture<WebApplicationFactory<Program>>
 
         // Act
         var body = await client.GetStringAsync("/");
-        var urls = Regex.Matches(body, "(?:src|href)=\"([^\"]*)\"", RegexOptions.IgnoreCase)
+        var urls = Regex.Matches(body, "(?:src|href|srcset|action|poster)\\s*=\\s*[\"']([^\"']*)[\"']", RegexOptions.IgnoreCase)
             .Select(m => m.Groups[1].Value)
             .Where(u => u.StartsWith("http://") || u.StartsWith("https://") || u.StartsWith("//"))
             .ToList();

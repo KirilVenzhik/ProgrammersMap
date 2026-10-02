@@ -15,6 +15,7 @@
     <a class="skip-link" href="#main">Перейти к содержимому</a>
     @RenderBody()
     <footer class="wrap">Прогресс сохраняется в этом браузере.</footer>
+    <script type="module" src="~/js/progress.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
