@@ -40,7 +40,7 @@ public class JsonTopicCatalogTests
         Assert.Equal(
             sections.OrderBy(section => section.Order).Select(section => section.Slug),
             sections.Select(section => section.Slug));
-        Assert.Equal("osnovy-programmirovaniya", sections[0].Slug);
+        Assert.Equal("fundamentals", sections[0].Slug);
         Assert.Equal("Основы программирования", sections[0].Title);
     }
 
@@ -51,7 +51,7 @@ public class JsonTopicCatalogTests
         var catalog = LoadReal();
 
         // Act
-        var section = catalog.FindSection("osnovy-programmirovaniya");
+        var section = catalog.FindSection("fundamentals");
 
         // Assert
         Assert.NotNull(section);
@@ -64,7 +64,7 @@ public class JsonTopicCatalogTests
         var catalog = LoadReal();
 
         // Act
-        var section = catalog.FindSection("OSNOVY-Programmirovaniya");
+        var section = catalog.FindSection("FUNDAMENTALS");
 
         // Assert
         Assert.NotNull(section);
@@ -105,7 +105,7 @@ public class JsonTopicCatalogTests
         var catalog = LoadReal();
 
         // Act
-        var topic = catalog.FindTopic("osnovy-programmirovaniya", "dvoichnaya-sistema-bity-i-bayty");
+        var topic = catalog.FindTopic("fundamentals", "binary-bits-bytes");
 
         // Assert
         Assert.NotNull(topic);
@@ -121,7 +121,7 @@ public class JsonTopicCatalogTests
         var otherSection = catalog.GetSections()[1].Slug;
 
         // Act
-        var topic = catalog.FindTopic(otherSection, "dvoichnaya-sistema-bity-i-bayty");
+        var topic = catalog.FindTopic(otherSection, "binary-bits-bytes");
 
         // Assert
         Assert.Null(topic);
@@ -134,7 +134,7 @@ public class JsonTopicCatalogTests
         var catalog = LoadReal();
 
         // Act
-        var unknownTopic = catalog.FindTopic("osnovy-programmirovaniya", "nope");
+        var unknownTopic = catalog.FindTopic("fundamentals", "nope");
         var unknownSection = catalog.FindTopic("nope", "nope");
         var empty = catalog.FindTopic("", "");
 
@@ -142,6 +142,56 @@ public class JsonTopicCatalogTests
         Assert.Null(unknownTopic);
         Assert.Null(unknownSection);
         Assert.Null(empty);
+    }
+
+    [Fact]
+    public void Slugs_RealFile_MatchFormat()
+    {
+        // Arrange
+        var pattern = new System.Text.RegularExpressions.Regex("^[a-z0-9]+(-[a-z0-9]+)*$");
+        var offenders = new List<string>();
+
+        void Check(string path, string slug)
+        {
+            if (slug.Length > 40 || !pattern.IsMatch(slug))
+            {
+                offenders.Add($"{path}: '{slug}'");
+            }
+        }
+
+        // Act
+        foreach (var section in LoadReal().GetSections())
+        {
+            Check("section", section.Slug);
+            foreach (var group in section.Groups)
+            {
+                Check($"group in {section.Slug}", group.Slug);
+                foreach (var topic in group.Topics)
+                {
+                    Check($"topic in {section.Slug}", topic.Slug);
+                }
+            }
+        }
+
+        // Assert
+        Assert.True(offenders.Count == 0, "Invalid slugs: " + string.Join("; ", offenders));
+    }
+
+    [Fact]
+    public void TopicKeys_RealFile_AreUnique()
+    {
+        // Arrange
+        var keys = LoadReal().GetSections()
+            .SelectMany(section => section.Groups.SelectMany(group => group.Topics),
+                (section, topic) => $"{section.Slug}/{topic.Slug}")
+            .ToList();
+
+        // Act
+        var duplicates = keys.GroupBy(key => key).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
+
+        // Assert
+        Assert.Equal(254, keys.Count);
+        Assert.True(duplicates.Count == 0, "Duplicate keys: " + string.Join("; ", duplicates));
     }
 
     [Fact]

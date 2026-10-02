@@ -3,164 +3,164 @@
   "note": "Источник правды для списка тем. slug — стабильный ID (URL и прогресс). Не менять slug без миграции.",
   "sections": [
     {
-      "slug": "osnovy-programmirovaniya",
+      "slug": "fundamentals",
       "title": "Основы программирования",
       "order": 1,
       "groups": [
         {
-          "slug": "kak-rabotaet-kompyuter",
+          "slug": "how-computers-work",
           "title": "Как работает компьютер",
           "topics": [
             {
-              "slug": "dvoichnaya-sistema-bity-i-bayty",
+              "slug": "binary-bits-bytes",
               "title": "Двоичная система, биты и байты",
               "level": "junior"
             },
             {
-              "slug": "protsessor-pamyat-disk",
+              "slug": "cpu-memory-disk",
               "title": "Процессор, память, диск",
               "level": "junior"
             },
             {
-              "slug": "kompilyatsiya-i-interpretatsiya",
+              "slug": "compilation-vs-interpretation",
               "title": "Компиляция и интерпретация",
               "level": "junior"
             },
             {
-              "slug": "protsessy-i-potoki-obschee-predstavlenie",
+              "slug": "processes-and-threads",
               "title": "Процессы и потоки: общее представление",
               "level": "junior"
             },
             {
-              "slug": "stek-i-kucha",
+              "slug": "stack-and-heap",
               "title": "Стек и куча",
               "level": "middle"
             },
             {
-              "slug": "kodirovki-ascii-utf-8-unicode",
+              "slug": "encodings",
               "title": "Кодировки: ASCII, UTF-8, Unicode",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "bazovye-konstruktsii",
+          "slug": "basics",
           "title": "Базовые конструкции",
           "topics": [
             {
-              "slug": "peremennye-i-konstanty",
+              "slug": "variables-and-constants",
               "title": "Переменные и константы",
               "level": "junior"
             },
             {
-              "slug": "primitivnye-tipy-dannyh",
+              "slug": "primitive-types",
               "title": "Примитивные типы данных",
               "level": "junior"
             },
             {
-              "slug": "arifmeticheskie-i-logicheskie-operatory",
+              "slug": "operators",
               "title": "Арифметические и логические операторы",
               "level": "junior"
             },
             {
-              "slug": "usloviya-if-switch",
+              "slug": "conditionals",
               "title": "Условия: if, switch",
               "level": "junior"
             },
             {
-              "slug": "tsikly-for-while-foreach",
+              "slug": "loops",
               "title": "Циклы: for, while, foreach",
               "level": "junior"
             },
             {
-              "slug": "funktsii-parametry-vozvraschaemye-znacheniya",
+              "slug": "functions",
               "title": "Функции, параметры, возвращаемые значения",
               "level": "junior"
             },
             {
-              "slug": "oblast-vidimosti",
+              "slug": "scope",
               "title": "Область видимости",
               "level": "junior"
             },
             {
-              "slug": "rekursiya",
+              "slug": "recursion",
               "title": "Рекурсия",
               "level": "junior"
             },
             {
-              "slug": "isklyucheniya-i-obrabotka-oshibok",
+              "slug": "exceptions",
               "title": "Исключения и обработка ошибок",
               "level": "junior"
             },
             {
-              "slug": "rabota-s-faylami-i-vvodom-vyvodom",
+              "slug": "file-io",
               "title": "Работа с файлами и вводом-выводом",
               "level": "junior"
             }
           ]
         },
         {
-          "slug": "tipizatsiya",
+          "slug": "typing",
           "title": "Типизация",
           "topics": [
             {
-              "slug": "staticheskaya-i-dinamicheskaya-tipizatsiya",
+              "slug": "static-vs-dynamic-typing",
               "title": "Статическая и динамическая типизация",
               "level": "junior"
             },
             {
-              "slug": "strogaya-i-slabaya-tipizatsiya",
+              "slug": "strong-vs-weak-typing",
               "title": "Строгая и слабая типизация",
               "level": "junior"
             },
             {
-              "slug": "obobscheniya-generics",
+              "slug": "generics",
               "title": "Обобщения (generics)",
               "level": "middle"
             },
             {
-              "slug": "null-bezopasnost-i-nullable-tipy",
+              "slug": "null-safety",
               "title": "Null-безопасность и nullable-типы",
               "level": "middle"
             },
             {
-              "slug": "privedenie-tipov-boxing-i-unboxing",
+              "slug": "type-casting-and-boxing",
               "title": "Приведение типов, boxing и unboxing",
               "level": "middle"
             },
             {
-              "slug": "znachimye-i-ssylochnye-tipy",
+              "slug": "value-vs-reference-types",
               "title": "Значимые и ссылочные типы",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "instrumenty",
+          "slug": "tools",
           "title": "Инструменты",
           "topics": [
             {
-              "slug": "ide-i-otladchik-tochki-ostanova-poshagovoe-vypolnenie",
+              "slug": "ide-and-debugger",
               "title": "IDE и отладчик: точки останова, пошаговое выполнение",
               "level": "junior"
             },
             {
-              "slug": "terminal-i-komandnaya-stroka",
+              "slug": "terminal",
               "title": "Терминал и командная строка",
               "level": "junior"
             },
             {
-              "slug": "paketnye-menedzhery",
+              "slug": "package-managers",
               "title": "Пакетные менеджеры",
               "level": "junior"
             },
             {
-              "slug": "chtenie-ofitsialnoy-dokumentatsii",
+              "slug": "reading-documentation",
               "title": "Чтение официальной документации",
               "level": "junior"
             },
             {
-              "slug": "formattery-i-lintery",
+              "slug": "linters-and-formatters",
               "title": "Форматтеры и линтеры",
               "level": "junior"
             }
@@ -169,129 +169,129 @@
       ]
     },
     {
-      "slug": "struktury-dannyh",
+      "slug": "data-structures",
       "title": "Структуры данных",
       "order": 2,
       "groups": [
         {
-          "slug": "lineynye",
+          "slug": "linear",
           "title": "Линейные",
           "topics": [
             {
-              "slug": "massivy",
+              "slug": "arrays",
               "title": "Массивы",
               "level": "junior"
             },
             {
-              "slug": "dinamicheskie-massivy-i-spiski",
+              "slug": "dynamic-arrays-and-lists",
               "title": "Динамические массивы и списки",
               "level": "junior"
             },
             {
-              "slug": "stroki-i-ih-neizmenyaemost",
+              "slug": "strings",
               "title": "Строки и их неизменяемость",
               "level": "junior"
             },
             {
-              "slug": "svyaznye-spiski",
+              "slug": "linked-lists",
               "title": "Связные списки",
               "level": "junior"
             },
             {
-              "slug": "stek",
+              "slug": "stack",
               "title": "Стек",
               "level": "junior"
             },
             {
-              "slug": "ochered-i-dek",
+              "slug": "queue-and-deque",
               "title": "Очередь и дек",
               "level": "junior"
             }
           ]
         },
         {
-          "slug": "assotsiativnye",
+          "slug": "associative",
           "title": "Ассоциативные",
           "topics": [
             {
-              "slug": "hesh-tablitsy-i-slovari",
+              "slug": "hash-tables",
               "title": "Хеш-таблицы и словари",
               "level": "junior"
             },
             {
-              "slug": "mnozhestva",
+              "slug": "sets",
               "title": "Множества",
               "level": "junior"
             },
             {
-              "slug": "hesh-funktsii-i-kollizii",
+              "slug": "hash-functions",
               "title": "Хеш-функции и коллизии",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "derevya-i-grafy",
+          "slug": "trees-and-graphs",
           "title": "Деревья и графы",
           "topics": [
             {
-              "slug": "binarnye-derevya",
+              "slug": "binary-trees",
               "title": "Бинарные деревья",
               "level": "middle"
             },
             {
-              "slug": "binarnoe-derevo-poiska",
+              "slug": "binary-search-tree",
               "title": "Бинарное дерево поиска",
               "level": "middle"
             },
             {
-              "slug": "sbalansirovannye-derevya-avl-krasno-chernye",
+              "slug": "balanced-trees",
               "title": "Сбалансированные деревья: AVL, красно-чёрные",
               "level": "middle"
             },
             {
-              "slug": "kucha-i-ochered-s-prioritetom",
+              "slug": "heap-and-priority-queue",
               "title": "Куча и очередь с приоритетом",
               "level": "middle"
             },
             {
-              "slug": "prefiksnoe-derevo-trie",
+              "slug": "trie",
               "title": "Префиксное дерево (trie)",
               "level": "middle"
             },
             {
-              "slug": "grafy-spiski-i-matritsy-smezhnosti",
+              "slug": "graphs",
               "title": "Графы: списки и матрицы смежности",
               "level": "middle"
             },
             {
-              "slug": "b-derevya",
+              "slug": "b-trees",
               "title": "B-деревья",
               "level": "senior"
             },
             {
-              "slug": "sistema-neperesekayuschihsya-mnozhestv-dsu",
+              "slug": "disjoint-set-union",
               "title": "Система непересекающихся множеств (DSU)",
               "level": "senior"
             }
           ]
         },
         {
-          "slug": "slozhnost",
+          "slug": "complexity",
           "title": "Сложность",
           "topics": [
             {
-              "slug": "notatsiya-o-bolshoe",
+              "slug": "big-o",
               "title": "Нотация O-большое",
               "level": "junior"
             },
             {
-              "slug": "vremya-protiv-pamyati",
+              "slug": "time-vs-space",
               "title": "Время против памяти",
               "level": "junior"
             },
             {
-              "slug": "amortizirovannaya-slozhnost",
+              "slug": "amortized-complexity",
               "title": "Амортизированная сложность",
               "level": "middle"
             }
@@ -300,139 +300,139 @@
       ]
     },
     {
-      "slug": "algoritmy",
+      "slug": "algorithms",
       "title": "Алгоритмы",
       "order": 3,
       "groups": [
         {
-          "slug": "poisk-i-sortirovka",
+          "slug": "search-and-sort",
           "title": "Поиск и сортировка",
           "topics": [
             {
-              "slug": "lineynyy-poisk",
+              "slug": "linear-search",
               "title": "Линейный поиск",
               "level": "junior"
             },
             {
-              "slug": "binarnyy-poisk",
+              "slug": "binary-search",
               "title": "Бинарный поиск",
               "level": "junior"
             },
             {
-              "slug": "sortirovki-puzyrkom-vstavkami-vyborom",
+              "slug": "simple-sorts",
               "title": "Сортировки пузырьком, вставками, выбором",
               "level": "junior"
             },
             {
-              "slug": "sortirovka-sliyaniem",
+              "slug": "merge-sort",
               "title": "Сортировка слиянием",
               "level": "middle"
             },
             {
-              "slug": "bystraya-sortirovka",
+              "slug": "quicksort",
               "title": "Быстрая сортировка",
               "level": "middle"
             },
             {
-              "slug": "sortirovka-podschetom",
+              "slug": "counting-sort",
               "title": "Сортировка подсчётом",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "tehniki-resheniya-zadach",
+          "slug": "techniques",
           "title": "Техники решения задач",
           "topics": [
             {
-              "slug": "dva-ukazatelya",
+              "slug": "two-pointers",
               "title": "Два указателя",
               "level": "junior"
             },
             {
-              "slug": "skolzyaschee-okno",
+              "slug": "sliding-window",
               "title": "Скользящее окно",
               "level": "junior"
             },
             {
-              "slug": "perebor-s-vozvratom-backtracking",
+              "slug": "backtracking",
               "title": "Перебор с возвратом (backtracking)",
               "level": "middle"
             },
             {
-              "slug": "razdelyay-i-vlastvuy",
+              "slug": "divide-and-conquer",
               "title": "Разделяй и властвуй",
               "level": "middle"
             },
             {
-              "slug": "zhadnye-algoritmy",
+              "slug": "greedy-algorithms",
               "title": "Жадные алгоритмы",
               "level": "middle"
             },
             {
-              "slug": "dinamicheskoe-programmirovanie",
+              "slug": "dynamic-programming",
               "title": "Динамическое программирование",
               "level": "middle"
             },
             {
-              "slug": "bitovye-operatsii-i-maski",
+              "slug": "bit-manipulation",
               "title": "Битовые операции и маски",
               "level": "senior"
             }
           ]
         },
         {
-          "slug": "algoritmy-na-grafah",
+          "slug": "graph-algorithms",
           "title": "Алгоритмы на графах",
           "topics": [
             {
-              "slug": "obhod-v-shirinu-bfs",
+              "slug": "bfs",
               "title": "Обход в ширину (BFS)",
               "level": "middle"
             },
             {
-              "slug": "obhod-v-glubinu-dfs",
+              "slug": "dfs",
               "title": "Обход в глубину (DFS)",
               "level": "middle"
             },
             {
-              "slug": "topologicheskaya-sortirovka",
+              "slug": "topological-sort",
               "title": "Топологическая сортировка",
               "level": "middle"
             },
             {
-              "slug": "algoritm-deykstry",
+              "slug": "dijkstra",
               "title": "Алгоритм Дейкстры",
               "level": "middle"
             },
             {
-              "slug": "algoritm-bellmana-forda",
+              "slug": "bellman-ford",
               "title": "Алгоритм Беллмана–Форда",
               "level": "senior"
             },
             {
-              "slug": "minimalnoe-ostovnoe-derevo",
+              "slug": "minimum-spanning-tree",
               "title": "Минимальное остовное дерево",
               "level": "senior"
             }
           ]
         },
         {
-          "slug": "praktika",
+          "slug": "practice",
           "title": "Практика",
           "topics": [
             {
-              "slug": "zadachi-urovnya-easy-na-leetcode",
+              "slug": "leetcode-easy",
               "title": "Задачи уровня easy на LeetCode",
               "level": "junior"
             },
             {
-              "slug": "zadachi-urovnya-medium",
+              "slug": "leetcode-medium",
               "title": "Задачи уровня medium",
               "level": "middle"
             },
             {
-              "slug": "reshenie-zadach-vsluh-kak-na-sobesedovanii",
+              "slug": "interview-problem-solving",
               "title": "Решение задач вслух, как на собеседовании",
               "level": "middle"
             }
@@ -441,53 +441,53 @@
       ]
     },
     {
-      "slug": "oop-i-paradigmy",
+      "slug": "oop",
       "title": "ООП и парадигмы",
       "order": 4,
       "groups": [
         {
-          "slug": "obektno-orientirovannoe-programmirovanie",
+          "slug": "oop-basics",
           "title": "Объектно-ориентированное программирование",
           "topics": [
             {
-              "slug": "klassy-i-obekty",
+              "slug": "classes-and-objects",
               "title": "Классы и объекты",
               "level": "junior"
             },
             {
-              "slug": "inkapsulyatsiya",
+              "slug": "encapsulation",
               "title": "Инкапсуляция",
               "level": "junior"
             },
             {
-              "slug": "nasledovanie",
+              "slug": "inheritance",
               "title": "Наследование",
               "level": "junior"
             },
             {
-              "slug": "polimorfizm",
+              "slug": "polymorphism",
               "title": "Полиморфизм",
               "level": "junior"
             },
             {
-              "slug": "abstraktsiya",
+              "slug": "abstraction",
               "title": "Абстракция",
               "level": "junior"
             },
             {
-              "slug": "interfeysy-i-abstraktnye-klassy",
+              "slug": "interfaces-and-abstract-classes",
               "title": "Интерфейсы и абстрактные классы",
               "level": "junior"
             },
             {
-              "slug": "kompozitsiya-vmesto-nasledovaniya",
+              "slug": "composition-over-inheritance",
               "title": "Композиция вместо наследования",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "printsipy",
+          "slug": "principles",
           "title": "Принципы",
           "topics": [
             {
@@ -501,64 +501,64 @@
               "level": "middle"
             },
             {
-              "slug": "zakon-demetry",
+              "slug": "law-of-demeter",
               "title": "Закон Деметры",
               "level": "middle"
             },
             {
-              "slug": "svyaznost-i-zatseplenie-cohesion-coupling",
+              "slug": "cohesion-and-coupling",
               "title": "Связность и зацепление (cohesion, coupling)",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "patterny-proektirovaniya",
+          "slug": "design-patterns",
           "title": "Паттерны проектирования",
           "topics": [
             {
-              "slug": "porozhdayuschie-factory-builder-singleton",
+              "slug": "creational-patterns",
               "title": "Порождающие: Factory, Builder, Singleton",
               "level": "middle"
             },
             {
-              "slug": "strukturnye-adapter-decorator-facade-proxy",
+              "slug": "structural-patterns",
               "title": "Структурные: Adapter, Decorator, Facade, Proxy",
               "level": "middle"
             },
             {
-              "slug": "povedencheskie-strategy-observer-command-chain-of-responsibi",
+              "slug": "behavioral-patterns",
               "title": "Поведенческие: Strategy, Observer, Command, Chain of Responsibility",
               "level": "middle"
             },
             {
-              "slug": "vnedrenie-zavisimostey-di",
+              "slug": "dependency-injection",
               "title": "Внедрение зависимостей (DI)",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "drugie-paradigmy",
+          "slug": "other-paradigms",
           "title": "Другие парадигмы",
           "topics": [
             {
-              "slug": "funktsionalnoe-programmirovanie-chistye-funktsii-neizmenyaem",
+              "slug": "functional-programming",
               "title": "Функциональное программирование: чистые функции, неизменяемость",
               "level": "middle"
             },
             {
-              "slug": "lyambdy-i-funktsii-vysshego-poryadka",
+              "slug": "lambdas-and-higher-order-functions",
               "title": "Лямбды и функции высшего порядка",
               "level": "middle"
             },
             {
-              "slug": "deklarativnyy-i-imperativnyy-stil",
+              "slug": "declarative-vs-imperative",
               "title": "Декларативный и императивный стиль",
               "level": "middle"
             },
             {
-              "slug": "reaktivnoe-programmirovanie",
+              "slug": "reactive-programming",
               "title": "Реактивное программирование",
               "level": "senior"
             }
@@ -567,12 +567,12 @@
       ]
     },
     {
-      "slug": "git-i-komandnaya-rabota",
+      "slug": "git",
       "title": "Git и командная работа",
       "order": 5,
       "groups": [
         {
-          "slug": "git",
+          "slug": "git-basics",
           "title": "Git",
           "topics": [
             {
@@ -581,7 +581,7 @@
               "level": "junior"
             },
             {
-              "slug": "vetki-i-sliyanie",
+              "slug": "branching-and-merging",
               "title": "Ветки и слияние",
               "level": "junior"
             },
@@ -601,38 +601,38 @@
               "level": "middle"
             },
             {
-              "slug": "razreshenie-konfliktov",
+              "slug": "merge-conflicts",
               "title": "Разрешение конфликтов",
               "level": "middle"
             },
             {
-              "slug": "cherry-pick-i-stash",
+              "slug": "cherry-pick-and-stash",
               "title": "cherry-pick и stash",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "protsessy",
+          "slug": "workflow",
           "title": "Процессы",
           "topics": [
             {
-              "slug": "pull-request-i-code-review",
+              "slug": "pull-requests-and-code-review",
               "title": "Pull request и code review",
               "level": "junior"
             },
             {
-              "slug": "osmyslennye-soobscheniya-kommitov",
+              "slug": "commit-messages",
               "title": "Осмысленные сообщения коммитов",
               "level": "junior"
             },
             {
-              "slug": "git-flow-i-trunk-based-development",
+              "slug": "git-flow-and-trunk-based",
               "title": "Git Flow и trunk-based development",
               "level": "middle"
             },
             {
-              "slug": "semanticheskoe-versionirovanie",
+              "slug": "semantic-versioning",
               "title": "Семантическое версионирование",
               "level": "middle"
             }
@@ -641,16 +641,16 @@
       ]
     },
     {
-      "slug": "seti-i-veb",
+      "slug": "networking",
       "title": "Сети и веб",
       "order": 6,
       "groups": [
         {
-          "slug": "osnovy-setey",
+          "slug": "network-basics",
           "title": "Основы сетей",
           "topics": [
             {
-              "slug": "ip-adresa-i-porty",
+              "slug": "ip-and-ports",
               "title": "IP-адреса и порты",
               "level": "junior"
             },
@@ -660,17 +660,17 @@
               "level": "junior"
             },
             {
-              "slug": "tcp-i-udp",
+              "slug": "tcp-and-udp",
               "title": "TCP и UDP",
               "level": "middle"
             },
             {
-              "slug": "model-osi-i-stek-tcp-ip",
+              "slug": "osi-and-tcp-ip",
               "title": "Модель OSI и стек TCP/IP",
               "level": "middle"
             },
             {
-              "slug": "nat-proksi-balansirovschiki",
+              "slug": "nat-proxies-load-balancers",
               "title": "NAT, прокси, балансировщики",
               "level": "middle"
             }
@@ -681,17 +681,17 @@
           "title": "HTTP",
           "topics": [
             {
-              "slug": "metody-zaprosov",
+              "slug": "http-methods",
               "title": "Методы запросов",
               "level": "junior"
             },
             {
-              "slug": "kody-otvetov",
+              "slug": "status-codes",
               "title": "Коды ответов",
               "level": "junior"
             },
             {
-              "slug": "zagolovki",
+              "slug": "headers",
               "title": "Заголовки",
               "level": "junior"
             },
@@ -701,12 +701,12 @@
               "level": "junior"
             },
             {
-              "slug": "https-i-tls",
+              "slug": "https-and-tls",
               "title": "HTTPS и TLS",
               "level": "middle"
             },
             {
-              "slug": "http-2-i-http-3",
+              "slug": "http2-and-http3",
               "title": "HTTP/2 и HTTP/3",
               "level": "middle"
             },
@@ -716,7 +716,7 @@
               "level": "middle"
             },
             {
-              "slug": "keshirovanie-cache-control-etag",
+              "slug": "http-caching",
               "title": "Кеширование: Cache-Control, ETag",
               "level": "middle"
             }
@@ -737,17 +737,17 @@
               "level": "junior"
             },
             {
-              "slug": "idempotentnost",
+              "slug": "idempotency",
               "title": "Идемпотентность",
               "level": "middle"
             },
             {
-              "slug": "versionirovanie-api",
+              "slug": "api-versioning",
               "title": "Версионирование API",
               "level": "middle"
             },
             {
-              "slug": "openapi-i-swagger",
+              "slug": "openapi-and-swagger",
               "title": "OpenAPI и Swagger",
               "level": "middle"
             },
@@ -762,23 +762,23 @@
               "level": "middle"
             },
             {
-              "slug": "websocket-i-server-sent-events",
+              "slug": "websocket-and-sse",
               "title": "WebSocket и Server-Sent Events",
               "level": "middle"
             },
             {
-              "slug": "vebhuki",
+              "slug": "webhooks",
               "title": "Вебхуки",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "brauzer",
+          "slug": "browser",
           "title": "Браузер",
           "topics": [
             {
-              "slug": "kak-brauzer-otrisovyvaet-stranitsu",
+              "slug": "browser-rendering",
               "title": "Как браузер отрисовывает страницу",
               "level": "junior"
             },
@@ -797,7 +797,7 @@
       ]
     },
     {
-      "slug": "bazy-dannyh",
+      "slug": "databases",
       "title": "Базы данных",
       "order": 7,
       "groups": [
@@ -806,7 +806,7 @@
           "title": "SQL",
           "topics": [
             {
-              "slug": "relyatsionnaya-model",
+              "slug": "relational-model",
               "title": "Реляционная модель",
               "level": "junior"
             },
@@ -821,7 +821,7 @@
               "level": "junior"
             },
             {
-              "slug": "group-by-i-having",
+              "slug": "group-by-having",
               "title": "GROUP BY и HAVING",
               "level": "junior"
             },
@@ -831,81 +831,81 @@
               "level": "junior"
             },
             {
-              "slug": "podzaprosy-i-cte",
+              "slug": "subqueries-and-cte",
               "title": "Подзапросы и CTE",
               "level": "middle"
             },
             {
-              "slug": "okonnye-funktsii",
+              "slug": "window-functions",
               "title": "Оконные функции",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "proektirovanie",
+          "slug": "design",
           "title": "Проектирование",
           "topics": [
             {
-              "slug": "pervichnye-i-vneshnie-klyuchi",
+              "slug": "primary-and-foreign-keys",
               "title": "Первичные и внешние ключи",
               "level": "junior"
             },
             {
-              "slug": "svyazi-odin-k-odnomu-odin-ko-mnogim-mnogie-ko-mnogim",
+              "slug": "relationships",
               "title": "Связи один-к-одному, один-ко-многим, многие-ко-многим",
               "level": "junior"
             },
             {
-              "slug": "normalizatsiya",
+              "slug": "normalization",
               "title": "Нормализация",
               "level": "middle"
             },
             {
-              "slug": "denormalizatsiya",
+              "slug": "denormalization",
               "title": "Денормализация",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "proizvoditelnost",
+          "slug": "performance",
           "title": "Производительность",
           "topics": [
             {
-              "slug": "indeksy",
+              "slug": "indexes",
               "title": "Индексы",
               "level": "middle"
             },
             {
-              "slug": "plan-zaprosa-explain",
+              "slug": "query-plan-explain",
               "title": "План запроса (EXPLAIN)",
               "level": "middle"
             },
             {
-              "slug": "problema-n-1",
+              "slug": "n-plus-one",
               "title": "Проблема N+1",
               "level": "middle"
             },
             {
-              "slug": "partitsionirovanie",
+              "slug": "partitioning",
               "title": "Партиционирование",
               "level": "senior"
             },
             {
-              "slug": "shardirovanie",
+              "slug": "sharding",
               "title": "Шардирование",
               "level": "senior"
             },
             {
-              "slug": "replikatsiya",
+              "slug": "replication",
               "title": "Репликация",
               "level": "senior"
             }
           ]
         },
         {
-          "slug": "tranzaktsii",
+          "slug": "transactions",
           "title": "Транзакции",
           "topics": [
             {
@@ -914,12 +914,12 @@
               "level": "middle"
             },
             {
-              "slug": "urovni-izolyatsii",
+              "slug": "isolation-levels",
               "title": "Уровни изоляции",
               "level": "middle"
             },
             {
-              "slug": "blokirovki-i-vzaimoblokirovki",
+              "slug": "locks-and-deadlocks",
               "title": "Блокировки и взаимоблокировки",
               "level": "middle"
             },
@@ -929,7 +929,7 @@
               "level": "senior"
             },
             {
-              "slug": "optimistichnye-i-pessimistichnye-blokirovki",
+              "slug": "optimistic-vs-pessimistic-locking",
               "title": "Оптимистичные и пессимистичные блокировки",
               "level": "senior"
             }
@@ -940,27 +940,27 @@
           "title": "NoSQL",
           "topics": [
             {
-              "slug": "dokumentnye-bd-mongodb",
+              "slug": "document-databases",
               "title": "Документные БД (MongoDB)",
               "level": "middle"
             },
             {
-              "slug": "key-value-hranilischa-redis",
+              "slug": "key-value-stores",
               "title": "Key-value хранилища (Redis)",
               "level": "middle"
             },
             {
-              "slug": "teorema-cap",
+              "slug": "cap-theorem",
               "title": "Теорема CAP",
               "level": "middle"
             },
             {
-              "slug": "kolonochnye-bd",
+              "slug": "columnar-databases",
               "title": "Колоночные БД",
               "level": "senior"
             },
             {
-              "slug": "grafovye-bd",
+              "slug": "graph-databases",
               "title": "Графовые БД",
               "level": "senior"
             }
@@ -971,17 +971,17 @@
           "title": "ORM",
           "topics": [
             {
-              "slug": "chto-takoe-orm",
+              "slug": "what-is-orm",
               "title": "Что такое ORM",
               "level": "junior"
             },
             {
-              "slug": "migratsii",
+              "slug": "migrations",
               "title": "Миграции",
               "level": "middle"
             },
             {
-              "slug": "lenivaya-i-zhadnaya-zagruzka",
+              "slug": "lazy-and-eager-loading",
               "title": "Ленивая и жадная загрузка",
               "level": "middle"
             }
@@ -995,21 +995,21 @@
       "order": 8,
       "groups": [
         {
-          "slug": "osnovy",
+          "slug": "basics",
           "title": "Основы",
           "topics": [
             {
-              "slug": "chto-delaet-server",
+              "slug": "what-a-server-does",
               "title": "Что делает сервер",
               "level": "junior"
             },
             {
-              "slug": "marshrutizatsiya",
+              "slug": "routing",
               "title": "Маршрутизация",
               "level": "junior"
             },
             {
-              "slug": "kontrollery-i-obrabotchiki",
+              "slug": "controllers-and-handlers",
               "title": "Контроллеры и обработчики",
               "level": "junior"
             },
@@ -1019,28 +1019,28 @@
               "level": "junior"
             },
             {
-              "slug": "validatsiya-vhodnyh-dannyh",
+              "slug": "input-validation",
               "title": "Валидация входных данных",
               "level": "junior"
             },
             {
-              "slug": "konfiguratsiya-i-peremennye-okruzheniya",
+              "slug": "configuration",
               "title": "Конфигурация и переменные окружения",
               "level": "junior"
             },
             {
-              "slug": "logirovanie",
+              "slug": "logging",
               "title": "Логирование",
               "level": "junior"
             }
           ]
         },
         {
-          "slug": "autentifikatsiya-i-avtorizatsiya",
+          "slug": "auth",
           "title": "Аутентификация и авторизация",
           "topics": [
             {
-              "slug": "sessii-i-tokeny",
+              "slug": "sessions-and-tokens",
               "title": "Сессии и токены",
               "level": "junior"
             },
@@ -1050,24 +1050,24 @@
               "level": "middle"
             },
             {
-              "slug": "oauth-2-0-i-openid-connect",
+              "slug": "oauth-and-openid-connect",
               "title": "OAuth 2.0 и OpenID Connect",
               "level": "middle"
             },
             {
-              "slug": "heshirovanie-paroley",
+              "slug": "password-hashing",
               "title": "Хеширование паролей",
               "level": "middle"
             },
             {
-              "slug": "roli-i-prava-dostupa",
+              "slug": "roles-and-permissions",
               "title": "Роли и права доступа",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "asinhronnost",
+          "slug": "concurrency",
           "title": "Асинхронность",
           "topics": [
             {
@@ -1076,64 +1076,64 @@
               "level": "middle"
             },
             {
-              "slug": "mnogopotochnost",
+              "slug": "multithreading",
               "title": "Многопоточность",
               "level": "middle"
             },
             {
-              "slug": "gonki-dannyh-i-sinhronizatsiya",
+              "slug": "race-conditions",
               "title": "Гонки данных и синхронизация",
               "level": "middle"
             },
             {
-              "slug": "puly-potokov",
+              "slug": "thread-pools",
               "title": "Пулы потоков",
               "level": "senior"
             }
           ]
         },
         {
-          "slug": "integratsii",
+          "slug": "integrations",
           "title": "Интеграции",
           "topics": [
             {
-              "slug": "ocheredi-soobscheniy-rabbitmq-kafka",
+              "slug": "message-queues",
               "title": "Очереди сообщений: RabbitMQ, Kafka",
               "level": "middle"
             },
             {
-              "slug": "fonovye-zadachi",
+              "slug": "background-jobs",
               "title": "Фоновые задачи",
               "level": "middle"
             },
             {
-              "slug": "keshirovanie-cherez-redis",
+              "slug": "redis-caching",
               "title": "Кеширование через Redis",
               "level": "middle"
             },
             {
-              "slug": "ogranichenie-chastoty-zaprosov",
+              "slug": "rate-limiting",
               "title": "Ограничение частоты запросов",
               "level": "middle"
             },
             {
-              "slug": "povtornye-popytki-i-circuit-breaker",
+              "slug": "retries-and-circuit-breaker",
               "title": "Повторные попытки и circuit breaker",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "nablyudaemost",
+          "slug": "observability",
           "title": "Наблюдаемость",
           "topics": [
             {
-              "slug": "strukturirovannye-logi",
+              "slug": "structured-logging",
               "title": "Структурированные логи",
               "level": "middle"
             },
             {
-              "slug": "metriki",
+              "slug": "metrics",
               "title": "Метрики",
               "level": "middle"
             },
@@ -1143,7 +1143,7 @@
               "level": "middle"
             },
             {
-              "slug": "raspredelennaya-trassirovka-opentelemetry",
+              "slug": "distributed-tracing",
               "title": "Распределённая трассировка (OpenTelemetry)",
               "level": "senior"
             }
@@ -1157,21 +1157,21 @@
       "order": 9,
       "groups": [
         {
-          "slug": "verstka",
+          "slug": "layout",
           "title": "Вёрстка",
           "topics": [
             {
-              "slug": "semanticheskiy-html",
+              "slug": "semantic-html",
               "title": "Семантический HTML",
               "level": "junior"
             },
             {
-              "slug": "css-selektory-i-kaskad",
+              "slug": "css-selectors-and-cascade",
               "title": "CSS: селекторы и каскад",
               "level": "junior"
             },
             {
-              "slug": "blochnaya-model",
+              "slug": "box-model",
               "title": "Блочная модель",
               "level": "junior"
             },
@@ -1186,28 +1186,28 @@
               "level": "junior"
             },
             {
-              "slug": "adaptivnaya-verstka",
+              "slug": "responsive-design",
               "title": "Адаптивная вёрстка",
               "level": "junior"
             }
           ]
         },
         {
-          "slug": "javascript-i-freymvorki",
+          "slug": "javascript",
           "title": "JavaScript и фреймворки",
           "topics": [
             {
-              "slug": "osnovy-javascript",
+              "slug": "javascript-basics",
               "title": "Основы JavaScript",
               "level": "junior"
             },
             {
-              "slug": "dom-i-sobytiya",
+              "slug": "dom-and-events",
               "title": "DOM и события",
               "level": "junior"
             },
             {
-              "slug": "zaprosy-cherez-fetch",
+              "slug": "fetch",
               "title": "Запросы через fetch",
               "level": "junior"
             },
@@ -1217,38 +1217,38 @@
               "level": "middle"
             },
             {
-              "slug": "freymvork-react-vue-ili-angular",
+              "slug": "spa-frameworks",
               "title": "Фреймворк: React, Vue или Angular",
               "level": "middle"
             },
             {
-              "slug": "upravlenie-sostoyaniem",
+              "slug": "state-management",
               "title": "Управление состоянием",
               "level": "middle"
             },
             {
-              "slug": "routing-v-spa",
+              "slug": "spa-routing",
               "title": "Роутинг в SPA",
               "level": "middle"
             },
             {
-              "slug": "sborschiki-vite",
+              "slug": "bundlers",
               "title": "Сборщики (Vite)",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "kachestvo",
+          "slug": "quality",
           "title": "Качество",
           "topics": [
             {
-              "slug": "dostupnost-a11y",
+              "slug": "accessibility",
               "title": "Доступность (a11y)",
               "level": "middle"
             },
             {
-              "slug": "proizvoditelnost-veb-stranits",
+              "slug": "web-performance",
               "title": "Производительность веб-страниц",
               "level": "middle"
             }
@@ -1257,57 +1257,57 @@
       ]
     },
     {
-      "slug": "testirovanie",
+      "slug": "testing",
       "title": "Тестирование",
       "order": 10,
       "groups": [
         {
-          "slug": "vidy-testov",
+          "slug": "test-types",
           "title": "Виды тестов",
           "topics": [
             {
-              "slug": "zachem-nuzhny-testy",
+              "slug": "why-tests",
               "title": "Зачем нужны тесты",
               "level": "junior"
             },
             {
-              "slug": "modulnye-testy",
+              "slug": "unit-tests",
               "title": "Модульные тесты",
               "level": "junior"
             },
             {
-              "slug": "struktura-arrange-act-assert",
+              "slug": "arrange-act-assert",
               "title": "Структура Arrange–Act–Assert",
               "level": "junior"
             },
             {
-              "slug": "integratsionnye-testy",
+              "slug": "integration-tests",
               "title": "Интеграционные тесты",
               "level": "middle"
             },
             {
-              "slug": "end-to-end-testy",
+              "slug": "end-to-end-tests",
               "title": "End-to-end тесты",
               "level": "middle"
             },
             {
-              "slug": "nagruzochnoe-testirovanie",
+              "slug": "load-testing",
               "title": "Нагрузочное тестирование",
               "level": "senior"
             },
             {
-              "slug": "kontraktnoe-testirovanie",
+              "slug": "contract-testing",
               "title": "Контрактное тестирование",
               "level": "senior"
             }
           ]
         },
         {
-          "slug": "praktiki",
+          "slug": "practices",
           "title": "Практики",
           "topics": [
             {
-              "slug": "moki-i-staby",
+              "slug": "mocks-and-stubs",
               "title": "Моки и стабы",
               "level": "middle"
             },
@@ -1317,7 +1317,7 @@
               "level": "middle"
             },
             {
-              "slug": "pokrytie-koda",
+              "slug": "code-coverage",
               "title": "Покрытие кода",
               "level": "middle"
             }
@@ -1326,7 +1326,7 @@
       ]
     },
     {
-      "slug": "devops-i-infrastruktura",
+      "slug": "devops",
       "title": "DevOps и инфраструктура",
       "order": 11,
       "groups": [
@@ -1335,17 +1335,17 @@
           "title": "Linux",
           "topics": [
             {
-              "slug": "navigatsiya-fayly-i-prava",
+              "slug": "files-and-permissions",
               "title": "Навигация, файлы и права",
               "level": "junior"
             },
             {
-              "slug": "protsessy",
+              "slug": "processes",
               "title": "Процессы",
               "level": "junior"
             },
             {
-              "slug": "bash-skripty",
+              "slug": "bash-scripting",
               "title": "Bash-скрипты",
               "level": "middle"
             },
@@ -1357,11 +1357,11 @@
           ]
         },
         {
-          "slug": "konteynery",
+          "slug": "containers",
           "title": "Контейнеры",
           "topics": [
             {
-              "slug": "obrazy-i-konteynery-docker",
+              "slug": "docker-images-and-containers",
               "title": "Образы и контейнеры Docker",
               "level": "middle"
             },
@@ -1376,7 +1376,7 @@
               "level": "middle"
             },
             {
-              "slug": "osnovy-kubernetes",
+              "slug": "kubernetes-basics",
               "title": "Основы Kubernetes",
               "level": "senior"
             }
@@ -1387,29 +1387,29 @@
           "title": "CI/CD",
           "topics": [
             {
-              "slug": "payplayny-github-actions",
+              "slug": "github-actions-pipelines",
               "title": "Пайплайны (GitHub Actions)",
               "level": "middle"
             },
             {
-              "slug": "avtotesty-v-ci",
+              "slug": "tests-in-ci",
               "title": "Автотесты в CI",
               "level": "middle"
             },
             {
-              "slug": "avtomaticheskiy-deploy",
+              "slug": "continuous-deployment",
               "title": "Автоматический деплой",
               "level": "middle"
             },
             {
-              "slug": "blue-green-i-canary-relizy",
+              "slug": "blue-green-and-canary",
               "title": "Blue-green и canary-релизы",
               "level": "senior"
             }
           ]
         },
         {
-          "slug": "oblaka",
+          "slug": "cloud",
           "title": "Облака",
           "topics": [
             {
@@ -1418,17 +1418,17 @@
               "level": "middle"
             },
             {
-              "slug": "bazovye-oblachnye-servisy-vychisleniya-hranilische-bd",
+              "slug": "core-cloud-services",
               "title": "Базовые облачные сервисы: вычисления, хранилище, БД",
               "level": "middle"
             },
             {
-              "slug": "upravlenie-sekretami",
+              "slug": "secrets-management",
               "title": "Управление секретами",
               "level": "middle"
             },
             {
-              "slug": "infrastructure-as-code-terraform",
+              "slug": "infrastructure-as-code",
               "title": "Infrastructure as Code (Terraform)",
               "level": "senior"
             }
@@ -1437,21 +1437,21 @@
       ]
     },
     {
-      "slug": "arhitektura-i-sistemnyy-dizayn",
+      "slug": "architecture",
       "title": "Архитектура и системный дизайн",
       "order": 12,
       "groups": [
         {
-          "slug": "arhitektura-prilozheniy",
+          "slug": "application-architecture",
           "title": "Архитектура приложений",
           "topics": [
             {
-              "slug": "monolit-i-mikroservisy",
+              "slug": "monolith-vs-microservices",
               "title": "Монолит и микросервисы",
               "level": "middle"
             },
             {
-              "slug": "sloistaya-arhitektura",
+              "slug": "layered-architecture",
               "title": "Слоистая архитектура",
               "level": "middle"
             },
@@ -1478,16 +1478,16 @@
           ]
         },
         {
-          "slug": "sistemnyy-dizayn",
+          "slug": "system-design",
           "title": "Системный дизайн",
           "topics": [
             {
-              "slug": "gorizontalnoe-i-vertikalnoe-masshtabirovanie",
+              "slug": "horizontal-vs-vertical-scaling",
               "title": "Горизонтальное и вертикальное масштабирование",
               "level": "middle"
             },
             {
-              "slug": "balansirovka-nagruzki",
+              "slug": "load-balancing",
               "title": "Балансировка нагрузки",
               "level": "middle"
             },
@@ -1497,22 +1497,22 @@
               "level": "middle"
             },
             {
-              "slug": "zadacha-servis-korotkih-ssylok",
+              "slug": "design-url-shortener",
               "title": "Задача: сервис коротких ссылок",
               "level": "middle"
             },
             {
-              "slug": "soglasovannost-v-raspredelennyh-sistemah",
+              "slug": "distributed-consistency",
               "title": "Согласованность в распределённых системах",
               "level": "senior"
             },
             {
-              "slug": "pattern-saga",
+              "slug": "saga-pattern",
               "title": "Паттерн Saga",
               "level": "senior"
             },
             {
-              "slug": "zadacha-chat-ili-lenta-novostey",
+              "slug": "design-chat-or-news-feed",
               "title": "Задача: чат или лента новостей",
               "level": "senior"
             }
@@ -1521,12 +1521,12 @@
       ]
     },
     {
-      "slug": "bezopasnost",
+      "slug": "security",
       "title": "Безопасность",
       "order": 13,
       "groups": [
         {
-          "slug": "uyazvimosti-i-zaschita",
+          "slug": "vulnerabilities",
           "title": "Уязвимости и защита",
           "topics": [
             {
@@ -1535,7 +1535,7 @@
               "level": "junior"
             },
             {
-              "slug": "sql-inektsii",
+              "slug": "sql-injection",
               "title": "SQL-инъекции",
               "level": "junior"
             },
@@ -1545,7 +1545,7 @@
               "level": "junior"
             },
             {
-              "slug": "https-vezde",
+              "slug": "https-everywhere",
               "title": "HTTPS везде",
               "level": "junior"
             },
@@ -1555,22 +1555,22 @@
               "level": "middle"
             },
             {
-              "slug": "sekrety-vne-koda",
+              "slug": "secrets-outside-code",
               "title": "Секреты вне кода",
               "level": "middle"
             },
             {
-              "slug": "printsip-naimenshih-privilegiy",
+              "slug": "least-privilege",
               "title": "Принцип наименьших привилегий",
               "level": "middle"
             },
             {
-              "slug": "uyazvimye-zavisimosti",
+              "slug": "vulnerable-dependencies",
               "title": "Уязвимые зависимости",
               "level": "middle"
             },
             {
-              "slug": "simmetrichnoe-i-asimmetrichnoe-shifrovanie",
+              "slug": "symmetric-vs-asymmetric-encryption",
               "title": "Симметричное и асимметричное шифрование",
               "level": "senior"
             }
@@ -1579,52 +1579,52 @@
       ]
     },
     {
-      "slug": "professionalnye-navyki",
+      "slug": "professional-skills",
       "title": "Профессиональные навыки",
       "order": 14,
       "groups": [
         {
-          "slug": "rabota-s-kodom",
+          "slug": "working-with-code",
           "title": "Работа с кодом",
           "topics": [
             {
-              "slug": "chistyy-kod-i-neyming",
+              "slug": "clean-code-and-naming",
               "title": "Чистый код и нейминг",
               "level": "junior"
             },
             {
-              "slug": "refaktoring",
+              "slug": "refactoring",
               "title": "Рефакторинг",
               "level": "junior"
             },
             {
-              "slug": "chtenie-chuzhogo-koda",
+              "slug": "reading-code",
               "title": "Чтение чужого кода",
               "level": "junior"
             },
             {
-              "slug": "dokumentirovanie",
+              "slug": "documentation",
               "title": "Документирование",
               "level": "middle"
             }
           ]
         },
         {
-          "slug": "rabota-v-komande",
+          "slug": "teamwork",
           "title": "Работа в команде",
           "topics": [
             {
-              "slug": "kak-zadavat-voprosy",
+              "slug": "asking-questions",
               "title": "Как задавать вопросы",
               "level": "junior"
             },
             {
-              "slug": "angliyskiy-dlya-razrabotchika",
+              "slug": "english-for-developers",
               "title": "Английский для разработчика",
               "level": "junior"
             },
             {
-              "slug": "otsenka-zadach",
+              "slug": "task-estimation",
               "title": "Оценка задач",
               "level": "middle"
             },
@@ -1636,21 +1636,21 @@
           ]
         },
         {
-          "slug": "karera",
+          "slug": "career",
           "title": "Карьера",
           "topics": [
             {
-              "slug": "rezyume-i-portfolio",
+              "slug": "resume-and-portfolio",
               "title": "Резюме и портфолио",
               "level": "middle"
             },
             {
-              "slug": "podgotovka-k-tehnicheskomu-sobesedovaniyu",
+              "slug": "technical-interview-prep",
               "title": "Подготовка к техническому собеседованию",
               "level": "middle"
             },
             {
-              "slug": "povedencheskie-voprosy-i-metod-star",
+              "slug": "behavioral-interview-star",
               "title": "Поведенческие вопросы и метод STAR",
               "level": "middle"
             }
