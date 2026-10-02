@@ -112,10 +112,10 @@ public class TopicPageTests : IClassFixture<WebApplicationFactory<Program>>
     {
         var catalog = LoadCatalog();
         var section = catalog.FindSection("fundamentals")!;
-        var topic = catalog.FindTopic("fundamentals", "binary-bits-bytes")!;
-        using var client = _factory.CreateClient();
+        var topic = catalog.FindTopic("fundamentals", "cpu-memory-disk")!;
+        using var client = _factory.WithoutLessons().CreateClient();
 
-        var body = Decode(await client.GetStringAsync("/fundamentals/binary-bits-bytes"));
+        var body = Decode(await client.GetStringAsync("/fundamentals/cpu-memory-disk"));
 
         Assert.Contains("Урок в разработке", body);
         Assert.Contains($"<title>{topic.Title} — {section.Title} — Карта программиста</title>", body);

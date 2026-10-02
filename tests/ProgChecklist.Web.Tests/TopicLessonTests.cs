@@ -115,12 +115,13 @@ public class TopicLessonTests : IClassFixture<WebApplicationFactory<Program>>
     }
 
     [Fact]
-    public async Task Get_DefaultConfigTopic_ShowsStub()
+    public async Task Get_MissingLessonsFolder_ShowsStub()
     {
-        // Arrange (default config: repo content/lessons has no lessons)
+        // Arrange (missing lessons folder = no lessons, independent of the real content)
+        var factory = _factory.WithoutLessons();
 
         // Act
-        var (status, body) = await GetAsync(_factory, LessonUrl);
+        var (status, body) = await GetAsync(factory, LessonUrl);
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, status);

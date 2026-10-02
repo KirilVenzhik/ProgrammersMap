@@ -72,10 +72,10 @@ public class LessonIndicatorTests : IClassFixture<WebApplicationFactory<Program>
     }
 
     [Fact]
-    public async Task GetHome_DefaultConfigWithoutLessons_HasNoBadges()
+    public async Task GetHome_MissingLessonsFolder_HasNoBadges()
     {
         // Arrange
-        using var client = _factory.CreateClient();
+        using var client = _factory.WithoutLessons().CreateClient();
 
         // Act
         var html = await client.GetStringAsync("/");

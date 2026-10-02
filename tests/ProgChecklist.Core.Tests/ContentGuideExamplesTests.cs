@@ -50,7 +50,7 @@ public class ContentGuideExamplesTests
     private static JsonTopicCatalog LoadTopics() =>
         JsonTopicCatalog.LoadFromFile(Path.Combine(FindRepoRoot(), "content", "topics.json"));
 
-    private static string FindRepoRoot([CallerFilePath] string sourceFile = "")
+    internal static string FindRepoRoot([CallerFilePath] string sourceFile = "")
     {
         // Artifacts may be redirected outside the repo (WSL runs, ADR-9), so fall back to this source file's location.
         foreach (var start in new[] { AppContext.BaseDirectory, Path.GetDirectoryName(sourceFile) })

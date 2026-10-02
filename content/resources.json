@@ -1,1 +1,53 @@
-{ "version": 1, "resources": {} }
+{
+  "version": 1,
+  "resources": {
+    "git/init-add-commit": [
+      { "title": "Git — документация git commit", "url": "https://git-scm.com/docs/git-commit", "kind": "docs", "lang": "en", "free": true, "affiliate": false },
+      { "title": "Pro Git: запись изменений в репозиторий", "url": "https://git-scm.com/book/ru/v2/Основы-Git-Запись-изменений-в-репозиторий", "kind": "book", "lang": "ru", "free": true, "affiliate": false },
+      { "title": "Pro Git: получение репозитория Git", "url": "https://git-scm.com/book/ru/v2/Основы-Git-Получение-репозитория-Git", "kind": "book", "lang": "ru", "free": true, "affiliate": false }
+    ],
+    "git/branching-and-merging": [
+      { "title": "Pro Git: основы ветвления и слияния", "url": "https://git-scm.com/book/ru/v2/Ветвление-в-Git-Основы-ветвления-и-слияния", "kind": "book", "lang": "ru", "free": true, "affiliate": false },
+      { "title": "Pro Git: ветки в двух словах", "url": "https://git-scm.com/book/ru/v2/Ветвление-в-Git-Ветки-в-двух-словах", "kind": "book", "lang": "ru", "free": true, "affiliate": false },
+      { "title": "Git — документация git merge", "url": "https://git-scm.com/docs/git-merge", "kind": "docs", "lang": "en", "free": true, "affiliate": false },
+      { "title": "Git — документация git branch", "url": "https://git-scm.com/docs/git-branch", "kind": "docs", "lang": "en", "free": true, "affiliate": false }
+    ],
+    "databases/join": [
+      { "title": "PostgreSQL: соединения таблиц (руководство)", "url": "https://www.postgresql.org/docs/current/tutorial-join.html", "kind": "docs", "lang": "en", "free": true, "affiliate": false },
+      { "title": "PostgreSQL: табличные выражения и JOIN в запросах", "url": "https://www.postgresql.org/docs/current/queries-table-expressions.html", "kind": "docs", "lang": "en", "free": true, "affiliate": false }
+    ],
+    "databases/indexes": [
+      { "title": "PostgreSQL: индексы", "url": "https://www.postgresql.org/docs/current/indexes.html", "kind": "docs", "lang": "en", "free": true, "affiliate": false },
+      { "title": "Use The Index, Luke: анатомия индекса SQL", "url": "https://use-the-index-luke.com/sql/anatomy", "kind": "book", "lang": "en", "free": true, "affiliate": false },
+      { "title": "PostgreSQL: типы индексов", "url": "https://www.postgresql.org/docs/current/indexes-types.html", "kind": "docs", "lang": "en", "free": true, "affiliate": false }
+    ],
+    "fundamentals/binary-bits-bytes": [
+      { "title": "NIST: префиксы для двоичных кратных (КиБ, МиБ)", "url": "https://physics.nist.gov/cuu/Units/binary.html", "kind": "article", "lang": "en", "free": true, "affiliate": false },
+      { "title": "MDN: Number.prototype.toString — числа в разных системах счисления", "url": "https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Number/toString", "kind": "docs", "lang": "ru", "free": true, "affiliate": false }
+    ],
+    "fundamentals/encodings": [
+      { "title": "Microsoft Learn: введение в кодировку символов в .NET", "url": "https://learn.microsoft.com/ru-ru/dotnet/standard/base-types/character-encoding-introduction", "kind": "docs", "lang": "ru", "free": true, "affiliate": false },
+      { "title": "MDN: кодировка символов (глоссарий)", "url": "https://developer.mozilla.org/ru/docs/Glossary/Character_encoding", "kind": "docs", "lang": "ru", "free": true, "affiliate": false },
+      { "title": "Unicode Consortium: что такое Unicode", "url": "https://www.unicode.org/standard/WhatIsUnicode.html", "kind": "article", "lang": "en", "free": true, "affiliate": false },
+      { "title": "RFC 3629: UTF-8, формат преобразования ISO 10646", "url": "https://www.rfc-editor.org/rfc/rfc3629.html", "kind": "docs", "lang": "en", "free": true, "affiliate": false }
+    ],
+    "networking/http-methods": [
+      { "title": "MDN: HTTP-методы запроса", "url": "https://developer.mozilla.org/ru/docs/Web/HTTP/Reference/Methods", "kind": "docs", "lang": "ru", "free": true, "affiliate": false },
+      { "title": "RFC 9110: семантика HTTP, раздел «Methods»", "url": "https://www.rfc-editor.org/rfc/rfc9110.html#name-methods", "kind": "docs", "lang": "en", "free": true, "affiliate": false }
+    ],
+    "networking/status-codes": [
+      { "title": "MDN: коды состояния HTTP-ответа", "url": "https://developer.mozilla.org/ru/docs/Web/HTTP/Reference/Status", "kind": "docs", "lang": "ru", "free": true, "affiliate": false },
+      { "title": "RFC 9110: семантика HTTP, раздел «Status Codes»", "url": "https://www.rfc-editor.org/rfc/rfc9110.html#name-status-codes", "kind": "docs", "lang": "en", "free": true, "affiliate": false }
+    ],
+    "frontend/flexbox": [
+      { "title": "MDN: Flexbox — учебник по раскладке", "url": "https://developer.mozilla.org/ru/docs/Learn_web_development/Core/CSS_layout/Flexbox", "kind": "docs", "lang": "ru", "free": true, "affiliate": false },
+      { "title": "MDN: основные понятия flexbox", "url": "https://developer.mozilla.org/ru/docs/Web/CSS/Guides/Flexible_box_layout/Basic_concepts", "kind": "docs", "lang": "ru", "free": true, "affiliate": false },
+      { "title": "Flexbox Froggy: игра для тренировки flexbox", "url": "https://flexboxfroggy.com/#ru", "kind": "practice", "lang": "ru", "free": true, "affiliate": false }
+    ],
+    "security/sql-injection": [
+      { "title": "OWASP Cheat Sheet: защита от SQL-инъекций", "url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html", "kind": "docs", "lang": "en", "free": true, "affiliate": false },
+      { "title": "OWASP: описание атаки SQL Injection", "url": "https://community.owasp.org/attacks/SQL_Injection", "kind": "article", "lang": "en", "free": true, "affiliate": false },
+      { "title": "Microsoft Learn: SQL-инъекции", "url": "https://learn.microsoft.com/en-us/sql/relational-databases/security/sql-injection", "kind": "docs", "lang": "en", "free": true, "affiliate": false }
+    ]
+  }
+}
