@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <None Include="..\..\content\topics.json" Link="content\topics.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\content\resources.json" Link="content\resources.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

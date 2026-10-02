@@ -61,7 +61,7 @@ Opus проверяет всю фазу против ROADMAP, пишет ито�
 
 ## P2 — Каркас контента
 
-### P2-01 Модель и загрузка ресурсов — `todo`
+### P2-01 Модель и загрузка ресурсов — `done`
 В Core: `Resource` (Title, Url, Kind, Lang, IsFree, IsAffiliate), enum'ы `ResourceKind` и `ResourceLanguage`, `IResourceCatalog.GetResources(sectionSlug, topicSlug)` → список (пустой, если нет). Реализация читает `content/resources.json` по ADR-11 и валидирует его против `ITopicCatalog`. Web: путь `Content:ResourcesPath`, файл копируется в output, singleton с загрузкой при старте. В репо — пустой `resources.json` (`"resources": {}`).
 Приёмка: тесты на загрузку и на каждую ошибку валидации из ADR-11 (неизвестный ключ темы, пустой title, не-https URL, неизвестный kind/lang, дубликат URL в теме); порядок ресурсов сохраняется; приложение стартует с пустым файлом.
 
