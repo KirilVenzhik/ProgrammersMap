@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Карта программиста — чеклист тем</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E9EDF2; --surface:#F6F8FB; --ink:#14213D; --muted:#56657F; --line:#C9D2DE;
+  --hl:#FFD24C; --hl-ink:#14213D; --cell:#D3DAE4; --focus:#2F5BD3;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#111827; --surface:#182133; --ink:#E6EBF3; --muted:#93A0B6; --line:#2B3650;
+    --hl:#C9A227; --hl-ink:#111827; --cell:#26314A; --focus:#8FB0FF;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111827; --surface:#182133; --ink:#E6EBF3; --muted:#93A0B6; --line:#2B3650;
+  --hl:#C9A227; --hl-ink:#111827; --cell:#26314A; --focus:#8FB0FF;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 16px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 "Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
+
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+
+/* Hero */
+header.hero{padding:56px 0 28px}
+h1{font:800 clamp(2.2rem,6vw,4.2rem)/1.02 "Unbounded",system-ui,sans-serif;letter-spacing:-.02em;margin:0 0 16px;max-width:14ch}
+.lead{color:var(--muted);max-width:60ch;margin:0 0 28px;font-size:1.05rem}
+.map{display:grid;grid-template-columns:repeat(auto-fill,minmax(12px,1fr));gap:3px;max-width:100%;margin-bottom:12px}
+.map span{aspect-ratio:1;background:var(--cell);border-radius:2px;transition:background .25s}
+.map span.on{background:var(--hl)}
+.stat{display:flex;gap:24px;flex-wrap:wrap;align-items:baseline;color:var(--muted)}
+.stat b{color:var(--ink);font:700 1.6rem "Unbounded",sans-serif}
+
+/* Toolbar */
+.bar{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--line);padding:12px 0;padding-top:calc(12px + env(safe-area-inset-top,0px))}
+.bar .wrap{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.search{flex:1 1 220px;min-width:0;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:none;padding:9px 12px;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.toggle{display:flex;align-items:center;gap:8px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.ghost{border:1px solid var(--line);background:none;border-radius:10px;padding:9px 12px;cursor:pointer;color:var(--muted)}
+.ghost:hover{color:var(--ink)}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:40px;padding:32px 0 80px}
+nav.side{position:sticky;top:80px;align-self:start;max-height:calc(100vh - 100px);overflow:auto}
+nav.side a{display:block;text-decoration:none;color:var(--ink);padding:7px 0 9px;border-bottom:1px solid var(--line)}
+nav.side a small{display:block;color:var(--muted);font-size:.8rem}
+.rail{height:4px;background:var(--cell);border-radius:2px;margin-top:5px;overflow:hidden}
+.rail i{display:block;height:100%;width:0;background:var(--hl);transition:width .3s}
+
+section.sec{margin-bottom:44px}
+section.sec h2{font:700 1.45rem/1.2 "Unbounded",sans-serif;margin:0 0 4px;display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+section.sec h2 span{font:500 .9rem "Golos Text",sans-serif;color:var(--muted);white-space:nowrap}
+.group{margin-top:18px}
+.group h3{font-weight:600;font-size:1rem;margin:0 0 6px;color:var(--muted)}
+ul.items{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+ul.items li{border-bottom:1px solid var(--line)}
+ul.items label{display:flex;gap:12px;align-items:flex-start;padding:9px 2px;cursor:pointer}
+ul.items input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--ink);flex:none}
+.txt{flex:1;padding:0 4px;border-radius:3px;background-image:linear-gradient(var(--hl),var(--hl));background-repeat:no-repeat;background-size:0% 100%;transition:background-size .35s ease}
+li.done .txt{background-size:100% 100%;color:var(--hl-ink)}
+.lvl{flex:none;font-size:.78rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin-top:2px}
+.empty{color:var(--muted);padding:40px 0}
+
+footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);font-size:.9rem}
+
+@media (max-width:820px){
+  .layout{grid-template-columns:1fr;gap:0}
+  nav.side{display:none}
+  header.hero{padding-top:36px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero wrap">
+  <h1>Карта программиста</h1>
+  <p class="lead">Все темы, которые нужно знать разработчику — от переменных до системного дизайна. Отмечайте изученное, фильтруйте по уровню. Уроки по каждой теме появятся позже.</p>
+  <div class="map" id="map" aria-hidden="true"></div>
+  <div class="stat"><span><b id="pct">0%</b> пройдено</span><span id="count"></span></div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <input class="search" id="q" type="search" placeholder="Найти тему, например «JOIN» или «async»" aria-label="Поиск по темам">
+    <div class="seg" role="group" aria-label="Уровень">
+      <button data-l="all" aria-pressed="true">Все</button>
+      <button data-l="j" aria-pressed="false">Junior</button>
+      <button data-l="m" aria-pressed="false">Middle</button>
+      <button data-l="s" aria-pressed="false">Senior</button>
+    </div>
+    <label class="toggle"><input type="checkbox" id="hide"> Скрыть изученное</label>
+    <button class="ghost" id="reset">Сбросить</button>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <nav class="side" id="nav" aria-label="Разделы"></nav>
+  <main id="main"></main>
+</div>
+
+<footer class="wrap">Прогресс сохраняется в этом браузере.</footer>
+
+<script>
+const DATA = [
+ {t:"Основы программирования", g:[
+  ["Как работает компьютер","j:Двоичная система, биты и байты|j:Процессор, память, диск|j:Компиляция и интерпретация|j:Процессы и потоки: общее представление|m:Стек и куча|m:Кодировки: ASCII, UTF-8, Unicode"],
+  ["Базовые конструкции","j:Переменные и константы|j:Примитивные типы данных|j:Арифметические и логические операторы|j:Условия: if, switch|j:Циклы: for, while, foreach|j:Функции, параметры, возвращаемые значения|j:Область видимости|j:Рекурсия|j:Исключения и обработка ошибок|j:Работа с файлами и вводом-выводом"],
+  ["Типизация","j:Статическая и динамическая типизация|j:Строгая и слабая типизация|m:Обобщения (generics)|m:Null-безопасность и nullable-типы|m:Приведение типов, boxing и unboxing|m:Значимые и ссылочные типы"],
+  ["Инструменты","j:IDE и отладчик: точки останова, пошаговое выполнение|j:Терминал и командная строка|j:Пакетные менеджеры|j:Чтение официальной документации|j:Форматтеры и линтеры"]
+ ]},
+ {t:"Структуры данных", g:[
+  ["Линейные","j:Массивы|j:Динамические массивы и списки|j:Строки и их неизменяемость|j:Связные списки|j:Стек|j:Очередь и дек"],
+  ["Ассоциативные","j:Хеш-таблицы и словари|j:Множества|m:Хеш-функции и коллизии"],
+  ["Деревья и графы","m:Бинарные деревья|m:Бинарное дерево поиска|m:Сбалансированные деревья: AVL, красно-чёрные|m:Куча и очередь с приоритетом|m:Префиксное дерево (trie)|m:Графы: списки и матрицы смежности|s:B-деревья|s:Система непересекающихся множеств (DSU)"],
+  ["Сложность","j:Нотация O-большое|j:Время против памяти|m:Амортизированная сложность"]
+ ]},
+ {t:"Алгоритмы", g:[
+  ["Поиск и сортировка","j:Линейный поиск|j:Бинарный поиск|j:Сортировки пузырьком, вставками, выбором|m:Сортировка слиянием|m:Быстрая сортировка|m:Сортировка подсчётом"],
+  ["Техники решения задач","j:Два указателя|j:Скользящее окно|m:Перебор с возвратом (backtracking)|m:Разделяй и властвуй|m:Жадные алгоритмы|m:Динамическое программирование|s:Битовые операции и маски"],
+  ["Алгоритмы на графах","m:Обход в ширину (BFS)|m:Обход в глубину (DFS)|m:Топологическая сортировка|m:Алгоритм Дейкстры|s:Алгоритм Беллмана–Форда|s:Минимальное остовное дерево"],
+  ["Практика","j:Задачи уровня easy на LeetCode|m:Задачи уровня medium|m:Решение задач вслух, как на собеседовании"]
+ ]},
+ {t:"ООП и парадигмы", g:[
+  ["Объектно-ориентированное программирование","j:Классы и объекты|j:Инкапсуляция|j:Наследование|j:Полиморфизм|j:Абстракция|j:Интерфейсы и абстрактные классы|m:Композиция вместо наследования"],
+  ["Принципы","j:DRY, KISS, YAGNI|m:SOLID|m:Закон Деметры|m:Связность и зацепление (cohesion, coupling)"],
+  ["Паттерны проектирования","m:Порождающие: Factory, Builder, Singleton|m:Структурные: Adapter, Decorator, Facade, Proxy|m:Поведенческие: Strategy, Observer, Command, Chain of Responsibility|m:Внедрение зависимостей (DI)"],
+  ["Другие парадигмы","m:Функциональное программирование: чистые функции, неизменяемость|m:Лямбды и функции высшего порядка|m:Декларативный и императивный стиль|s:Реактивное программирование"]
+ ]},
+ {t:"Git и командная работа", g:[
+  ["Git","j:init, add, commit|j:Ветки и слияние|j:remote, push, pull|j:.gitignore|m:rebase|m:Разрешение конфликтов|m:cherry-pick и stash"],
+  ["Процессы","j:Pull request и code review|j:Осмысленные сообщения коммитов|m:Git Flow и trunk-based development|m:Семантическое версионирование"]
+ ]},
+ {t:"Сети и веб", g:[
+  ["Основы сетей","j:IP-адреса и порты|j:DNS|m:TCP и UDP|m:Модель OSI и стек TCP/IP|m:NAT, прокси, балансировщики"],
+  ["HTTP","j:Методы запросов|j:Коды ответов|j:Заголовки|j:Cookies|m:HTTPS и TLS|m:HTTP/2 и HTTP/3|m:CORS|m:Кеширование: Cache-Control, ETag"],
+  ["API","j:REST|j:JSON|m:Идемпотентность|m:Версионирование API|m:OpenAPI и Swagger|m:gRPC|m:GraphQL|m:WebSocket и Server-Sent Events|m:Вебхуки"],
+  ["Браузер","j:Как браузер отрисовывает страницу|j:DOM|m:Event loop"]
+ ]},
+ {t:"Базы данных", g:[
+  ["SQL","j:Реляционная модель|j:SELECT, WHERE, ORDER BY|j:JOIN|j:GROUP BY и HAVING|j:INSERT, UPDATE, DELETE|m:Подзапросы и CTE|m:Оконные функции"],
+  ["Проектирование","j:Первичные и внешние ключи|j:Связи один-к-одному, один-ко-многим, многие-ко-многим|m:Нормализация|m:Денормализация"],
+  ["Производительность","m:Индексы|m:План запроса (EXPLAIN)|m:Проблема N+1|s:Партиционирование|s:Шардирование|s:Репликация"],
+  ["Транзакции","m:ACID|m:Уровни изоляции|m:Блокировки и взаимоблокировки|s:MVCC|s:Оптимистичные и пессимистичные блокировки"],
+  ["NoSQL","m:Документные БД (MongoDB)|m:Key-value хранилища (Redis)|m:Теорема CAP|s:Колоночные БД|s:Графовые БД"],
+  ["ORM","j:Что такое ORM|m:Миграции|m:Ленивая и жадная загрузка"]
+ ]},
+ {t:"Backend", g:[
+  ["Основы","j:Что делает сервер|j:Маршрутизация|j:Контроллеры и обработчики|j:Middleware|j:Валидация входных данных|j:Конфигурация и переменные окружения|j:Логирование"],
+  ["Аутентификация и авторизация","j:Сессии и токены|m:JWT|m:OAuth 2.0 и OpenID Connect|m:Хеширование паролей|m:Роли и права доступа"],
+  ["Асинхронность","m:async/await|m:Многопоточность|m:Гонки данных и синхронизация|s:Пулы потоков"],
+  ["Интеграции","m:Очереди сообщений: RabbitMQ, Kafka|m:Фоновые задачи|m:Кеширование через Redis|m:Ограничение частоты запросов|m:Повторные попытки и circuit breaker"],
+  ["Наблюдаемость","m:Структурированные логи|m:Метрики|m:Health checks|s:Распределённая трассировка (OpenTelemetry)"]
+ ]},
+ {t:"Frontend", g:[
+  ["Вёрстка","j:Семантический HTML|j:CSS: селекторы и каскад|j:Блочная модель|j:Flexbox|j:Grid|j:Адаптивная вёрстка"],
+  ["JavaScript и фреймворки","j:Основы JavaScript|j:DOM и события|j:Запросы через fetch|m:TypeScript|m:Фреймворк: React, Vue или Angular|m:Управление состоянием|m:Роутинг в SPA|m:Сборщики (Vite)"],
+  ["Качество","m:Доступность (a11y)|m:Производительность веб-страниц"]
+ ]},
+ {t:"Тестирование", g:[
+  ["Виды тестов","j:Зачем нужны тесты|j:Модульные тесты|j:Структура Arrange–Act–Assert|m:Интеграционные тесты|m:End-to-end тесты|s:Нагрузочное тестирование|s:Контрактное тестирование"],
+  ["Практики","m:Моки и стабы|m:TDD|m:Покрытие кода"]
+ ]},
+ {t:"DevOps и инфраструктура", g:[
+  ["Linux","j:Навигация, файлы и права|j:Процессы|m:Bash-скрипты|m:SSH"],
+  ["Контейнеры","m:Образы и контейнеры Docker|m:Dockerfile|m:Docker Compose|s:Основы Kubernetes"],
+  ["CI/CD","m:Пайплайны (GitHub Actions)|m:Автотесты в CI|m:Автоматический деплой|s:Blue-green и canary-релизы"],
+  ["Облака","m:IaaS, PaaS, SaaS|m:Базовые облачные сервисы: вычисления, хранилище, БД|m:Управление секретами|s:Infrastructure as Code (Terraform)"]
+ ]},
+ {t:"Архитектура и системный дизайн", g:[
+  ["Архитектура приложений","m:Монолит и микросервисы|m:Слоистая архитектура|m:Clean, Onion, Hexagonal|s:Domain-Driven Design|s:CQRS|s:Event Sourcing"],
+  ["Системный дизайн","m:Горизонтальное и вертикальное масштабирование|m:Балансировка нагрузки|m:CDN|m:Задача: сервис коротких ссылок|s:Согласованность в распределённых системах|s:Паттерн Saga|s:Задача: чат или лента новостей"]
+ ]},
+ {t:"Безопасность", g:[
+  ["Уязвимости и защита","j:OWASP Top 10|j:SQL-инъекции|j:XSS|j:HTTPS везде|m:CSRF|m:Секреты вне кода|m:Принцип наименьших привилегий|m:Уязвимые зависимости|s:Симметричное и асимметричное шифрование"]
+ ]},
+ {t:"Профессиональные навыки", g:[
+  ["Работа с кодом","j:Чистый код и нейминг|j:Рефакторинг|j:Чтение чужого кода|m:Документирование"],
+  ["Работа в команде","j:Как задавать вопросы|j:Английский для разработчика|m:Оценка задач|m:Agile, Scrum, Kanban"],
+  ["Карьера","m:Резюме и портфолио|m:Подготовка к техническому собеседованию|m:Поведенческие вопросы и метод STAR"]
+ ]}
+];
+
+const LV = {j:"Junior", m:"Middle", s:"Senior"};
+const KEY = "prog-checklist-v1";
+function hash(s){let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)}
+let done = {};
+try{ done = JSON.parse(localStorage.getItem(KEY)) || {} }catch(e){ done = {} }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(done)) }catch(e){} }
+
+// Flatten
+const all = [];
+DATA.forEach((sec,si)=>{
+  sec.id = "s"+si; sec.items = [];
+  sec.g.forEach(([title,str])=>{
+    str.split("|").forEach(x=>{
+      const [l,text] = [x[0], x.slice(2)];
+      const it = {id:hash(sec.t+"/"+title+"/"+text), l, text, group:title, sec};
+      sec.items.push(it); all.push(it);
+    });
+  });
+});
+
+// Render
+const main = document.getElementById("main"), nav = document.getElementById("nav"), map = document.getElementById("map");
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+all.forEach(it => { const c=document.createElement("span"); c.title=it.text; it.cell=c; map.appendChild(c); });
+
+main.innerHTML = DATA.map(sec => {
+  const groups = sec.g.map(([title]) => {
+    const items = sec.items.filter(i=>i.group===title).map(i =>
+      `<li data-id="${i.id}"><label><input type="checkbox"><span class="txt">${esc(i.text)}</span><span class="lvl">${LV[i.l]}</span></label></li>`).join("");
+    return `<div class="group"><h3>${esc(title)}</h3><ul class="items">${items}</ul></div>`;
+  }).join("");
+  return `<section class="sec" id="${sec.id}"><h2>${esc(sec.t)} <span data-sc="${sec.id}"></span></h2>${groups}</section>`;
+}).join("") + `<p class="empty" id="empty" hidden>Ничего не найдено. Попробуйте другой запрос или уровень «Все».</p>`;
+
+nav.innerHTML = DATA.map(sec => `<a href="#${sec.id}">${esc(sec.t)}<small data-nc="${sec.id}"></small><div class="rail"><i data-nr="${sec.id}"></i></div></a>`).join("");
+
+const byId = Object.fromEntries(all.map(i=>[i.id,i]));
+main.querySelectorAll("li").forEach(li => {
+  const it = byId[li.dataset.id]; it.li = li;
+  const cb = li.querySelector("input");
+  cb.checked = !!done[it.id];
+  cb.addEventListener("change", () => { if(cb.checked) done[it.id]=1; else delete done[it.id]; save(); update(); applyFilter(); });
+});
+
+function update(){
+  let n=0;
+  all.forEach(it => { const on=!!done[it.id]; if(on)n++; it.li.classList.toggle("done",on); it.cell.classList.toggle("on",on); });
+  document.getElementById("pct").textContent = Math.round(n/all.length*100)+"%";
+  document.getElementById("count").textContent = `${n} из ${all.length} тем`;
+  DATA.forEach(sec => {
+    const k = sec.items.filter(i=>done[i.id]).length, t = sec.items.length;
+    document.querySelector(`[data-sc="${sec.id}"]`).textContent = `${k} / ${t}`;
+    document.querySelector(`[data-nc="${sec.id}"]`).textContent = `${k} из ${t}`;
+    document.querySelector(`[data-nr="${sec.id}"]`).style.width = (k/t*100)+"%";
+  });
+}
+
+let level="all";
+const q = document.getElementById("q"), hide = document.getElementById("hide");
+function applyFilter(){
+  const s = q.value.trim().toLowerCase(); let any=false;
+  DATA.forEach(sec => {
+    let secVis=false;
+    document.getElementById(sec.id).querySelectorAll(".group").forEach(g => {
+      let gVis=false;
+      g.querySelectorAll("li").forEach(li => {
+        const it = byId[li.dataset.id];
+        const vis = (level==="all"||it.l===level) && (!s || it.text.toLowerCase().includes(s) || it.group.toLowerCase().includes(s)) && !(hide.checked && done[it.id]);
+        li.hidden = !vis; if(vis) gVis=true;
+      });
+      g.hidden = !gVis; if(gVis) secVis=true;
+    });
+    document.getElementById(sec.id).hidden = !secVis; if(secVis) any=true;
+  });
+  document.getElementById("empty").hidden = any;
+}
+q.addEventListener("input", applyFilter);
+hide.addEventListener("change", applyFilter);
+document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => {
+  level = b.dataset.l;
+  document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", x===b));
+  applyFilter();
+}));
+document.getElementById("reset").addEventListener("click", () => {
+  if(confirm("Сбросить весь прогресс?")){ done={}; save(); main.querySelectorAll("input").forEach(c=>c.checked=false); update(); applyFilter(); }
+});
+update(); applyFilter();
+</script>
+</body>
+</html>

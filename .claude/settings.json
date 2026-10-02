@@ -1,0 +1,26 @@
+{
+  "model": "opus",
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Bash(dotnet *)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git restore *)",
+      "Bash(git clean *)",
+      "Bash(docker compose *)"
+    ],
+    "deny": [
+      "Bash(git push*)",
+      "Bash(git reset --hard*)",
+      "Bash(rm -rf *)",
+      "Read(./.env*)",
+      "Read(**/secrets.json)"
+    ]
+  }
+}
