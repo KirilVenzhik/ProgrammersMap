@@ -5,6 +5,8 @@
 - Одна публичная сущность на файл. Имена — по смыслу, без сокращений.
 - Логика в `ProgChecklist.Core`, страницы тонкие.
 - Без новых NuGet-пакетов без записи в DECISIONS.md.
+- Разрешены без отдельного ADR (тестовый стек из ARCHITECTURE.md): `Microsoft.NET.Test.Sdk`, `xunit`,
+  `xunit.runner.visualstudio`, `coverlet.collector`, `Microsoft.AspNetCore.Mvc.Testing` — только в `tests/`.
 
 ## Тесты
 - Каждая задача с логикой — с тестами. Имя: `Method_Condition_Expected`. Структура Arrange–Act–Assert.

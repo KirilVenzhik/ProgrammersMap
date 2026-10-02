@@ -19,7 +19,8 @@ Razor Page `/` выводит список разделов с количест�
 
 ### P0-04 CI — `todo`
 `.github/workflows/ci.yml`: windows-latest и ubuntu-latest, setup-dotnet 10, restore/build/test.
-Приёмка: workflow валиден (проверить синтаксис). Пуш делает человек.
+`.gitattributes` с `* text=auto eol=lf` (+ `*.sln`/`*.ps1`/`*.cmd` — `eol=crlf`, бинарники — `binary`), `end_of_line` в `.editorconfig`; ренормализовать репо (`git add --renormalize .`).
+Приёмка: workflow валиден (проверить синтаксис); `git ls-files --eol` без смешанных концов строк в текстовых файлах. Пуш делает человек.
 
 ### P0-05 README — `todo`
 README на английском: что за проект, стек, как запустить, как устроен AI-воркфлоу (кратко, ссылка на CLAUDE.md). Это витрина для работодателей.

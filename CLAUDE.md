@@ -15,6 +15,8 @@
 - **`implementer` (Sonnet)** — пишет код и тесты по одной задаче из `docs/BACKLOG.md`.
 - **`reviewer` (Opus)** — независимое ревью диффа против критериев приёмки, со свежим контекстом.
 - Не задавай переменную окружения `CLAUDE_CODE_SUBAGENT_MODEL` — она перебивает модели из `.claude/agents/`.
+- Если сабагентов `implementer`/`reviewer` нет в списке доступных агентов — СТОП: напиши в STATUS.md
+  «Нужно от человека: перезапустить сессию из корня проекта» и не подменяй их другими агентами.
 
 ## Рабочий цикл (команда `/next`)
 Выбрать задачу → ТЗ → implementer → `dotnet build` + `dotnet test` → reviewer → исправления (макс. 2 круга) → коммит → обновить BACKLOG и STATUS.
@@ -36,3 +38,5 @@
 - Тесты: `dotnet test`
 - Запуск: `dotnet run --project src/ProgChecklist.Web`
 - Окружение: Windows 11, PowerShell. Пути — через `Path.Combine`, не хардкодить `\` или `/`.
+- Многострочный коммит в PowerShell: сообщение во временный файл, затем `git commit -F <file>`
+  (`git commit -F -` с here-string в PowerShell 5.1 не работает).

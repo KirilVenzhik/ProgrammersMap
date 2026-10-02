@@ -1,6 +1,9 @@
 # Запуск (один раз)
 
-1. Распакуй архив в `C:\Users\venzh\WorkArea\Projects\ProgChecklist` (так, чтобы CLAUDE.md лежал в корне).
+1. Распакуй архив так, чтобы `CLAUDE.md`, `.claude\` и `.git` лежали в одной папке — корне проекта.
+   Проверка (должно быть `True True`): `Test-Path .\CLAUDE.md; Test-Path .\.claude\agents\implementer.md`.
+   Частая ошибка: архив распаковался во вложенную папку — тогда Claude Code не видит CLAUDE.md, агентов и команды.
+   Не создавай папки bash-синтаксисом `mkdir {a,b}` в PowerShell — получится одна папка с именем `{a,b}`.
 2. Проверь .NET 10 SDK: `dotnet --version`. Нет — поставь с dot.net.
 3. В PowerShell в папке проекта:
    ```
@@ -9,6 +12,8 @@
    git commit -m "chore: project scaffolding for Claude Code"
    ```
 4. Убедись, что переменная `CLAUDE_CODE_SUBAGENT_MODEL` НЕ задана: `echo $env:CLAUDE_CODE_SUBAGENT_MODEL` (должно быть пусто).
+5. Запускай `claude` из корня проекта. Агенты и команды подгружаются только при старте сессии:
+   после изменений в `.claude\` или переноса файлов — перезапусти сессию. В `/agents` должны быть `implementer` и `reviewer`.
 
 # Работа
 
