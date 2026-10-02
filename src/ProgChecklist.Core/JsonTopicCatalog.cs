@@ -23,6 +23,7 @@ public sealed class JsonTopicCatalog : ITopicCatalog
         this.sections = sections;
         this.sectionsBySlug = sectionsBySlug;
         this.topicsBySection = topicsBySection;
+        TopicCount = sections.Sum(section => section.TopicCount);
     }
 
     /// <summary>Loads the catalog from a UTF-8 JSON file.</summary>
@@ -134,6 +135,9 @@ public sealed class JsonTopicCatalog : ITopicCatalog
         var sorted = sectionList.OrderBy(section => section.Order).ToList().AsReadOnly();
         return new JsonTopicCatalog(sorted, sectionsBySlug, topicsBySection);
     }
+
+    /// <inheritdoc />
+    public int TopicCount { get; }
 
     /// <inheritdoc />
     public IReadOnlyList<Section> GetSections() => sections;

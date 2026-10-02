@@ -14,8 +14,11 @@ public class IndexModel : PageModel
 
     public IReadOnlyList<Section> Sections { get; private set; } = [];
 
+    public int TopicCount { get; private set; }
+
     public void OnGet()
     {
         Sections = _catalog.GetSections();
+        TopicCount = _catalog.TopicCount;
     }
 }

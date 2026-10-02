@@ -18,6 +18,16 @@ public class JsonTopicCatalogTests
     }
 
     [Fact]
+    public void TopicCount_RealFile_Is254()
+    {
+        // Arrange & Act
+        var catalog = LoadReal();
+
+        // Assert
+        Assert.Equal(254, catalog.TopicCount);
+    }
+
+    [Fact]
     public void LoadFromFile_RealFile_Has254Topics()
     {
         // Arrange & Act

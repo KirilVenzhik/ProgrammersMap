@@ -6,6 +6,9 @@ public interface ITopicCatalog
     /// <summary>Returns all sections sorted by <see cref="Section.Order"/> ascending.</summary>
     IReadOnlyList<Section> GetSections();
 
+    /// <summary>Total number of topics in the catalog.</summary>
+    int TopicCount { get; }
+
     /// <summary>Finds a section by slug (case-insensitive); null if not found.</summary>
     Section? FindSection(string sectionSlug);
 

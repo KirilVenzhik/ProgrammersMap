@@ -43,21 +43,21 @@ public class SmokeTests : IClassFixture<WebApplicationFactory<Program>>
     }
 
     [Fact]
-    public async Task Get_Root_ListsAllSectionsWithTopicCounts()
+    public async Task Get_Root_ListsAllSectionsWithCounts()
     {
         // Arrange
         var sections = _factory.Services.GetRequiredService<ITopicCatalog>().GetSections();
         using var client = _factory.CreateClient();
 
         // Act
-        var body = WebUtility.HtmlDecode(await client.GetStringAsync("/"));
+        var body = await client.GetStringAsync("/");
 
         // Assert
         Assert.Equal(14, sections.Count);
-        Assert.Contains($"тем: {sections[0].TopicCount}", body);
         foreach (var section in sections)
         {
-            Assert.Contains($"{section.Title} — тем: {section.TopicCount}", body);
+            Assert.Contains($"id=\"{section.Slug}\"", body);
+            Assert.Contains($"data-sc=\"{section.Slug}\">0 / {section.TopicCount}<", body);
         }
     }
 

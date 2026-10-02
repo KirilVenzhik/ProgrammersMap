@@ -1,0 +1,23 @@
+@using ProgChecklist.Core
+@model Section
+
+<section class="sec" id="@Model.Slug" data-section="@Model.Slug">
+    <h2>@Model.Title <span data-sc="@Model.Slug">0 / @Model.TopicCount</span></h2>
+    @foreach (var group in Model.Groups)
+    {
+        <div class="group" data-group="@group.Slug">
+            <h3>@group.Title</h3>
+            <ul class="items">
+                @foreach (var topic in group.Topics)
+                {
+                    var key = TopicKey.Create(Model.Slug, topic.Slug);
+                    <li data-key="@key" data-level="@topic.Level.ToCode()">
+                        <input type="checkbox" id="cb-@Model.Slug-@topic.Slug" data-key="@key" aria-label="Изучено: @topic.Title">
+                        <a class="txt" href="/@Model.Slug/@topic.Slug">@topic.Title</a>
+                        <span class="lvl">@topic.Level.ToDisplayName()</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</section>

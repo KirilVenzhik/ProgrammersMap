@@ -12,10 +12,8 @@
     @await RenderSectionAsync("Head", required: false)
 </head>
 <body>
-    <a class="skip-link" href="#content">Перейти к содержимому</a>
-    <div id="content">
-        @RenderBody()
-    </div>
+    <a class="skip-link" href="#main">Перейти к содержимому</a>
+    @RenderBody()
     <footer class="wrap">Прогресс сохраняется в этом браузере.</footer>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -1,4 +1,5 @@
 @page
+@using ProgChecklist.Core
 @model IndexModel
 @{
     ViewData["Title"] = "Карта программиста";
@@ -7,13 +8,32 @@
 <header class="hero wrap">
     <h1>Карта программиста</h1>
     <p class="lead">Все темы, которые нужно знать разработчику — от переменных до системного дизайна. Отмечайте изученное, фильтруйте по уровню. Уроки по каждой теме появятся позже.</p>
+    <div class="map" id="map" aria-hidden="true">
+        @foreach (var sec in Model.Sections)
+        {
+            foreach (var group in sec.Groups)
+            {
+                foreach (var topic in group.Topics)
+                {
+                    <span data-key="@TopicKey.Create(sec.Slug, topic.Slug)" title="@topic.Title"></span>
+                }
+            }
+        }
+    </div>
+    <div class="stat"><span><b id="pct">0%</b> пройдено</span><span id="count">0 из @Model.TopicCount тем</span></div>
 </header>
 
-<main class="wrap">
-    <ul>
-        @foreach (var topicSection in Model.Sections)
+<div class="wrap layout">
+    <nav class="side" aria-label="Разделы">
+        @foreach (var sec in Model.Sections)
         {
-            <li>@topicSection.Title — тем: @topicSection.TopicCount</li>
+            <a href="#@sec.Slug">@sec.Title<small data-nc="@sec.Slug">0 из @sec.TopicCount</small><div class="rail"><i data-nr="@sec.Slug"></i></div></a>
         }
-    </ul>
-</main>
+    </nav>
+    <main id="main" tabindex="-1">
+        @foreach (var sec in Model.Sections)
+        {
+            <partial name="_SectionChecklist" model="sec" />
+        }
+    </main>
+</div>
