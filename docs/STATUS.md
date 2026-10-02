@@ -3,7 +3,7 @@
 **Фаза:** P1 · **Состояние:** в работе · **Следующая задача:** P1-08 (итог фазы)
 
 ## Нужно от человека
-- (не блокирует) Smart App Control на Windows блокирует свежесобранные DLL проекта (0x800711C7) — тесты гоняются в WSL (`~/.dotnet`, SDK 10.0.401). Для полной глобализации в WSL: `sudo apt-get install -y libicu-dev` (сейчас invariant-режим).
+- (не блокирует) Smart App Control на Windows блокирует свежесобранные DLL (0x800711C7) — тесты: `.scripts	est-wsl.ps1` (ADR-9). Для полной глобализации в WSL: `sudo apt-get install -y libicu-dev`. Стоит добавить в CLAUDE.md (раздел «Команды») — это файл человека.
 - При деплое (P5): задать `Site__BaseUrl` и сузить `AllowedHosts` (ADR-8).
 - (не блокирует) Сверить глазами http://localhost:5043 с `prototype/index.html` (светлая/тёмная тема, ширина 360px) — тестами это не проверить.
 
