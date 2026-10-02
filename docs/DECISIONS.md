@@ -24,3 +24,8 @@
 Контекст: ARCHITECTURE.md задаёт xUnit и `WebApplicationFactory`; CONVENTIONS требует ADR на NuGet-пакеты. .NET 10 по умолчанию создаёт `.slnx`.
 Решение: в тестовых проектах — `Microsoft.NET.Test.Sdk`, `xunit`, `xunit.runner.visualstudio`, `coverlet.collector` (шаблон `dotnet new xunit`); в Web.Tests дополнительно `Microsoft.AspNetCore.Mvc.Testing`. Версии — из шаблона SDK / актуальные стабильные, задаются в csproj. Решение — классический `ProgChecklist.sln` (`--format sln`), как в BACKLOG.
 Последствия: другие пакеты по-прежнему только через новый ADR.
+
+## ADR-6: Расположение topics.json во время работы приложения
+Контекст: источник правды — `content/topics.json` в корне репо, а ContentRoot Web-проекта — `src/ProgChecklist.Web`. Путь должен работать при `dotnet run`, в тестах (`WebApplicationFactory`) и после publish.
+Решение: Web.csproj копирует файл в output/publish как `content/topics.json` (ссылка, без дублирования в git). Путь задаётся в конфигурации `Content:TopicsPath` (по умолчанию `content/topics.json`); относительный путь разрешается от `AppContext.BaseDirectory`. Каталог загружается один раз при старте (fail fast) и регистрируется как singleton `ITopicCatalog`.
+Последствия: битый или отсутствующий JSON роняет приложение при старте, а не на первом запросе. Подмена пути — через appsettings/переменную окружения `Content__TopicsPath`.

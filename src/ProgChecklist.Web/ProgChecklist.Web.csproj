@@ -4,4 +4,8 @@
     <ProjectReference Include="..\ProgChecklist.Core\ProgChecklist.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\..\content\topics.json" Link="content\topics.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

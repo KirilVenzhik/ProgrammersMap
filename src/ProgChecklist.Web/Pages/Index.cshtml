@@ -5,3 +5,10 @@
 }
 
 <h1>Карта программиста</h1>
+
+<ul>
+    @foreach (var topicSection in Model.Sections)
+    {
+        <li>@topicSection.Title — тем: @topicSection.TopicCount</li>
+    }
+</ul>
