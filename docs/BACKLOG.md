@@ -5,7 +5,7 @@
 
 ## P0 — Каркас
 
-### P0-01 Решение и проекты — `todo`
+### P0-01 Решение и проекты — `done`
 Создать `ProgChecklist.sln`, проекты из ARCHITECTURE.md (кроме Data), ссылки между ними, `.editorconfig`, `Directory.Build.props` (nullable, TreatWarningsAsErrors для src, net10.0).
 Приёмка: `dotnet build` и `dotnet test` проходят; в каждом тестовом проекте 1 smoke-тест.
 

@@ -19,3 +19,8 @@
 ## ADR-4: Slug'и сгенерированы транслитом
 Контекст: slug'и в topics.json сделаны автоматически из русских названий.
 Решение: до релиза фазы 1 Opus может один раз их почистить (задача P1-01). После релиза — менять только с редиректом.
+
+## ADR-5: Тестовые пакеты и формат решения
+Контекст: ARCHITECTURE.md задаёт xUnit и `WebApplicationFactory`; CONVENTIONS требует ADR на NuGet-пакеты. .NET 10 по умолчанию создаёт `.slnx`.
+Решение: в тестовых проектах — `Microsoft.NET.Test.Sdk`, `xunit`, `xunit.runner.visualstudio`, `coverlet.collector` (шаблон `dotnet new xunit`); в Web.Tests дополнительно `Microsoft.AspNetCore.Mvc.Testing`. Версии — из шаблона SDK / актуальные стабильные, задаются в csproj. Решение — классический `ProgChecklist.sln` (`--format sln`), как в BACKLOG.
+Последствия: другие пакеты по-прежнему только через новый ADR.

@@ -1,0 +1,15 @@
+<Project>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <!-- Warnings are errors only for production code under src/ -->
+  <PropertyGroup Condition="$([MSBuild]::NormalizeDirectory('$(MSBuildProjectDirectory)').StartsWith($([MSBuild]::NormalizeDirectory('$(MSBuildThisFileDirectory)', 'src'))))">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+</Project>
