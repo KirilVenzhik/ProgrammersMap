@@ -44,3 +44,17 @@
 Контекст: на машине разработки включён Windows Smart App Control. Он блокирует свежесобранные неподписанные DLL проекта (`FileLoadException 0x800711C7`), из-за чего `dotnet test` на Windows падает нестабильно. Выключение SAC необратимо и остаётся решением человека.
 Решение: `scripts/test-wsl.ps1` запускает `scripts/test-wsl.sh` в WSL (Ubuntu): .NET SDK в `~/.dotnet` пользователя WSL, артефакты сборки — в `~/.cache/progchecklist/artifacts` (Linux FS), Windows `bin/obj` не трогаются. Без `libicu` в WSL скрипт включает invariant globalization (код каталога сравнивает slug'и ординально, на результат тестов не влияет). Полная проверка — CI на windows-latest и ubuntu-latest.
 Последствия: если `dotnet test` на Windows падает с 0x800711C7 — использовать `.\scripts\test-wsl.ps1`; критерий «зелёные тесты» выполняется этим прогоном. Запуск сайта — `.\scripts\run-wsl.ps1` (WSL 2 пробрасывает `localhost:5043` в Windows-браузер). Когда SAC выключат или блокировка пропадёт — снова обычный `dotnet test`.
+
+## ADR-10: Markdig для уроков в Markdown
+Контекст: в P2 у темы появляется урок в Markdown. Нужен надёжный рендер в HTML; писать свой парсер — неоправданно.
+Решение: NuGet-пакет `Markdig` (BSD-2, без зависимостей, de facto стандарт в .NET), версия — актуальная стабильная, только в `ProgChecklist.Core` (это не ASP.NET-зависимость, ADR-1/Core остаётся чистым). Пайплайн: pipe-таблицы, emphasis extras, task lists, auto-identifiers для заголовков; **сырой HTML отключён** (`DisableHtml`). Рендер выполняется один раз при старте, HTML кешируется в памяти.
+Последствия: вывод урока на странице — единственное место кроме JSON-LD с `Html.Raw`; безопасность держится на `DisableHtml` и на том, что контент приходит из репозитория через ревью. Пользовательский контент через этот путь не пускать никогда.
+
+## ADR-11: Раскладка контента тем: уроки и ресурсы
+Контекст: P2 — «у темы может быть markdown-файл контента и список ресурсов». `topics.json` — каталог (структура и slug'и), смешивать с ним контент не хочется: он будет расти и меняться чаще.
+Решение:
+- Урок: `content/lessons/{sectionSlug}/{topicSlug}.md`. Необязателен. Заголовки внутри начинаются с `##` (h1 — заголовок страницы). Файл без соответствующей темы в каталоге — ошибка старта (fail fast, как ADR-6).
+- Ресурсы «Где изучить»: один файл `content/resources.json`: `{ "version": 1, "resources": { "{section}/{topic}": [ { "title", "url", "kind", "lang", "free", "affiliate" } ] } }`. `kind`: `docs|article|video|course|book|practice`; `lang`: `ru|en`; `url` — только `https://`. Неизвестный ключ темы, пустой title, не-https URL, неизвестный kind/lang, дубликат URL внутри темы — ошибка старта.
+- Партнёрские ссылки (`affiliate: true`) выводятся с `rel="sponsored noopener"` и пометкой «партнёрская ссылка»; остальные внешние — `rel="noopener"`. Выбор партнёров и реальные реферальные ссылки — только человек (`needs-human`).
+- Пути — из конфигурации `Content:LessonsPath`, `Content:ResourcesPath` (по умолчанию `content/lessons`, `content/resources.json`), разрешение относительно `AppContext.BaseDirectory`, файлы копируются в output/publish как `topics.json`.
+Последствия: YAML/front matter не нужен (нет второго пакета). Контент правится через git и проходит ту же валидацию в тестах и CI. Правила для авторов — `docs/CONTENT.md`.
