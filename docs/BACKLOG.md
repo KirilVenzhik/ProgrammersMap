@@ -9,7 +9,7 @@
 Создать `ProgChecklist.sln`, проекты из ARCHITECTURE.md (кроме Data), ссылки между ними, `.editorconfig`, `Directory.Build.props` (nullable, TreatWarningsAsErrors для src, net10.0).
 Приёмка: `dotnet build` и `dotnet test` проходят; в каждом тестовом проекте 1 smoke-тест.
 
-### P0-02 Модель и загрузка тем — `todo`
+### P0-02 Модель и загрузка тем — `done`
 В Core: `Section`, `Group`, `Topic`, `Level` (enum), `ITopicCatalog` с методами получения всех разделов, раздела по slug, темы по паре slug'ов. Реализация читает `content/topics.json` (путь из конфигурации).
 Приёмка: тесты на загрузку (14 разделов, 254 темы), поиск по slug, null для несуществующего, ошибка при дубликате slug внутри раздела.
 

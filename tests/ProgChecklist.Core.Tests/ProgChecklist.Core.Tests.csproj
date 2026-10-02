@@ -19,4 +19,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\..\content\topics.json" Link="content\topics.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
