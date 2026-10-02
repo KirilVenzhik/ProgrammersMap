@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <title>@(string.IsNullOrWhiteSpace(ViewData["Title"] as string) ? "Карта программиста" : ViewData["Title"])</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Head", required: false)
 </head>
 <body>
-    @RenderBody()
+    <a class="skip-link" href="#content">Перейти к содержимому</a>
+    <div id="content">
+        @RenderBody()
+    </div>
+    <footer class="wrap">Прогресс сохраняется в этом браузере.</footer>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

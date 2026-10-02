@@ -4,11 +4,16 @@
     ViewData["Title"] = "Карта программиста";
 }
 
-<h1>Карта программиста</h1>
+<header class="hero wrap">
+    <h1>Карта программиста</h1>
+    <p class="lead">Все темы, которые нужно знать разработчику — от переменных до системного дизайна. Отмечайте изученное, фильтруйте по уровню. Уроки по каждой теме появятся позже.</p>
+</header>
 
-<ul>
-    @foreach (var topicSection in Model.Sections)
-    {
-        <li>@topicSection.Title — тем: @topicSection.TopicCount</li>
-    }
-</ul>
+<main class="wrap">
+    <ul>
+        @foreach (var topicSection in Model.Sections)
+        {
+            <li>@topicSection.Title — тем: @topicSection.TopicCount</li>
+        }
+    </ul>
+</main>
