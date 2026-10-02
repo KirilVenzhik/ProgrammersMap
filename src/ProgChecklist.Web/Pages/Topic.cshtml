@@ -26,10 +26,18 @@
 </header>
 
 <main class="wrap" id="main" tabindex="-1">
-    <section class="lesson" aria-labelledby="lesson-title">
-        <h2 id="lesson-title">Урок в разработке</h2>
-        <p>Материал по этой теме готовится. Пока отметьте тему как изученную, когда разберётесь в ней самостоятельно.</p>
-    </section>
+    @if (Model.Lesson is { } lesson)
+    {
+        @* Html.Raw is safe here (ADR-10): the HTML is rendered by Markdig with DisableHtml, unsafe link schemes are rejected at startup, and content comes only from the repo. *@
+        <article class="lesson lesson-body" aria-label="Урок">@Html.Raw(lesson.Html)</article>
+    }
+    else
+    {
+        <section class="lesson" aria-labelledby="lesson-title">
+            <h2 id="lesson-title">Урок в разработке</h2>
+            <p>Материал по этой теме готовится. Пока отметьте тему как изученную, когда разберётесь в ней самостоятельно.</p>
+        </section>
+    }
     <nav class="pager" aria-label="Соседние темы">
         @if (context.Previous is { } previous)
         {

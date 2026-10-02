@@ -105,6 +105,30 @@ main.wrap{padding:32px 20px 80px}
 .topic-done input{width:18px;height:18px;accent-color:var(--ink)}
 .lesson{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;margin:32px 0}
 .lesson h2{font:700 1.2rem "Unbounded",sans-serif;margin:0 0 8px}
+/* Lesson body (rendered Markdown) */
+.lesson-body{overflow-wrap:anywhere}
+.lesson-body h2,.lesson-body h3,.lesson-body h4{line-height:1.25;margin:1.8em 0 .5em}
+.lesson-body>:first-child{margin-top:0}
+.lesson-body h2{font:700 1.2rem/1.25 "Unbounded",sans-serif}
+.lesson-body h3{font-size:1.1rem;font-weight:700}
+.lesson-body h4{font-size:1rem;font-weight:700;color:var(--muted)}
+.lesson-body p{margin:0 0 1em}
+.lesson-body ul,.lesson-body ol{margin:0 0 1em;padding-left:1.5em}
+.lesson-body li{margin:.25em 0}
+.lesson-body .contains-task-list,.lesson-body .task-list-item{list-style:none}
+.lesson-body .contains-task-list{padding-left:0}
+.lesson-body .task-list-item input{margin:0 .5em 0 0;accent-color:var(--ink)}
+.lesson-body code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:.9em;background:var(--cell);border-radius:4px;padding:.1em .35em}
+.lesson-body pre{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:0 0 1em;overflow-x:auto}
+.lesson-body pre code{background:none;border-radius:0;padding:0;font-size:.88rem}
+.lesson-body table{display:block;overflow-x:auto;border-collapse:collapse;margin:0 0 1em}
+.lesson-body th,.lesson-body td{border:1px solid var(--line);padding:6px 12px;text-align:left}
+.lesson-body th{background:var(--cell)}
+.lesson-body blockquote{margin:0 0 1em;padding:2px 16px;border-left:4px solid var(--line);color:var(--muted)}
+.lesson-body a{color:var(--focus);text-decoration:underline;text-underline-offset:.18em}
+.lesson-body a:hover{color:var(--ink)}
+.lesson-body hr{border:0;border-top:1px solid var(--line);margin:1.8em 0}
+.lesson-body img{max-width:100%;height:auto}
 .pager{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 40px}
 .pager a{display:block;max-width:48%;text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:12px 16px}
 .pager a small{display:block;color:var(--muted);font-size:.8rem}

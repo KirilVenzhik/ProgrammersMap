@@ -183,7 +183,8 @@ public sealed class MarkdownLessonStore : ILessonStore
 
     private static string ExtractSummary(MarkdownDocument document)
     {
-        var paragraph = document.Descendants<ParagraphBlock>().FirstOrDefault();
+        var paragraph = document.OfType<ParagraphBlock>().FirstOrDefault()
+            ?? document.Descendants<ParagraphBlock>().FirstOrDefault();
         if (paragraph?.Inline is null)
         {
             return string.Empty;
@@ -203,6 +204,12 @@ public sealed class MarkdownLessonStore : ILessonStore
                 break;
             case CodeInline code:
                 builder.Append(code.Content);
+                break;
+            case HtmlEntityInline entity:
+                builder.Append(entity.Transcoded.ToString());
+                break;
+            case AutolinkInline autolink:
+                builder.Append(autolink.Url);
                 break;
             case LineBreakInline:
                 builder.Append(' ');
