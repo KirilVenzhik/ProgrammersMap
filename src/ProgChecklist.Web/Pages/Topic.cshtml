@@ -1,0 +1,34 @@
+@page "/{sectionSlug}/{topicSlug}"
+@using ProgChecklist.Core
+@model TopicModel
+@{
+    var context = Model.Context;
+    var sec = context.Section;
+    var topic = context.Topic;
+    var key = TopicKey.Create(sec.Slug, topic.Slug);
+    ViewData["Title"] = $"{topic.Title} — {sec.Title} — Карта программиста";
+}
+
+<header class="hero wrap">
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="/">Карта программиста</a> / <a href="/@sec.Slug">@sec.Title</a></nav>
+    <h1>@topic.Title</h1>
+    <p class="topic-meta"><span class="lvl">@topic.Level.ToDisplayName()</span> <span>@context.Group.Title</span></p>
+    <label class="toggle topic-done"><input type="checkbox" id="cb-@sec.Slug-@topic.Slug" data-key="@key"> Изучено</label>
+</header>
+
+<main class="wrap" id="main" tabindex="-1">
+    <section class="lesson" aria-labelledby="lesson-title">
+        <h2 id="lesson-title">Урок в разработке</h2>
+        <p>Материал по этой теме готовится. Пока отметьте тему как изученную, когда разберётесь в ней самостоятельно.</p>
+    </section>
+    <nav class="pager" aria-label="Соседние темы">
+        @if (context.Previous is { } previous)
+        {
+            <a rel="prev" href="/@previous.Section.Slug/@previous.Topic.Slug"><small>Предыдущая</small>@previous.Topic.Title</a>
+        }
+        @if (context.Next is { } next)
+        {
+            <a rel="next" href="/@next.Section.Slug/@next.Topic.Slug"><small>Следующая</small>@next.Topic.Title</a>
+        }
+    </nav>
+</main>

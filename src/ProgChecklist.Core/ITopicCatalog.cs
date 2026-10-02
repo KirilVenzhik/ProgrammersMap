@@ -14,4 +14,10 @@ public interface ITopicCatalog
 
     /// <summary>Finds a topic by section slug and topic slug (case-insensitive); null if not found.</summary>
     Topic? FindTopic(string sectionSlug, string topicSlug);
+
+    /// <summary>
+    /// Finds a topic with its section, group and neighbours in global catalog order
+    /// (case-insensitive); null if not found.
+    /// </summary>
+    TopicContext? FindTopicContext(string sectionSlug, string topicSlug);
 }

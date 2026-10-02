@@ -60,9 +60,10 @@ public class SectionPageTests : IClassFixture<WebApplicationFactory<Program>>
     {
         using var client = _factory.CreateClient();
 
-        var response = await client.GetAsync("/Error/404");
+        // 500 can only come from the Error page itself, so this proves the literal route wins.
+        var response = await client.GetAsync("/Error/500");
 
-        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
     }
 
     [Fact]

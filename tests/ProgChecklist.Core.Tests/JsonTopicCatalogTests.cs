@@ -324,4 +324,83 @@ public class JsonTopicCatalogTests
         // Assert
         Assert.Equal(3, section!.TopicCount);
     }
+
+    [Fact]
+    public void FindTopicContext_MiddleTopic_HasCorrectNeighboursAndGroup()
+    {
+        var catalog = LoadReal();
+        var section = catalog.FindSection("fundamentals")!;
+        var group = section.Groups[0];
+
+        var context = catalog.FindTopicContext("fundamentals", group.Topics[1].Slug);
+
+        Assert.NotNull(context);
+        Assert.Equal(group, context.Group);
+        Assert.Equal(section, context.Section);
+        Assert.Equal(group.Topics[0], context.Previous!.Topic);
+        Assert.Equal(group.Topics[2], context.Next!.Topic);
+    }
+
+    [Fact]
+    public void FindTopicContext_FirstTopic_HasNoPrevious()
+    {
+        var catalog = LoadReal();
+        var first = catalog.GetSections()[0];
+
+        var context = catalog.FindTopicContext(first.Slug, first.Groups[0].Topics[0].Slug);
+
+        Assert.Null(context!.Previous);
+        Assert.NotNull(context.Next);
+    }
+
+    [Fact]
+    public void FindTopicContext_LastTopicOverall_HasNoNext()
+    {
+        var catalog = LoadReal();
+        var last = catalog.GetSections()[^1];
+
+        var context = catalog.FindTopicContext(last.Slug, last.Groups[^1].Topics[^1].Slug);
+
+        Assert.Null(context!.Next);
+        Assert.NotNull(context.Previous);
+    }
+
+    [Fact]
+    public void FindTopicContext_SectionBoundary_CrossesSections()
+    {
+        var catalog = LoadReal();
+        var lastOfFundamentals = catalog.FindSection("fundamentals")!.Groups[^1].Topics[^1];
+        var firstOfStructures = catalog.FindSection("data-structures")!.Groups[0].Topics[0];
+
+        var forward = catalog.FindTopicContext("fundamentals", lastOfFundamentals.Slug);
+        var backward = catalog.FindTopicContext("data-structures", firstOfStructures.Slug);
+
+        Assert.Equal("data-structures", forward!.Next!.Section.Slug);
+        Assert.Equal(firstOfStructures, forward.Next.Topic);
+        Assert.Equal("fundamentals", backward!.Previous!.Section.Slug);
+        Assert.Equal(lastOfFundamentals, backward.Previous.Topic);
+    }
+
+    [Theory]
+    [InlineData("fundamentals", "no-such-topic")]
+    [InlineData("no-such-section", "binary-bits-bytes")]
+    [InlineData("databases", "binary-bits-bytes")]
+    [InlineData("", "binary-bits-bytes")]
+    [InlineData("fundamentals", " ")]
+    public void FindTopicContext_UnknownOrInvalid_ReturnsNull(string sectionSlug, string topicSlug)
+    {
+        var catalog = LoadReal();
+
+        Assert.Null(catalog.FindTopicContext(sectionSlug, topicSlug));
+    }
+
+    [Fact]
+    public void FindTopicContext_DifferentCase_Finds()
+    {
+        var catalog = LoadReal();
+
+        var context = catalog.FindTopicContext("FUNDAMENTALS", "Binary-Bits-Bytes");
+
+        Assert.Equal("binary-bits-bytes", context!.Topic.Slug);
+    }
 }

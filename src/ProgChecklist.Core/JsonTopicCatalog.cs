@@ -14,6 +14,8 @@ public sealed class JsonTopicCatalog : ITopicCatalog
     private readonly IReadOnlyList<Section> sections;
     private readonly Dictionary<string, Section> sectionsBySlug;
     private readonly Dictionary<string, Dictionary<string, Topic>> topicsBySection;
+    private readonly List<TopicContext> flatTopics = [];
+    private readonly Dictionary<string, int> indexByKey = new(StringComparer.OrdinalIgnoreCase);
 
     private JsonTopicCatalog(
         IReadOnlyList<Section> sections,
@@ -24,6 +26,31 @@ public sealed class JsonTopicCatalog : ITopicCatalog
         this.sectionsBySlug = sectionsBySlug;
         this.topicsBySection = topicsBySection;
         TopicCount = sections.Sum(section => section.TopicCount);
+        BuildFlatOrder();
+    }
+
+    private void BuildFlatOrder()
+    {
+        var entries = new List<(Section Section, Group Group, Topic Topic)>();
+        foreach (var section in sections)
+        {
+            foreach (var group in section.Groups)
+            {
+                foreach (var topic in group.Topics)
+                {
+                    entries.Add((section, group, topic));
+                }
+            }
+        }
+
+        for (var i = 0; i < entries.Count; i++)
+        {
+            var (section, group, topic) = entries[i];
+            var previous = i > 0 ? new TopicLink(entries[i - 1].Section, entries[i - 1].Topic) : null;
+            var next = i < entries.Count - 1 ? new TopicLink(entries[i + 1].Section, entries[i + 1].Topic) : null;
+            indexByKey[TopicKey.Create(section.Slug, topic.Slug)] = i;
+            flatTopics.Add(new TopicContext(section, group, topic, previous, next));
+        }
     }
 
     /// <summary>Loads the catalog from a UTF-8 JSON file.</summary>
@@ -163,6 +190,19 @@ public sealed class JsonTopicCatalog : ITopicCatalog
 
         return topicsBySection.TryGetValue(sectionSlug, out var topics)
             ? topics.GetValueOrDefault(topicSlug)
+            : null;
+    }
+
+    /// <inheritdoc />
+    public TopicContext? FindTopicContext(string sectionSlug, string topicSlug)
+    {
+        if (string.IsNullOrWhiteSpace(sectionSlug) || string.IsNullOrWhiteSpace(topicSlug))
+        {
+            return null;
+        }
+
+        return indexByKey.TryGetValue(TopicKey.Create(sectionSlug, topicSlug), out var index)
+            ? flatTopics[index]
             : null;
     }
 
