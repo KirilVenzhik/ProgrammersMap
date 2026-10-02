@@ -56,5 +56,5 @@ Opus проверяет slug'и в topics.json: короткие, читаемы
 Уникальные `<title>` и `meta description`, canonical, Open Graph, `sitemap.xml` (все страницы), `robots.txt`, JSON-LD `BreadcrumbList` на странице темы.
 Приёмка: sitemap содержит 1 + 14 + 254 URL; тест на это.
 
-### P1-08 Итог фазы — `todo`
+### P1-08 Итог фазы — `done`
 Opus проверяет всю фазу против ROADMAP, пишет итог в STATUS.md, ставит маркер `REVIEW-NEEDED` в STATUS.md. СТОП.
