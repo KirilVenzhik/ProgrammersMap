@@ -3,7 +3,7 @@
 **Фаза:** P0 · **Состояние:** в работе · **Следующая задача:** P0-03
 
 ## Нужно от человека
-- Добавить в `.claude/settings.json` PowerShell-аналоги разрешений (`PowerShell(dotnet *)`, `PowerShell(git status*)` и т.д.) и deny для `git push`/`git reset --hard` — сейчас там только `Bash(...)`, а основной shell — PowerShell.
+- (пока ничего)
 
 ## Заметки для следующих задач
 - Нет `.gitattributes`: файлы из шаблонов CRLF+BOM, рукописные LF. Внесено в приёмку P0-04.

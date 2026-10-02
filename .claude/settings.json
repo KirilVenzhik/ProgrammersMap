@@ -13,12 +13,24 @@
       "Bash(git commit *)",
       "Bash(git restore *)",
       "Bash(git clean *)",
-      "Bash(docker compose *)"
+      "Bash(docker compose *)",
+      "PowerShell(dotnet *)",
+      "PowerShell(git status*)",
+      "PowerShell(git diff*)",
+      "PowerShell(git log*)",
+      "PowerShell(git add *)",
+      "PowerShell(git commit *)",
+      "PowerShell(git restore *)",
+      "PowerShell(git clean *)",
+      "PowerShell(docker compose *)"
     ],
     "deny": [
       "Bash(git push*)",
       "Bash(git reset --hard*)",
       "Bash(rm -rf *)",
+      "PowerShell(git push*)",
+      "PowerShell(git reset --hard*)",
+      "PowerShell(Remove-Item * -Recurse*)",
       "Read(./.env*)",
       "Read(**/secrets.json)"
     ]
