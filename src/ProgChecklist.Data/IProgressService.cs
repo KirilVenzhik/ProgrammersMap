@@ -6,6 +6,9 @@ public interface IProgressService
     /// <summary>The user's completed topic keys, sorted ordinal.</summary>
     Task<IReadOnlyList<string>> GetKeysAsync(string userId, CancellationToken ct = default);
 
+    /// <summary>The user's completed topics with completion times, sorted by key ordinal.</summary>
+    Task<IReadOnlyList<ProgressEntry>> GetEntriesAsync(string userId, CancellationToken ct = default);
+
     /// <summary>Marks a topic done (idempotent). False when the key is unknown; nothing is written then.</summary>
     Task<bool> MarkAsync(string userId, string topicKey, CancellationToken ct = default);
 

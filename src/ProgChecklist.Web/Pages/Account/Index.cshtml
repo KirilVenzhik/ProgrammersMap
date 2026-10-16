@@ -1,0 +1,100 @@
+@page "/account"
+@model IndexModel
+@{
+    ViewData["NoIndex"] = true;
+    ViewData["Title"] = "Аккаунт — Карта программиста";
+}
+
+<main class="wrap" id="main" tabindex="-1">
+    <div class="auth">
+        <h1>Аккаунт</h1>
+    </div>
+    @if (Model.StatusMessage is not null)
+    {
+        <p class="auth-status" role="status">@Model.StatusMessage</p>
+    }
+
+    <section class="account-card" aria-labelledby="acc-info">
+        <h2 id="acc-info">Данные</h2>
+        <dl class="account-info">
+            <dt>Электронная почта</dt>
+            <dd>@Model.Email</dd>
+            <dt>Дата регистрации</dt>
+            <dd>@Model.RegisteredOn</dd>
+            <dt>Изучено</dt>
+            <dd>@Model.StudiedText</dd>
+        </dl>
+    </section>
+
+    <section class="account-card" aria-labelledby="acc-password">
+        <h2 id="acc-password">Смена пароля</h2>
+        <form method="post" asp-page-handler="ChangePassword" novalidate>
+            @if (Model.ChangePasswordErrors.Count > 0)
+            {
+                <div class="auth-errors" role="alert">
+                    <ul>
+                        @foreach (var error in Model.ChangePasswordErrors)
+                        {
+                            <li>@error</li>
+                        }
+                    </ul>
+                </div>
+            }
+            <div class="auth-field">
+                <label asp-for="ChangePassword.CurrentPassword">Текущий пароль</label>
+                <input asp-for="ChangePassword.CurrentPassword" type="password" autocomplete="current-password" required value=""
+                       aria-invalid="@AuthFormHelpers.Invalid(ModelState, "ChangePassword.CurrentPassword")"
+                       aria-describedby="@AuthFormHelpers.DescribedBy(ModelState, "ChangePassword.CurrentPassword", "acc-current-error")" />
+                <span asp-validation-for="ChangePassword.CurrentPassword" id="acc-current-error" class="auth-error"></span>
+            </div>
+            <div class="auth-field">
+                <label asp-for="ChangePassword.NewPassword">Новый пароль</label>
+                <input asp-for="ChangePassword.NewPassword" type="password" autocomplete="new-password" required minlength="8" value=""
+                       aria-invalid="@AuthFormHelpers.Invalid(ModelState, "ChangePassword.NewPassword")"
+                       aria-describedby="@AuthFormHelpers.DescribedBy(ModelState, "ChangePassword.NewPassword", "acc-new-error", "acc-new-hint")" />
+                <span class="auth-hint" id="acc-new-hint">Не менее 8 символов.</span>
+                <span asp-validation-for="ChangePassword.NewPassword" id="acc-new-error" class="auth-error"></span>
+            </div>
+            <div class="auth-field">
+                <label asp-for="ChangePassword.ConfirmPassword">Повторите новый пароль</label>
+                <input asp-for="ChangePassword.ConfirmPassword" type="password" autocomplete="new-password" required value=""
+                       aria-invalid="@AuthFormHelpers.Invalid(ModelState, "ChangePassword.ConfirmPassword")"
+                       aria-describedby="@AuthFormHelpers.DescribedBy(ModelState, "ChangePassword.ConfirmPassword", "acc-confirm-error")" />
+                <span asp-validation-for="ChangePassword.ConfirmPassword" id="acc-confirm-error" class="auth-error"></span>
+            </div>
+            <button type="submit" class="auth-submit">Сменить пароль</button>
+        </form>
+    </section>
+
+    <section class="account-card" aria-labelledby="acc-export">
+        <h2 id="acc-export">Выгрузка данных</h2>
+        <p class="auth-hint">Файл JSON с вашей почтой, датой регистрации и изученными темами.</p>
+        <a class="account-export" href="/account?handler=Export" download>Скачать мои данные</a>
+    </section>
+
+    <section class="account-card" aria-labelledby="acc-delete">
+        <h2 id="acc-delete">Удаление аккаунта</h2>
+        <p class="auth-danger">Аккаунт и весь прогресс будут удалены без возможности восстановления.</p>
+        <form method="post" asp-page-handler="Delete" novalidate>
+            @if (Model.DeleteErrors.Count > 0)
+            {
+                <div class="auth-errors" role="alert">
+                    <ul>
+                        @foreach (var error in Model.DeleteErrors)
+                        {
+                            <li>@error</li>
+                        }
+                    </ul>
+                </div>
+            }
+            <div class="auth-field">
+                <label asp-for="Delete.Password">Пароль для подтверждения</label>
+                <input asp-for="Delete.Password" type="password" autocomplete="current-password" required value=""
+                       aria-invalid="@AuthFormHelpers.Invalid(ModelState, "Delete.Password")"
+                       aria-describedby="@AuthFormHelpers.DescribedBy(ModelState, "Delete.Password", "acc-delete-error")" />
+                <span asp-validation-for="Delete.Password" id="acc-delete-error" class="auth-error"></span>
+            </div>
+            <button type="submit" class="auth-submit">Удалить аккаунт</button>
+        </form>
+    </section>
+</main>

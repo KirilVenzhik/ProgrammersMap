@@ -43,6 +43,7 @@ public static class IdentityServiceCollectionExtensions
             options.LoginPath = "/account/login";
             options.LogoutPath = "/account/logout";
             options.AccessDeniedPath = "/account/login";
+            options.ReturnUrlParameter = "returnUrl";
 
             var onRedirectToLogin = options.Events.OnRedirectToLogin;
             var onRedirectToAccessDenied = options.Events.OnRedirectToAccessDenied;
@@ -53,6 +54,9 @@ public static class IdentityServiceCollectionExtensions
                 ? StatusOnly(context.Response, StatusCodes.Status403Forbidden)
                 : onRedirectToAccessDenied(context);
         });
+
+        // Sessions of a deleted account or of a changed password are dropped within this interval.
+        services.Configure<SecurityStampValidatorOptions>(options => options.ValidationInterval = TimeSpan.FromMinutes(5));
 
         return services;
     }

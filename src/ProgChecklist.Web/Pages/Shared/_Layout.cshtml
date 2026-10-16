@@ -17,6 +17,8 @@
     var signedIn = SignInManager.IsSignedIn(User);
     var userId = signedIn ? User.FindFirstValue(ClaimTypes.NameIdentifier) : null;
     var csrfToken = signedIn ? Antiforgery.GetAndStoreTokens(Context).RequestToken : null;
+    // One-shot flag set after account deletion: progress.js wipes the local copy (read here, so it is consumed).
+    var clearLocalProgress = TempData["ClearLocalProgress"] is true && !signedIn;
     var canonicalUrl = !noIndex && !string.IsNullOrEmpty(canonicalPath) ? SiteUrls.Absolute(canonicalPath) : null;
 }
 <!DOCTYPE html>
@@ -43,6 +45,10 @@
         <meta name="csrf-token" content="@csrfToken">
         <meta name="user-id" content="@userId">
     }
+    @if (clearLocalProgress)
+    {
+        <meta name="clear-progress" content="1">
+    }
     <meta property="og:type" content="@ogType">
     <meta property="og:site_name" content="Карта программиста">
     <meta property="og:locale" content="ru_RU">
@@ -67,7 +73,7 @@
         @if (signedIn)
         {
             var userName = User.Identity?.Name;
-            <span class="account-email" title="@userName">@userName</span>
+            <a class="account-email" href="/account" title="@userName">@userName</a>
             <form method="post" asp-page="/Account/Logout" class="account-logout" data-logout>
                 <button type="submit" class="account-link">Выйти</button>
             </form>

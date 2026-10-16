@@ -281,6 +281,42 @@ public sealed class ProgressServiceTests : IDisposable
         Assert.Equal(new[] { Bits }, keysB);
     }
 
+    [Fact]
+    public async Task GetEntries_MarkedTopics_ReturnsOwnEntriesSortedWithDates()
+    {
+        // Arrange
+        await using var context = CreateContext();
+        var service = CreateService(context);
+        await service.MarkAsync("a", Join);
+        _clock.Advance(TimeSpan.FromHours(1));
+        await service.MarkAsync("a", Bits);
+        await service.MarkAsync("b", Git);
+
+        // Act
+        var entries = await service.GetEntriesAsync("a");
+
+        // Assert
+        Assert.Equal(2, entries.Count);
+        Assert.Equal(entries.Select(e => e.TopicKey).OrderBy(k => k, StringComparer.Ordinal), entries.Select(e => e.TopicKey));
+        Assert.DoesNotContain(entries, e => e.TopicKey == Git);
+        Assert.Equal(_clock.GetUtcNow(), entries.Single(e => e.TopicKey == Bits).CompletedAt);
+        Assert.Equal(_clock.GetUtcNow() - TimeSpan.FromHours(1), entries.Single(e => e.TopicKey == Join).CompletedAt);
+    }
+
+    [Fact]
+    public async Task GetEntries_NoProgress_ReturnsEmpty()
+    {
+        // Arrange
+        await using var context = CreateContext();
+        var service = CreateService(context);
+
+        // Act
+        var entries = await service.GetEntriesAsync("a");
+
+        // Assert
+        Assert.Empty(entries);
+    }
+
     private sealed class FakeTimeProvider : TimeProvider
     {
         private DateTimeOffset _now;

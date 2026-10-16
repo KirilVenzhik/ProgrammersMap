@@ -1,6 +1,8 @@
 using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 using ProgChecklist.Data;
@@ -20,6 +22,7 @@ public static class ProgressEndpoints
     public static WebApplication MapProgressEndpoints(this WebApplication app)
     {
         var group = app.MapGroup("/api/progress").RequireAuthorization();
+        group.AddEndpointFilter(RejectDeletedUser);
 
         group.MapGet("", async (ClaimsPrincipal user, IProgressService progress, CancellationToken ct) =>
             TypedResults.Ok(new KeysResponse(await progress.GetKeysAsync(UserId(user), ct))));
@@ -88,6 +91,20 @@ public static class ProgressEndpoints
 
     private static string UserId(ClaimsPrincipal user) =>
         user.FindFirstValue(ClaimTypes.NameIdentifier) ?? throw new InvalidOperationException("Authenticated user has no id claim.");
+
+    // A cookie can outlive its account (deleted elsewhere): answer 401 and drop the cookie instead of failing on the FK.
+    private static async ValueTask<object?> RejectDeletedUser(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
+    {
+        var http = context.HttpContext;
+        var users = http.RequestServices.GetRequiredService<UserManager<AppUser>>();
+        if (await users.GetUserAsync(http.User) is null)
+        {
+            await http.SignOutAsync(IdentityConstants.ApplicationScheme);
+            return Results.Unauthorized();
+        }
+
+        return await next(context);
+    }
 
     private static async ValueTask<object?> ValidateAntiforgery(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {

@@ -30,6 +30,17 @@ public sealed class ProgressService : IProgressService
         return keys;
     }
 
+    public async Task<IReadOnlyList<ProgressEntry>> GetEntriesAsync(string userId, CancellationToken ct = default)
+    {
+        ValidateUser(userId);
+        var entries = await _db.TopicProgress.AsNoTracking()
+            .Where(p => p.UserId == userId)
+            .Select(p => new ProgressEntry(p.TopicKey, p.CompletedAt))
+            .ToListAsync(ct);
+        entries.Sort((a, b) => string.CompareOrdinal(a.TopicKey, b.TopicKey));
+        return entries;
+    }
+
     public async Task<bool> MarkAsync(string userId, string topicKey, CancellationToken ct = default)
     {
         ValidateUser(userId);

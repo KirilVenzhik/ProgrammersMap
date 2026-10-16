@@ -13,6 +13,9 @@ const csrfToken = metaContent("csrf-token");
 // Signed-in users sync with the server (ADR-14); guests never touch the network.
 let syncEnabled = Boolean(userId && csrfToken);
 
+// Set by the server once after the account was deleted: the local copy belonged to that account.
+if (metaContent("clear-progress") === "1") clearLocalProgress();
+
 let done = loadProgress();
 if (syncEnabled && storageGet(OWNER_KEY) !== null && storageGet(OWNER_KEY) !== userId) {
   // Left by another user (e.g. cookie expired without logout): not ours, do not merge it.
@@ -248,6 +251,10 @@ async function initialSync() {
 // Local data belongs to the signed-in user: wipe it on logout (the form is submitted as usual).
 function onLogoutSubmit(event) {
   if (!(event.target instanceof HTMLFormElement) || !event.target.matches("form[data-logout]")) return;
+  clearLocalProgress();
+}
+
+function clearLocalProgress() {
   storageRemove(STORAGE_KEY);
   storageRemove(OWNER_KEY);
   try {
