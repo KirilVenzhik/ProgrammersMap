@@ -14,6 +14,7 @@ builder.Services.AddResourceCatalog(builder.Configuration);
 builder.Services.AddLessonStore(builder.Configuration);
 builder.Services.AddSiteUrls(builder.Configuration);
 builder.Services.AddAppDatabase(builder.Configuration);
+builder.Services.AddAppIdentity();
 
 var app = builder.Build();
 
@@ -26,6 +27,8 @@ if (app.Configuration.GetValue<bool>("Database:MigrateOnStartup"))
 app.UseStatusCodePagesWithReExecute("/Error/{0}");
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapSeoEndpoints();
 app.MapRazorPages();
 

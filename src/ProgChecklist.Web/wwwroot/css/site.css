@@ -1,19 +1,19 @@
 /* Source: prototype/index.html (<style> block), ported 1:1. Additions are marked "Addition". */
 :root{
   --paper:#E9EDF2; --surface:#F6F8FB; --ink:#14213D; --muted:#56657F; --line:#C9D2DE;
-  --hl:#FFD24C; --hl-ink:#14213D; --cell:#D3DAE4; --focus:#2F5BD3;
+  --hl:#FFD24C; --hl-ink:#14213D; --cell:#D3DAE4; --focus:#2F5BD3; --danger:#B3261E;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --paper:#111827; --surface:#182133; --ink:#E6EBF3; --muted:#93A0B6; --line:#2B3650;
-    --hl:#C9A227; --hl-ink:#111827; --cell:#26314A; --focus:#8FB0FF;
+    --hl:#C9A227; --hl-ink:#111827; --cell:#26314A; --focus:#8FB0FF; --danger:#FF8A80;
   }
 }
 :root[data-theme="dark"]{
   --paper:#111827; --surface:#182133; --ink:#E6EBF3; --muted:#93A0B6; --line:#2B3650;
-  --hl:#C9A227; --hl-ink:#111827; --cell:#26314A; --focus:#8FB0FF;
+  --hl:#C9A227; --hl-ink:#111827; --cell:#26314A; --focus:#8FB0FF; --danger:#FF8A80;
 }
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 16px)}
 *,*::before,*::after{box-sizing:inherit}
@@ -146,3 +146,19 @@ main.wrap{padding:32px 20px 80px}
 @media (max-width:820px){
   .pager a{max-width:100%;flex:1 1 100%}
 }
+
+/* Auth forms (register / login) */
+.auth{max-width:420px;margin:32px auto}
+.auth h1{margin:0 0 16px}
+.auth-field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.auth-field label{font-weight:500}
+.auth-field input{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:100%;box-sizing:border-box}
+.auth-field input:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.auth-hint{color:var(--muted);font-size:.875rem}
+.auth-error,.auth-errors{color:var(--danger)}
+.auth-errors ul{margin:0 0 16px;padding-left:20px}
+.auth-errors.validation-summary-valid{display:none}
+.auth-submit{font:inherit;font-weight:600;cursor:pointer;background:var(--hl);color:var(--hl-ink);border:0;border-radius:8px;padding:10px 18px;width:100%}
+.auth-submit:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.auth-note{color:var(--muted);margin:16px 0 0}
+.auth-note a{color:var(--focus)}

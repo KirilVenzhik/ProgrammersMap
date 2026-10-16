@@ -105,7 +105,7 @@ Opus проверяет фазу против ROADMAP («У темы может 
 `compose.yaml` (postgres, зафиксированная мажорная версия, volume, healthcheck), `.env.example` (+ исключение в `.gitignore`), `scripts/run-wsl.sh` берёт строку подключения из `.env`, `appsettings.Development.json` с `MigrateOnStartup: true`. Атрибут `PostgresFact` (Skip без `PROGCHECKLIST_TEST_POSTGRES`). CI: в ubuntu-job service `postgres` и переменная; windows-job без изменений. README: как поднять БД и запустить.
 Приёмка: тест под `PostgresFact` применяет все миграции к пустой БД и делает round-trip прогресса; локально он skipped, в CI на ubuntu — passed (проверяется после пуша человеком, run ID в STATUS); `docker compose up -d` + `run-wsl.ps1` поднимают сайт с применёнными миграциями (ручная проверка в описании коммита); паролей в репо нет.
 
-### P3-03 Identity и регистрация — `todo`
+### P3-03 Identity и регистрация — `done`
 По ADR-13: настройка Identity (политика пароля, блокировка, cookie, 401 для `/api/*`), `UseAuthentication/UseAuthorization`. Страница `/account/register` (email, пароль, повтор) в стиле сайта, ошибки валидации по-русски, после успеха — вход и редирект на локальный `returnUrl` или `/`. `noindex`, нет в sitemap.
 Приёмка: интеграционные тесты: GET 200 с antiforgery-полем; успешная регистрация ставит auth-cookie и редиректит; занятый email, короткий пароль, несовпадение паролей → 200 с текстом ошибки, пользователь не создан; POST без antiforgery → 400; внешний `returnUrl` → редирект на `/`; sitemap без `/account`.
 
