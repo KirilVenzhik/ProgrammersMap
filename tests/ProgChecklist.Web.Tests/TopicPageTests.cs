@@ -5,11 +5,11 @@ using ProgChecklist.Core;
 
 namespace ProgChecklist.Web.Tests;
 
-public class TopicPageTests : IClassFixture<WebApplicationFactory<Program>>
+public class TopicPageTests : IClassFixture<AppFactory>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
-    public TopicPageTests(WebApplicationFactory<Program> factory)
+    public TopicPageTests(AppFactory factory)
     {
         _factory = factory;
     }

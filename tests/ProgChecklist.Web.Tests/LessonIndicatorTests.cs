@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace ProgChecklist.Web.Tests;
 
-public class LessonIndicatorTests : IClassFixture<WebApplicationFactory<Program>>
+public class LessonIndicatorTests : IClassFixture<AppFactory>
 {
     private const string BitsSummary = "Бит — это \"минимальная\" единица & основа данных.";
     private const string GitSummary = "Коммит фиксирует снимок проекта.";
 
     private readonly WebApplicationFactory<Program> _factory;
 
-    public LessonIndicatorTests(WebApplicationFactory<Program> factory)
+    public LessonIndicatorTests(AppFactory factory)
     {
         _factory = factory;
     }

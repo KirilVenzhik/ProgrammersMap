@@ -2,6 +2,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProgChecklist.Core\ProgChecklist.Core.csproj" />
+    <ProjectReference Include="..\ProgChecklist.Data\ProgChecklist.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

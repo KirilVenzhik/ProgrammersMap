@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc.Testing;
 namespace ProgChecklist.Web.Tests;
 
 /// <summary>Checks the real pilot content shipped in <c>content/</c> (P2-07), not fixtures.</summary>
-public class PilotContentTests : IClassFixture<WebApplicationFactory<Program>>
+public class PilotContentTests : IClassFixture<AppFactory>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
-    public PilotContentTests(WebApplicationFactory<Program> factory)
+    public PilotContentTests(AppFactory factory)
     {
         _factory = factory;
     }

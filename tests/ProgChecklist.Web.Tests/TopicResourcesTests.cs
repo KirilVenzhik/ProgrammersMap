@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace ProgChecklist.Web.Tests;
 
-public class TopicResourcesTests : IClassFixture<WebApplicationFactory<Program>>
+public class TopicResourcesTests : IClassFixture<AppFactory>
 {
     private const string TopicUrl = "/git/init-add-commit";
     private const string OtherTopicUrl = "/git/branching-and-merging";
@@ -36,7 +36,7 @@ public class TopicResourcesTests : IClassFixture<WebApplicationFactory<Program>>
 
     private readonly WebApplicationFactory<Program> _factory;
 
-    public TopicResourcesTests(WebApplicationFactory<Program> factory)
+    public TopicResourcesTests(AppFactory factory)
     {
         _factory = factory;
     }

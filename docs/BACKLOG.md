@@ -97,7 +97,7 @@ Opus проверяет фазу против ROADMAP («У темы может 
 
 ## P3 — Аккаунты
 
-### P3-01 Проект Data, модель и тестовая БД — `todo`
+### P3-01 Проект Data, модель и тестовая БД — `done`
 По ADR-12: проект `ProgChecklist.Data` (в `.sln`, ссылки Core ← Data ← Web), `AppUser : IdentityUser`, `AppDbContext : IdentityDbContext<AppUser>` с `UserTopicProgress` (PK, FK с каскадом, длина ключа). `AddAppDatabase(configuration)` в Web: Npgsql, пустая `ConnectionStrings:Default` → `InvalidOperationException` при старте, `Database:MigrateOnStartup`. Начальная миграция (`dotnet ef`, локальный tool-манифест). В Web.Tests — общая фабрика с SQLite in-memory; все существующие тесты переведены на неё.
 Приёмка: все прежние тесты зелёные; тесты: модель на SQLite (сохранение/чтение прогресса, дубликат PK → ошибка, удаление пользователя удаляет его прогресс); старт без строки подключения → понятная ошибка; миграция в репо и `dotnet ef migrations has-pending-model-changes` (или эквивалент) не находит расхождений.
 

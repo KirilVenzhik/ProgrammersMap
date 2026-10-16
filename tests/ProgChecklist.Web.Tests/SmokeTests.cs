@@ -5,11 +5,11 @@ using ProgChecklist.Core;
 
 namespace ProgChecklist.Web.Tests;
 
-public class SmokeTests : IClassFixture<WebApplicationFactory<Program>>
+public class SmokeTests : IClassFixture<AppFactory>
 {
     private readonly WebApplicationFactory<Program> _factory;
 
-    public SmokeTests(WebApplicationFactory<Program> factory)
+    public SmokeTests(AppFactory factory)
     {
         _factory = factory;
     }

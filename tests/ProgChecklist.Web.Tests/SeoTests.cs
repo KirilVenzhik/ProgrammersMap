@@ -7,7 +7,7 @@ using ProgChecklist.Core;
 
 namespace ProgChecklist.Web.Tests;
 
-public class SeoTests : IClassFixture<WebApplicationFactory<Program>>
+public class SeoTests : IClassFixture<AppFactory>
 {
     private const string BaseUrl = "https://example.test";
     private static readonly XNamespace SitemapNs = "http://www.sitemaps.org/schemas/sitemap/0.9";
@@ -15,7 +15,7 @@ public class SeoTests : IClassFixture<WebApplicationFactory<Program>>
     private readonly WebApplicationFactory<Program> _factory;
     private readonly WebApplicationFactory<Program> _configuredFactory;
 
-    public SeoTests(WebApplicationFactory<Program> factory)
+    public SeoTests(AppFactory factory)
     {
         _factory = factory;
         _configuredFactory = factory.WithWebHostBuilder(builder => builder.UseSetting("Site:BaseUrl", BaseUrl));

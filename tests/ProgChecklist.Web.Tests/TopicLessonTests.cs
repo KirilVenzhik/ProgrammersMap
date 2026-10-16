@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace ProgChecklist.Web.Tests;
 
-public class TopicLessonTests : IClassFixture<WebApplicationFactory<Program>>
+public class TopicLessonTests : IClassFixture<AppFactory>
 {
     private const string LessonPath = "git/init-add-commit.md";
     private const string LessonUrl = "/git/init-add-commit";
@@ -31,7 +31,7 @@ public class TopicLessonTests : IClassFixture<WebApplicationFactory<Program>>
 
     private readonly WebApplicationFactory<Program> _factory;
 
-    public TopicLessonTests(WebApplicationFactory<Program> factory)
+    public TopicLessonTests(AppFactory factory)
     {
         _factory = factory;
     }

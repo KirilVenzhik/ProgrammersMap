@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace ProgChecklist.Web.Tests;
 
-public class LayoutTests : IClassFixture<WebApplicationFactory<Program>>
+public class LayoutTests : IClassFixture<AppFactory>
 {
     private const string FontsStylesheet = "https://fonts.googleapis.com/css2?family=Golos+Text";
 
     private readonly WebApplicationFactory<Program> _factory;
 
-    public LayoutTests(WebApplicationFactory<Program> factory)
+    public LayoutTests(AppFactory factory)
     {
         _factory = factory;
     }

@@ -1,6 +1,8 @@
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using Microsoft.Extensions.WebEncoders;
+using Microsoft.EntityFrameworkCore;
+using ProgChecklist.Data;
 using ProgChecklist.Web;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,8 +13,15 @@ builder.Services.AddTopicCatalog(builder.Configuration);
 builder.Services.AddResourceCatalog(builder.Configuration);
 builder.Services.AddLessonStore(builder.Configuration);
 builder.Services.AddSiteUrls(builder.Configuration);
+builder.Services.AddAppDatabase(builder.Configuration);
 
 var app = builder.Build();
+
+if (app.Configuration.GetValue<bool>("Database:MigrateOnStartup"))
+{
+    using var scope = app.Services.CreateScope();
+    scope.ServiceProvider.GetRequiredService<AppDbContext>().Database.Migrate();
+}
 
 app.UseStatusCodePagesWithReExecute("/Error/{0}");
 app.UseStaticFiles();
