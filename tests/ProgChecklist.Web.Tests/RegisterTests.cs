@@ -15,8 +15,6 @@ namespace ProgChecklist.Web.Tests;
 
 public class RegisterTests : IClassFixture<AppFactory>
 {
-    private const string GoodPassword = "correct horse";
-
     private readonly AppFactory _factory;
 
     public RegisterTests(AppFactory factory)
@@ -24,18 +22,7 @@ public class RegisterTests : IClassFixture<AppFactory>
         _factory = factory;
     }
 
-    private static string NewEmail() => $"u{Guid.NewGuid():N}@example.test";
-
-    private HttpClient NewClient() =>
-        _factory.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = false });
-
-    private static async Task<string> GetTokenAsync(HttpClient client)
-    {
-        var html = await client.GetStringAsync("/account/register");
-        var match = Regex.Match(html, "name=\"__RequestVerificationToken\"[^>]*value=\"([^\"]+)\"");
-        Assert.True(match.Success, "antiforgery token not found");
-        return match.Groups[1].Value;
-    }
+    private HttpClient NewClient() => AuthTestHelpers.NewClient(_factory);
 
     private static async Task<HttpResponseMessage> PostAsync(
         HttpClient client, string email, string password, string confirm, string? returnUrl = null, bool withToken = true)
@@ -53,7 +40,7 @@ public class RegisterTests : IClassFixture<AppFactory>
 
         if (withToken)
         {
-            fields["__RequestVerificationToken"] = await GetTokenAsync(client);
+            fields["__RequestVerificationToken"] = await AuthTestHelpers.GetTokenAsync(client, "/account/register");
         }
 
         return await client.PostAsync("/account/register", new FormUrlEncodedContent(fields));
@@ -90,10 +77,10 @@ public class RegisterTests : IClassFixture<AppFactory>
     {
         // Arrange
         using var client = NewClient();
-        var email = NewEmail();
+        var email = AuthTestHelpers.NewEmail();
 
         // Act
-        var response = await PostAsync(client, email, GoodPassword, GoodPassword);
+        var response = await PostAsync(client, email, AuthTestHelpers.GoodPassword, AuthTestHelpers.GoodPassword);
 
         // Assert
         Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
@@ -115,7 +102,7 @@ public class RegisterTests : IClassFixture<AppFactory>
         using var client = NewClient();
 
         // Act
-        var response = await PostAsync(client, NewEmail(), GoodPassword, GoodPassword, returnUrl);
+        var response = await PostAsync(client, AuthTestHelpers.NewEmail(), AuthTestHelpers.GoodPassword, AuthTestHelpers.GoodPassword, returnUrl);
 
         // Assert
         Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
@@ -126,16 +113,16 @@ public class RegisterTests : IClassFixture<AppFactory>
     public async Task Post_DuplicateEmailDifferentCase_ShowsRussianErrorOnceAndKeepsOneUser()
     {
         // Arrange
-        var email = NewEmail();
+        var email = AuthTestHelpers.NewEmail();
         using (var first = NewClient())
         {
-            Assert.Equal(HttpStatusCode.Redirect, (await PostAsync(first, email, GoodPassword, GoodPassword)).StatusCode);
+            Assert.Equal(HttpStatusCode.Redirect, (await PostAsync(first, email, AuthTestHelpers.GoodPassword, AuthTestHelpers.GoodPassword)).StatusCode);
         }
 
         using var client = NewClient();
 
         // Act
-        var response = await PostAsync(client, email.ToUpperInvariant(), GoodPassword, GoodPassword);
+        var response = await PostAsync(client, email.ToUpperInvariant(), AuthTestHelpers.GoodPassword, AuthTestHelpers.GoodPassword);
         var body = await response.Content.ReadAsStringAsync();
 
         // Assert
@@ -149,7 +136,7 @@ public class RegisterTests : IClassFixture<AppFactory>
     {
         // Arrange
         using var client = NewClient();
-        var email = NewEmail();
+        var email = AuthTestHelpers.NewEmail();
 
         // Act
         var response = await PostAsync(client, email, "1234567", "1234567");
@@ -166,10 +153,10 @@ public class RegisterTests : IClassFixture<AppFactory>
     {
         // Arrange
         using var client = NewClient();
-        var email = NewEmail();
+        var email = AuthTestHelpers.NewEmail();
 
         // Act
-        var response = await PostAsync(client, email, GoodPassword, GoodPassword + "x");
+        var response = await PostAsync(client, email, AuthTestHelpers.GoodPassword, AuthTestHelpers.GoodPassword + "x");
         var body = await response.Content.ReadAsStringAsync();
 
         // Assert
@@ -185,7 +172,7 @@ public class RegisterTests : IClassFixture<AppFactory>
         using var client = NewClient();
 
         // Act
-        var response = await PostAsync(client, "not-an-email", GoodPassword, GoodPassword);
+        var response = await PostAsync(client, "not-an-email", AuthTestHelpers.GoodPassword, AuthTestHelpers.GoodPassword);
         var body = await response.Content.ReadAsStringAsync();
 
         // Assert
@@ -199,10 +186,10 @@ public class RegisterTests : IClassFixture<AppFactory>
     {
         // Arrange
         using var client = NewClient();
-        var email = NewEmail();
+        var email = AuthTestHelpers.NewEmail();
 
         // Act
-        var response = await PostAsync(client, email, GoodPassword, GoodPassword, withToken: false);
+        var response = await PostAsync(client, email, AuthTestHelpers.GoodPassword, AuthTestHelpers.GoodPassword, withToken: false);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -214,7 +201,7 @@ public class RegisterTests : IClassFixture<AppFactory>
     {
         // Arrange
         using var client = NewClient();
-        await PostAsync(client, NewEmail(), GoodPassword, GoodPassword);
+        await PostAsync(client, AuthTestHelpers.NewEmail(), AuthTestHelpers.GoodPassword, AuthTestHelpers.GoodPassword);
 
         // Act
         var response = await client.GetAsync("/account/register");

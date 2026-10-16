@@ -7,61 +7,6 @@ using ProgChecklist.Data;
 
 namespace ProgChecklist.Web.Tests;
 
-internal static class AuthTestHelpers
-{
-    public const string GoodPassword = "correct horse";
-
-    public static string NewEmail() => $"u{Guid.NewGuid():N}@example.test";
-
-    public static HttpClient NewClient(AppFactory factory) =>
-        factory.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = false });
-
-    public static async Task<string> GetTokenAsync(HttpClient client, string path)
-    {
-        var html = await client.GetStringAsync(path);
-        var match = Regex.Match(html, "name=\"__RequestVerificationToken\"[^>]*value=\"([^\"]+)\"");
-        Assert.True(match.Success, "antiforgery token not found");
-        return match.Groups[1].Value;
-    }
-
-    public static async Task<string> CreateUserAsync(AppFactory factory, string? email = null)
-    {
-        email ??= NewEmail();
-        using var scope = factory.Services.CreateScope();
-        var result = await scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>()
-            .CreateAsync(new AppUser { UserName = email, Email = email }, GoodPassword);
-        Assert.True(result.Succeeded);
-        return email;
-    }
-
-    public static async Task<HttpResponseMessage> LoginAsync(
-        HttpClient client, string email, string password, bool remember = false, string? returnUrl = null)
-    {
-        var fields = new Dictionary<string, string>
-        {
-            ["Input.Email"] = email,
-            ["Input.Password"] = password,
-            ["__RequestVerificationToken"] = await GetTokenAsync(client, "/account/login"),
-        };
-        if (remember)
-        {
-            fields["Input.RememberMe"] = "true";
-        }
-
-        if (returnUrl is not null)
-        {
-            fields["ReturnUrl"] = returnUrl;
-        }
-
-        return await client.PostAsync("/account/login", new FormUrlEncodedContent(fields));
-    }
-
-    public static string? AuthCookie(HttpResponseMessage response) =>
-        response.Headers.TryGetValues("Set-Cookie", out var values)
-            ? values.FirstOrDefault(c => c.StartsWith(".ProgChecklist.Auth=") && !c.StartsWith(".ProgChecklist.Auth=;"))
-            : null;
-}
-
 public class LoginTests : IClassFixture<AppFactory>
 {
     private const string WrongMessage = "Неверная почта или пароль.";

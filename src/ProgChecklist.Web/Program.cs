@@ -25,11 +25,13 @@ if (app.Configuration.GetValue<bool>("Database:MigrateOnStartup"))
 }
 
 app.UseStatusCodePagesWithReExecute("/Error/{0}");
+app.UseApiResponseDefaults();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapSeoEndpoints();
+app.MapProgressEndpoints();
 app.MapRazorPages();
 
 app.Run();

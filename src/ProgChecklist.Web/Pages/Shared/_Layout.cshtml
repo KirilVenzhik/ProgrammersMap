@@ -1,6 +1,8 @@
 @using Microsoft.AspNetCore.Identity
 @inject ProgChecklist.Web.ISiteUrls SiteUrls
 @inject SignInManager<ProgChecklist.Data.AppUser> SignInManager
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@using System.Security.Claims
 @{
     var description = ViewData["Description"] as string;
     var canonicalPath = ViewData["CanonicalPath"] as string;
@@ -12,6 +14,9 @@
 
     var ogType = ViewData["OgType"] as string ?? "website";
     var noIndex = ViewData["NoIndex"] is true;
+    var signedIn = SignInManager.IsSignedIn(User);
+    var userId = signedIn ? User.FindFirstValue(ClaimTypes.NameIdentifier) : null;
+    var csrfToken = signedIn ? Antiforgery.GetAndStoreTokens(Context).RequestToken : null;
     var canonicalUrl = !noIndex && !string.IsNullOrEmpty(canonicalPath) ? SiteUrls.Absolute(canonicalPath) : null;
 }
 <!DOCTYPE html>
@@ -32,6 +37,11 @@
     @if (noIndex)
     {
         <meta name="robots" content="noindex">
+    }
+    @if (csrfToken is not null)
+    {
+        <meta name="csrf-token" content="@csrfToken">
+        <meta name="user-id" content="@userId">
     }
     <meta property="og:type" content="@ogType">
     <meta property="og:site_name" content="Карта программиста">
@@ -54,7 +64,7 @@
 <body>
     <a class="skip-link" href="#main">Перейти к содержимому</a>
     <nav class="account-nav" aria-label="Аккаунт">
-        @if (SignInManager.IsSignedIn(User))
+        @if (signedIn)
         {
             var userName = User.Identity?.Name;
             <span class="account-email" title="@userName">@userName</span>
