@@ -1,6 +1,6 @@
 # Статус
 
-**Фаза:** P3 · **Состояние:** в работе · **Следующая задача:** P3-05 Сервис прогресса
+**Фаза:** P3 · **Состояние:** в работе · **Следующая задача:** P3-06 API прогресса
 
 ## Нужно от человека
 - (не блокирует) Smart App Control на Windows блокирует свежесобранные DLL (0x800711C7) — тесты: `.\scripts\test-wsl.ps1` (ADR-9). Для полной глобализации в WSL: `sudo apt-get install -y libicu-dev`. Стоит добавить в CLAUDE.md (раздел «Команды») — это файл человека.
@@ -28,14 +28,14 @@
 - P3-07: футер «Прогресс сохраняется в этом браузере.» для вошедшего неверен — поменять текст вместе с синхронизацией.
 - P5: ключи Data Protection (cookie входа) хранить персистентно, иначе после перезапуска контейнера все разлогинятся.
 - Postgres-тесты на Windows: `Host=127.0.0.1`, не `localhost` (иначе IPv6-попытка, 1+ мин на тест). Пароль в `.env` без пробелов, `;`, `$`, кавычек (файл исполняется bash).
+- P3-06: несуществующий пользователь в `IProgressService` → `DbUpdateException` (FK); API берёт userId из cookie, так что это 500 только при удалённом аккаунте с живой cookie — учесть в P3-08 (удаление аккаунта → выход). Перед `MergeAsync` проверять `keys.Count > ProgressService.MaxMergeKeys` → 400.
 - P3 (ревью P3-01): одна `SqliteConnection` на `AppFactory` и все её `WithWebHostBuilder`-потомки — состояние БД общее, соединение не потокобезопасно; при параллельных запросах в тестах API (P3-06) возможна нестабильность — пересмотреть (соединение на фабрику-потомка или уникальные пользователи в каждом тесте).
-- P3-05: Npgsql не пишет `DateTimeOffset` с ненулевым смещением в `timestamptz` — нормализовать `CompletedAt` в UTC; SQLite этого не ловит, только Postgres-тесты (P3-02).
 - Smart App Control блокирует DLL нестабильно (в P3-01…03 не блокировал, в P3-04 снова 0x800711C7) — при ошибке тесты через WSL-скрипт.
 - `scripts/test-wsl.ps1` запускать как `powershell -ExecutionPolicy Bypass -File scripts/test-wsl.ps1` (иначе политика выполнения блокирует).
 
 ## Лог (последние 5 записей, новые сверху)
+- 2026-10-16 — P3-05 done: `TopicKey.TryParse/IsKnown/Normalize` (ординальное сравнение slug'ов), `IProgressService` (Get/Mark/Unmark/Clear/Merge, лимит 1000, `CompletedAt` в UTC через `TimeProvider`, разовый повтор вставки при гонке); тесты 640 + 5 skipped (новый Postgres-тест — в CI); ревью APPROVE с 1-го круга.
 - 2026-10-16 — P3-04 done: `/account/login` (одинаковое сообщение для неверного пароля и неизвестной почты, блокировка, «Запомнить меня»), `/account/logout` (GET — подтверждение, выход только POST), панель аккаунта в layout, `aria-invalid`/`aria-describedby` в формах; тесты 597 + 4 skipped (WSL — SAC снова блокирует DLL); ревью APPROVE с 1-го круга.
 - 2026-10-16 — P3-03 done: Identity по ADR-13 (`AddIdentityCore` + cookie `.ProgChecklist.Auth`, 401/403 для `/api`), русские ошибки Identity, страница `/account/register`, цвет ошибок через `--danger`; тесты 576 + 4 skipped; ревью APPROVE с 1-го круга.
 - 2026-10-16 — P3-02 done: `compose.yaml` (postgres:17, 127.0.0.1), `.env.example`, `run-wsl.sh` берёт подключение из `.env`, `MigrateOnStartup` в Development, `UserSecretsId`, `PostgresFact` + 4 теста на настоящем Postgres (локально прошли на 5433), CI-джоба `test-postgres` с проверкой, что тесты реально выполнились; тесты 559 + 4 skipped; ревью APPROVE со 2-го круга (испорченная команда в README); CI зелёный, `test-postgres` выполнил тесты (run 38948765241).
-- 2026-10-16 — P3-01 done: проект `ProgChecklist.Data` (AppDbContext с Identity + `UserTopicProgress`), миграция `InitialCreate`, `AddAppDatabase` с fail-fast, тесты на SQLite через общую `AppFactory`; EF Core 10.0.13, Npgsql 10.0.3; тесты 559/559 (Windows и WSL); ревью APPROVE с 1-го круга.
-- Ранее: P0, P1, P2 (итоги одобрены 2026-10-02 и 2026-10-16); план P3 одобрен 2026-10-16 (юр. требования — GDPR/DSGVO).
+- Ранее: P0, P1, P2 (итоги одобрены 2026-10-02 и 2026-10-16); P3-01 done (слой данных); план P3 одобрен 2026-10-16 (юр. требования — GDPR/DSGVO).

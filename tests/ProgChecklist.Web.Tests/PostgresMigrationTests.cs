@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
+using ProgChecklist.Core;
 using ProgChecklist.Data;
 
 namespace ProgChecklist.Web.Tests;
@@ -69,6 +70,41 @@ public class PostgresMigrationTests : IAsyncLifetime
         Assert.Equal("basics/variables", row.TopicKey);
         Assert.Equal(completedAt, row.CompletedAt);
         Assert.Equal(TimeSpan.Zero, row.CompletedAt.Offset);
+    }
+
+    [PostgresFact]
+    public async Task ProgressService_MergeMarkGetKeys_RoundTripsUtcCompletedAt()
+    {
+        // Arrange
+        var now = new DateTimeOffset(2026, 3, 4, 12, 30, 15, TimeSpan.Zero);
+        var catalog = JsonTopicCatalog.LoadFromFile(Path.Combine(AppContext.BaseDirectory, "content", "topics.json"));
+        await using var context = CreateContext();
+        await context.Database.MigrateAsync();
+        context.Users.Add(NewUser("u1"));
+        await context.SaveChangesAsync();
+        var service = new ProgressService(context, catalog, new FixedTimeProvider(now));
+
+        // Act
+        await service.MergeAsync("u1", new string?[] { "git/init-add-commit", "databases/join", "bad" });
+        var marked = await service.MarkAsync("u1", "fundamentals/binary-bits-bytes");
+        var keys = await service.GetKeysAsync("u1");
+
+        // Assert
+        Assert.True(marked);
+        Assert.Equal(
+            new[] { "databases/join", "fundamentals/binary-bits-bytes", "git/init-add-commit" }, keys);
+        await using var verify = CreateContext();
+        var rows = await verify.Set<UserTopicProgress>().AsNoTracking().ToListAsync();
+        Assert.All(rows, r =>
+        {
+            Assert.Equal(now, r.CompletedAt);
+            Assert.Equal(TimeSpan.Zero, r.CompletedAt.Offset);
+        });
+    }
+
+    private sealed class FixedTimeProvider(DateTimeOffset now) : TimeProvider
+    {
+        public override DateTimeOffset GetUtcNow() => now;
     }
 
     [PostgresFact]

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using ProgChecklist.Data;
 
 namespace ProgChecklist.Web;
@@ -17,6 +18,8 @@ public static class DatabaseServiceCollectionExtensions
                 "or the environment variable ConnectionStrings__Default.");
         }
 
+        services.TryAddSingleton(TimeProvider.System);
+        services.AddScoped<IProgressService, ProgressService>();
         return services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
     }
 }
