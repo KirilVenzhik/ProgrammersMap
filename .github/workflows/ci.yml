@@ -42,3 +42,48 @@ jobs:
 
       - name: Test
         run: dotnet test --no-build --configuration Release --verbosity normal
+
+  # Tests that need a real PostgreSQL server (ADR-12). Windows runners cannot run Linux containers,
+  # so this runs on Ubuntu only; the build-test job reports these tests as skipped.
+  test-postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          # CI-only throwaway credentials for a container that lives for the job.
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PROGCHECKLIST_TEST_POSTGRES: Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=postgres
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test (PostgreSQL)
+        run: dotnet test tests/ProgChecklist.Web.Tests --no-build --configuration Release --filter "FullyQualifiedName~PostgresMigrationTests" --logger "console;verbosity=normal" --logger "trx;LogFileName=pg.trx" --results-directory TestResults
+
+      # Skipped or unmatched tests exit 0, so require that every selected test actually ran.
+      - name: Check PostgreSQL tests ran
+        run: |
+          grep -o '<Counters [^>]*>' TestResults/pg.trx
+          grep -qE '<Counters total="([1-9][0-9]*)" executed="\1"' TestResults/pg.trx

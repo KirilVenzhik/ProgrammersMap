@@ -8,14 +8,14 @@ This is also the author's portfolio project (looking for a Junior .NET Backend p
 
 ## Status
 
-Early stage: phase P0 (skeleton). Right now the home page renders the list of sections with their topic counts. Topic pages, progress tracking and everything else below are not implemented yet.
+Phases P0 to P2 are done: the public checklist, a page per topic and section, SEO and sitemap, and pilot lessons with learning resources. Phase P3 (accounts) is in progress: the PostgreSQL data layer and local setup exist; sign-in and server-side progress are not implemented yet.
 
 | Phase | Goal |
 |---|---|
-| P0 Skeleton | Solution, projects, CI, basic page (in progress) |
-| P1 Public checklist | Port the HTML prototype to Razor Pages, a page per topic, SEO, sitemap |
-| P2 Content scaffolding | Topic page template: "where to learn", a place for the lesson |
-| P3 Accounts | Identity, PostgreSQL, progress sync |
+| P0 Skeleton | Solution, projects, CI, basic page (done) |
+| P1 Public checklist | Port the HTML prototype to Razor Pages, a page per topic, SEO, sitemap (done) |
+| P2 Content scaffolding | Topic page template: "where to learn", a place for the lesson (done) |
+| P3 Accounts | Identity, PostgreSQL, progress sync (in progress) |
 | P4 Monetization | Pro subscription, per-topic quizzes, tracks |
 | P5 Deployment | Hosting, domain, monitoring |
 
@@ -26,7 +26,7 @@ Early stage: phase P0 (skeleton). Right now the home page renders the list of se
 - Topics live in `content/topics.json` and are loaded into memory at startup
 - Tests: xUnit, `WebApplicationFactory` for integration tests
 - CI: GitHub Actions, build and test on Windows and Ubuntu
-- Planned (phase 3, not present yet): PostgreSQL, EF Core, ASP.NET Core Identity
+- Data: PostgreSQL + EF Core (`ProgChecklist.Data`); ASP.NET Core Identity is planned
 
 ## Project structure
 
@@ -34,6 +34,7 @@ Early stage: phase P0 (skeleton). Right now the home page renders the list of se
 ProgChecklist.sln
 src/
   ProgChecklist.Core/        Models (Section, Group, Topic, Level), topic catalog; no ASP.NET dependency
+  ProgChecklist.Data/        EF Core DbContext, entities, migrations (PostgreSQL)
   ProgChecklist.Web/         Razor Pages app, wwwroot, Program.cs
 tests/
   ProgChecklist.Core.Tests/
@@ -45,21 +46,42 @@ prototype/index.html         Static HTML prototype used as the visual reference
 scripts/autopilot.ps1        Runs the task loop in headless mode
 ```
 
-Planned: `src/ProgChecklist.Data` (EF Core, migrations) in phase 3.
-
 ## Getting started
 
-Prerequisite: the .NET 10 SDK.
+Prerequisites: the .NET 10 SDK and Docker (the local database is PostgreSQL).
 
 ```
 git clone https://github.com/KirilVenzhik/ProgrammersMap.git
 cd ProgrammersMap
+cp .env.example .env        # set POSTGRES_PASSWORD in .env (git-ignored)
+docker compose up -d        # PostgreSQL on 127.0.0.1:$POSTGRES_PORT (default 5432)
 dotnet build
 dotnet test
-dotnet run --project src/ProgChecklist.Web
 ```
 
-Then open http://localhost:5043 (port from the `http` launch profile).
+If port 5432 is taken or Windows refuses to bind it ("bind: forbidden by its access permissions"), set `POSTGRES_PORT=5433` (or another free port) in `.env`. Use that same port in the connection strings below.
+
+Run the site with one of the following (migrations are applied automatically in Development):
+
+- WSL (see ADR-9, also works when Smart App Control blocks local DLLs): `.\scripts\run-wsl.ps1`. The script builds the connection string from `.env`.
+- Native: store the connection string in user secrets once, then run:
+
+  ```
+  dotnet user-secrets set "ConnectionStrings:Default" "Host=127.0.0.1;Port=<POSTGRES_PORT>;Database=progchecklist;Username=progchecklist;Password=<your password>" --project src/ProgChecklist.Web
+  dotnet run --project src/ProgChecklist.Web
+  ```
+
+Then open http://localhost:5043 (port from the `http` launch profile). `docker compose down` stops the database (the data volume is kept).
+
+Tests use SQLite in memory by default. Tests marked `PostgresFact` need a real server and are skipped unless `PROGCHECKLIST_TEST_POSTGRES` holds a connection string (each test creates and drops its own database):
+
+```
+# PowerShell
+$env:PROGCHECKLIST_TEST_POSTGRES = "Host=127.0.0.1;Port=<POSTGRES_PORT>;Database=postgres;Username=progchecklist;Password=<your password>"
+dotnet test --filter "FullyQualifiedName~PostgresMigrationTests"
+```
+
+CI runs them on Ubuntu against a PostgreSQL service container.
 
 The location of the topics file can be overridden with the configuration key `Content:TopicsPath` (environment variable `Content__TopicsPath`). By default it is `content/topics.json`, copied next to the build output; a relative path is resolved from the build output folder, not from the current directory.
 

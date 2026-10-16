@@ -1,5 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
+  <PropertyGroup>
+    <UserSecretsId>7c1f4e52-3b8a-4d0e-9a6b-5e2d81c0f3a9</UserSecretsId>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\ProgChecklist.Core\ProgChecklist.Core.csproj" />
     <ProjectReference Include="..\ProgChecklist.Data\ProgChecklist.Data.csproj" />

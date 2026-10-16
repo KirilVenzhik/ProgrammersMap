@@ -101,7 +101,7 @@ Opus проверяет фазу против ROADMAP («У темы может 
 По ADR-12: проект `ProgChecklist.Data` (в `.sln`, ссылки Core ← Data ← Web), `AppUser : IdentityUser`, `AppDbContext : IdentityDbContext<AppUser>` с `UserTopicProgress` (PK, FK с каскадом, длина ключа). `AddAppDatabase(configuration)` в Web: Npgsql, пустая `ConnectionStrings:Default` → `InvalidOperationException` при старте, `Database:MigrateOnStartup`. Начальная миграция (`dotnet ef`, локальный tool-манифест). В Web.Tests — общая фабрика с SQLite in-memory; все существующие тесты переведены на неё.
 Приёмка: все прежние тесты зелёные; тесты: модель на SQLite (сохранение/чтение прогресса, дубликат PK → ошибка, удаление пользователя удаляет его прогресс); старт без строки подключения → понятная ошибка; миграция в репо и `dotnet ef migrations has-pending-model-changes` (или эквивалент) не находит расхождений.
 
-### P3-02 Локальный Postgres и проверка в CI — `todo`
+### P3-02 Локальный Postgres и проверка в CI — `done`
 `compose.yaml` (postgres, зафиксированная мажорная версия, volume, healthcheck), `.env.example` (+ исключение в `.gitignore`), `scripts/run-wsl.sh` берёт строку подключения из `.env`, `appsettings.Development.json` с `MigrateOnStartup: true`. Атрибут `PostgresFact` (Skip без `PROGCHECKLIST_TEST_POSTGRES`). CI: в ubuntu-job service `postgres` и переменная; windows-job без изменений. README: как поднять БД и запустить.
 Приёмка: тест под `PostgresFact` применяет все миграции к пустой БД и делает round-trip прогресса; локально он skipped, в CI на ubuntu — passed (проверяется после пуша человеком, run ID в STATUS); `docker compose up -d` + `run-wsl.ps1` поднимают сайт с применёнными миграциями (ручная проверка в описании коммита); паролей в репо нет.
 
