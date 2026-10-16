@@ -1,0 +1,16 @@
+@page "/account/logout"
+@model LogoutModel
+@{
+    ViewData["NoIndex"] = true;
+    ViewData["Title"] = "Выход — Карта программиста";
+}
+
+<main class="wrap" id="main" tabindex="-1">
+    <div class="auth">
+        <h1>Выйти из аккаунта?</h1>
+        <form method="post">
+            <input type="hidden" asp-for="ReturnUrl" />
+            <button type="submit" class="auth-submit">Выйти</button>
+        </form>
+    </div>
+</main>

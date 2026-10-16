@@ -3,6 +3,9 @@
 @{
     ViewData["NoIndex"] = true;
     ViewData["Title"] = "Регистрация — Карта программиста";
+    var loginHref = string.IsNullOrEmpty(Model.ReturnUrl)
+        ? "/account/login"
+        : "/account/login?returnUrl=" + Uri.EscapeDataString(Model.ReturnUrl);
 }
 
 <main class="wrap" id="main" tabindex="-1">
@@ -13,23 +16,29 @@
             <div asp-validation-summary="All" class="auth-errors" role="alert"></div>
             <div class="auth-field">
                 <label asp-for="Input.Email">Электронная почта</label>
-                <input asp-for="Input.Email" type="email" autocomplete="email" required />
-                <span asp-validation-for="Input.Email" class="auth-error"></span>
+                <input asp-for="Input.Email" type="email" autocomplete="email" required
+                       aria-invalid="@AuthFormHelpers.Invalid(ModelState, "Input.Email")"
+                       aria-describedby="@AuthFormHelpers.DescribedBy(ModelState, "Input.Email", "reg-email-error")" />
+                <span asp-validation-for="Input.Email" id="reg-email-error" class="auth-error"></span>
             </div>
             <div class="auth-field">
                 <label asp-for="Input.Password">Пароль</label>
-                <input asp-for="Input.Password" type="password" autocomplete="new-password" required minlength="8" />
-                <span class="auth-hint">Не менее 8 символов.</span>
-                <span asp-validation-for="Input.Password" class="auth-error"></span>
+                <input asp-for="Input.Password" type="password" autocomplete="new-password" required minlength="8"
+                       aria-invalid="@AuthFormHelpers.Invalid(ModelState, "Input.Password")"
+                       aria-describedby="@AuthFormHelpers.DescribedBy(ModelState, "Input.Password", "reg-password-error", "reg-password-hint")" />
+                <span class="auth-hint" id="reg-password-hint">Не менее 8 символов.</span>
+                <span asp-validation-for="Input.Password" id="reg-password-error" class="auth-error"></span>
             </div>
             <div class="auth-field">
                 <label asp-for="Input.ConfirmPassword">Повторите пароль</label>
-                <input asp-for="Input.ConfirmPassword" type="password" autocomplete="new-password" required />
-                <span asp-validation-for="Input.ConfirmPassword" class="auth-error"></span>
+                <input asp-for="Input.ConfirmPassword" type="password" autocomplete="new-password" required
+                       aria-invalid="@AuthFormHelpers.Invalid(ModelState, "Input.ConfirmPassword")"
+                       aria-describedby="@AuthFormHelpers.DescribedBy(ModelState, "Input.ConfirmPassword", "reg-confirm-error")" />
+                <span asp-validation-for="Input.ConfirmPassword" id="reg-confirm-error" class="auth-error"></span>
             </div>
             <button type="submit" class="auth-submit">Зарегистрироваться</button>
         </form>
         <p class="auth-note">Аккаунт нужен, чтобы прогресс сохранялся на сервере и был доступен на других устройствах.</p>
-        <p class="auth-note">Уже есть аккаунт? <a href="/account/login">Войти</a></p>
+        <p class="auth-note">Уже есть аккаунт? <a href="@loginHref">Войти</a></p>
     </div>
 </main>

@@ -1,4 +1,6 @@
+@using Microsoft.AspNetCore.Identity
 @inject ProgChecklist.Web.ISiteUrls SiteUrls
+@inject SignInManager<ProgChecklist.Data.AppUser> SignInManager
 @{
     var description = ViewData["Description"] as string;
     var canonicalPath = ViewData["CanonicalPath"] as string;
@@ -51,6 +53,26 @@
 </head>
 <body>
     <a class="skip-link" href="#main">Перейти к содержимому</a>
+    <nav class="account-nav" aria-label="Аккаунт">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            var userName = User.Identity?.Name;
+            <span class="account-email" title="@userName">@userName</span>
+            <form method="post" asp-page="/Account/Logout" class="account-logout">
+                <button type="submit" class="account-link">Выйти</button>
+            </form>
+        }
+        else
+        {
+            // No returnUrl from account pages or re-executed error pages (/Error/404 is not worth returning to).
+            var skipReturnUrl = Context.Request.Path.StartsWithSegments("/account") || Context.Request.Path.StartsWithSegments("/Error");
+            var query = skipReturnUrl
+                ? string.Empty
+                : "?returnUrl=" + Uri.EscapeDataString(Context.Request.Path + Context.Request.QueryString.Value);
+            <a class="account-link" href="/account/login@(query)">Войти</a>
+            <a class="account-link" href="/account/register@(query)">Регистрация</a>
+        }
+    </nav>
     @RenderBody()
     <footer class="wrap">Прогресс сохраняется в этом браузере.</footer>
     <script type="module" src="~/js/progress.js" asp-append-version="true"></script>
