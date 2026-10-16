@@ -68,7 +68,7 @@
         {
             var userName = User.Identity?.Name;
             <span class="account-email" title="@userName">@userName</span>
-            <form method="post" asp-page="/Account/Logout" class="account-logout">
+            <form method="post" asp-page="/Account/Logout" class="account-logout" data-logout>
                 <button type="submit" class="account-link">Выйти</button>
             </form>
         }
@@ -84,7 +84,7 @@
         }
     </nav>
     @RenderBody()
-    <footer class="wrap">Прогресс сохраняется в этом браузере.</footer>
+    <footer class="wrap">@(signedIn ? "Прогресс сохраняется в аккаунте." : "Прогресс сохраняется в этом браузере.")</footer>
     <script type="module" src="~/js/progress.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
